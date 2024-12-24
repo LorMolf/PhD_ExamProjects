@@ -4,13 +4,21 @@ services:
   manager:
     build: ./manager
     container_name: manager
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
     volumes:
       - ./shared_volume:/app/shared_volume
     environment:
       - NUM_ITERATIONS=3     # total number of Bayesian iterations
       - BATCH_SIZE=2         # number of hyperparam sets per iteration
-      - SEED=42               # random seed
+      - SEED=42              # random seed
       - MODEL_CHOICE=svm     # one of: "svm", "xgb", "lgbm"
+      - CUDA_VISIBLE_DEVICES=0
     command: ["python", "manager.py"]
 
   worker:
@@ -20,5 +28,5 @@ services:
       - ./shared_volume:/app/shared_volume
     environment:
       - MODEL_CHOICE=svm     # must match the manager’s choice
-      - SEED=42               # random seed
+      - SEED=42              # random seed
     command: ["python", "train.py"]
