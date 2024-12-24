@@ -82,6 +82,8 @@ When finished, press **Ctrl+C** in your terminal or run:
 
 ```bash
 docker-compose down
+
+docker-compose down --rmi all --volumes --remove-orphans
 ```
 
 ---

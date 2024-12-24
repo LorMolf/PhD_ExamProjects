@@ -5,22 +5,20 @@ services:
     build:
       context: ..
       dockerfile: build/manager/Dockerfile
+    volumes:
+      - ../shared_volume:/app/shared_volume
+    environment:
+      NUM_ITERATIONS: 30
+      NUM_HYPERPARAM_SETS: 10
+      SEED: 42
+      MODEL_CHOICE: xgb
+    command: ["python3", "manager.py"]
     deploy:
       resources:
         reservations:
           devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [gpu]
-    volumes:
-      - ../shared_volume:/app/shared_volume
-    environment:
-      - NUM_ITERATIONS=3     # total Bayesian optimization iterations
-      - BATCH_SIZE=2         # number of hyperparam sets per iteration
-      - SEED=42
-      - MODEL_CHOICE=svm     # or "xgb" or "lgbm"
-      - CUDA_VISIBLE_DEVICES=2
-    command: ["python3", "manager.py"]
+            - capabilities: [ gpu ]
+              device_ids: [ "2" ]
 
   worker:
     build:
@@ -29,6 +27,22 @@ services:
     volumes:
       - ../shared_volume:/app/shared_volume
     environment:
-      - MODEL_CHOICE=svm
-      - SEED=42
+      MODEL_CHOICE: xgb
+      SEED: 42
     command: ["python3", "train.py"]
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [ gpu ]
+              device_ids: [ "2" ]
+
+  test:
+    image: nvidia/cuda:12.2.0-runtime-ubuntu22.04
+    command: nvidia-smi
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [ gpu ]
+              device_ids: [ "2" ]
