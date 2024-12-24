@@ -1,12 +1,25 @@
-FROM python:3.9-slim
+FROM nvidia/cuda:12.2.0-runtime-ubuntu22.04
+LABEL maintainer="disi-unibo-nlp"
 
 WORKDIR /app
 
-# Copy worker requirements
-COPY build/worker/requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN apt-get update -y && \
+    apt-get install -y curl \
+    git \
+    bash \
+    nano \
+    wget \
+    python3.9 \
+    python3-pip && \
+    apt-get autoremove -y && \
+    apt-get clean -y && \
+    rm -rf /var/lib/apt/lists/*
 
-# Copy the training script from src
+# Copy the worker requirements into the container
+COPY build/worker/requirements.txt .
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+# Copy the worker script
 COPY src/train.py .
 
-# We rely on docker-compose for "python train.py" as the entrypoint.
+CMD ["python3", "train.py"]

@@ -2,8 +2,9 @@ version: '3.8'
 
 services:
   manager:
-    build: ./manager
-    container_name: manager
+    build:
+      context: ..
+      dockerfile: build/manager/Dockerfile
     deploy:
       resources:
         reservations:
@@ -12,21 +13,22 @@ services:
               count: 1
               capabilities: [gpu]
     volumes:
-      - ./shared_volume:/app/shared_volume
+      - ../shared_volume:/app/shared_volume
     environment:
-      - NUM_ITERATIONS=3     # total number of Bayesian iterations
+      - NUM_ITERATIONS=3     # total Bayesian optimization iterations
       - BATCH_SIZE=2         # number of hyperparam sets per iteration
-      - SEED=42              # random seed
-      - MODEL_CHOICE=svm     # one of: "svm", "xgb", "lgbm"
-      - CUDA_VISIBLE_DEVICES=0
-    command: ["python", "manager.py"]
+      - SEED=42
+      - MODEL_CHOICE=svm     # or "xgb" or "lgbm"
+      - CUDA_VISIBLE_DEVICES=2
+    command: ["python3", "manager.py"]
 
   worker:
-    build: ./worker
-    container_name: worker
+    build:
+      context: ..
+      dockerfile: build/worker/Dockerfile
     volumes:
-      - ./shared_volume:/app/shared_volume
+      - ../shared_volume:/app/shared_volume
     environment:
-      - MODEL_CHOICE=svm     # must match the manager’s choice
-      - SEED=42              # random seed
-    command: ["python", "train.py"]
+      - MODEL_CHOICE=svm
+      - SEED=42
+    command: ["python3", "train.py"]
