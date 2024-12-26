@@ -7,17 +7,14 @@ services:
       dockerfile: build/manager/Dockerfile
     volumes:
       - ../shared_volume:/app/shared_volume
-    environment:
-      NUM_ITERATIONS: 3
-      NUM_HYPERPARAM_SETS: 5
-      SEED: 42
-      MODEL_CHOICE: xgb
+    env_file:
+      - variables.env
     command: ["python3", "manager.py"]
     deploy:
       resources:
         reservations:
           devices:
-            - capabilities: [ gpu ]
+            - capabilities: [gpu]
               device_ids: [ "2" ]
 
   worker:
@@ -26,16 +23,13 @@ services:
       dockerfile: build/worker/Dockerfile
     volumes:
       - ../shared_volume:/app/shared_volume
-    environment:
-      MODEL_CHOICE: xgb
-      SEED: 42
+    env_file:
+      - variables.env
     command: ["python3", "train.py"]
     deploy:
       resources:
         reservations:
           devices:
-            - capabilities: [ gpu ]
+            - capabilities: [gpu]
               device_ids: [ "2" ]
-      #mode: replicated
-      #replicas: 3  # Default number of independent workers
     restart: always

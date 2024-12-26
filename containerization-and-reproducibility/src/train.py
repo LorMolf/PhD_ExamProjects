@@ -2,11 +2,11 @@
 train.py
 
 Worker script that:
-1. Finds an unclaimed hyperparams_*.json in /app/shared_volume.
+1. Finds an unclaimed hyperparams_*.json in /app/shared_volume/<model_name>/experiment_<timestamp>/iteration_<i>/.
 2. Loads the relevant hyperparams, trains the chosen model (SVM / XGB / LGBM)
    on the Breast Cancer dataset (via sklearn).
-3. Outputs results_*.json with "loss" = 1 - accuracy.
-4. Exits after one set.
+3. Outputs results_*.json with "loss" = 1 - accuracy, "model_path", "training_time", and "worker_id".
+4. Exits after processing one set.
 
 If you scale the worker service, multiple containers can pick up multiple hyperparam sets in parallel.
 """
@@ -15,21 +15,19 @@ import os
 import time
 import json
 import logging
-import numpy as np
+import uuid
 from pathlib import Path
 from sklearn.datasets import load_breast_cancer
 from sklearn.model_selection import train_test_split
-import torch
-
-# Possible models
-from sklearn.svm import SVC
-from xgboost import XGBClassifier
 import xgboost as xgb
+from sklearn.svm import SVC
 from lightgbm import LGBMClassifier
+from sklearn.metrics import accuracy_score
+import torch
+import numpy as np
 
-import fcntl
-import errno
-from contextlib import contextmanager
+import joblib  # For saving SVM models
+import re
 
 SHARED_DIR = Path("/app/shared_volume")
 MODEL_CHOICE = os.environ.get("MODEL_CHOICE", "svm").lower()
@@ -39,138 +37,234 @@ SEED = int(os.environ.get("SEED", "42"))
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-@contextmanager
-def file_lock(lock_file):
-    """Context manager for file locking to ensure atomic operations."""
-    try:
-        with open(lock_file, 'w') as lf:
-            fcntl.flock(lf, fcntl.LOCK_EX | fcntl.LOCK_NB)
-            yield True
-    except IOError as e:
-        if e.errno != errno.EAGAIN:
-            raise
-        yield False
-
-def find_unclaimed_hyperparams():
+def find_and_claim_hyperparams():
     """
-    Atomically find and claim an unclaimed hyperparameters file.
-    Returns (hp_file, lock_file) tuple if successful, (None, None) otherwise.
+    Atomically find and claim an unclaimed hyperparameters file by renaming it.
+    Returns the claimed hyperparams file path if successful, None otherwise.
     """
     logger.debug("Searching for unclaimed hyperparameters files.")
-    
-    # Recursively search for all experiment_* directories
-    for experiment_dir in sorted(SHARED_DIR.glob("experiment_*")):
+
+    # Define the model-specific directory
+    model_dir = SHARED_DIR / MODEL_CHOICE
+    if not model_dir.exists():
+        logger.error(f"Model directory does not exist: {model_dir}")
+        return None
+
+    # Recursively search for all experiment_* directories within the model directory
+    for experiment_dir in sorted(model_dir.glob("experiment_*")):
         # Within each experiment, search for all iteration_* directories
         for iteration_dir in sorted(experiment_dir.glob("iteration_*")):
             # Within each iteration, search for all hyperparams_*.json files
             for hp_file in sorted(iteration_dir.glob("hyperparams_*.json")):
-                result_file = iteration_dir / hp_file.name.replace("hyperparams", "results")
-                lock_file = iteration_dir / f"{hp_file.stem}.lock"
-                
-                if result_file.exists():
-                    continue  # Skip if results already exist
-                
-                try:
-                    # Attempt to acquire a lock
-                    with file_lock(lock_file) as acquired:
-                        if acquired and not result_file.exists():
-                            logger.debug(f"Claimed hyperparameters file: {hp_file}")
-                            return hp_file, lock_file
-                except Exception as e:
-                    logger.error(f"Error acquiring lock for file {hp_file}: {e}")
-                    continue
-    
-    logger.debug("No unclaimed hyperparameters files found.")
-    return None, None
+                if "processing" in hp_file.stem:
+                    continue  # Skip processing files
 
-def train_model(params, X_train, y_train, X_test, y_test):
+                result_file = iteration_dir / hp_file.name.replace("hyperparams", "results")
+                processing_file = iteration_dir / f"{hp_file.stem}.processing.json"
+
+                if result_file.exists() or processing_file.exists():
+                    continue  # Skip if results already exist or already being processed
+
+                try:
+                    # Attempt to atomically rename the hyperparams file to processing_file
+                    hp_file.rename(processing_file)
+                    logger.debug(f"Claimed hyperparameters file: {processing_file}")
+                    return processing_file
+                except FileNotFoundError:
+                    continue  # File was processed by another worker
+                except PermissionError:
+                    continue  # File was processed by another worker
+                except Exception as e:
+                    logger.error(f"Error claiming file {hp_file}: {e}")
+                    continue
+
+    logger.debug("No unclaimed hyperparameters files found.")
+    return None
+
+def extract_index_from_processing_file(processing_file):
     """
-    Trains the chosen model with the given params. Returns test accuracy.
+    Extracts the index from a processing hyperparameters file.
+    E.g., 'hyperparams_0.processing.json' -> '0'
+    """
+    match = re.match(r'hyperparams_(\d+)\.processing\.json', processing_file.name)
+    if match:
+        return match.group(1)
+    else:
+        return None
+
+def validate_hyperparams(params, model_choice):
+    """
+    Validates the presence and correctness of required hyperparameters based on the model choice.
+    Raises ValueError if validation fails.
+    """
+    logger.debug("Validating hyperparameters.")
+
+    # Common required hyperparameters
+    common_params = ["learning_rate", "n_estimators"]
+    if model_choice == "svm":
+        common_params.extend(["C", "gamma"])
+    elif model_choice == "xgb":
+        common_params.extend(["max_depth"])
+    elif model_choice == "lgbm":
+        common_params.extend(["num_leaves"])
+    else:
+        raise ValueError(f"Unsupported MODEL_CHOICE for hyperparameter validation: {model_choice}")
+
+    missing_params = [param for param in common_params if param not in params]
+    if missing_params:
+        raise ValueError(f"Missing required hyperparameters for {model_choice}: {missing_params}")
+
+    # Additional validation for LightGBM's 'goss' boosting_type
+    if model_choice == "lgbm":
+        boosting_type = params.get('boosting_type', 'gbdt')
+        if boosting_type not in ['gbdt', 'dart', 'goss']:
+            raise ValueError(f"Invalid boosting_type '{boosting_type}' for LightGBM. Choose from 'gbdt', 'dart', 'goss'.")
+        if boosting_type == 'goss':
+            # 'goss' requires 'top_rate' and 'other_rate'
+            if 'top_rate' not in params or 'other_rate' not in params:
+                raise ValueError("Missing 'top_rate' or 'other_rate' for 'goss' boosting_type in LightGBM.")
+            if not (0 < params['top_rate'] < 1) or not (0 < params['other_rate'] < 1):
+                raise ValueError("'top_rate' and 'other_rate' must be between 0 and 1 for 'goss' boosting_type.")
+
+    logger.debug("Hyperparameters validation passed.")
+
+def train_model(params, X_train, y_train, X_test, y_test, model_choice):
+    """
+    Trains the chosen model with the given params. Returns test accuracy and trained model.
     """
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    logger.debug(f"Training model: {MODEL_CHOICE} with params: {params} on device: {device}")
+    logger.debug(f"Training model: {model_choice} with params: {params} on device: {device}")
 
-    if MODEL_CHOICE == "svm":
+    if model_choice == "svm":
         model = SVC(C=params["C"], gamma=params["gamma"], random_state=SEED)
         logger.debug("Fitting SVM model...")
         model.fit(X_train, y_train)
         logger.debug("SVM model fitted. Predicting...")
         accuracy = model.score(X_test, y_test)
-    elif MODEL_CHOICE == "xgb":
+    elif model_choice == "xgb":
         dtrain = xgb.DMatrix(X_train, label=y_train)
         dtest = xgb.DMatrix(X_test, label=y_test)
         xgb_params = {
             "learning_rate": params["learning_rate"],
-            "n_estimators": params["n_estimators"],
             "max_depth": params["max_depth"],
+            "objective": "binary:logistic",
             "eval_metric": "logloss",
-            "tree_method": "gpu_hist" if device == "cuda" else "auto",
+            "tree_method": "hist",  # Updated as per deprecation
             "seed": SEED
         }
-        logger.debug("Training XGBoost...")
-        model = xgb.train(xgb_params, dtrain, num_boost_round=xgb_params["n_estimators"])
+        logger.debug(f"Training XGBoost with parameters: {xgb_params}")
+        model = xgb.train(xgb_params, dtrain, num_boost_round=params["n_estimators"])
         predictions = model.predict(dtest)
         predictions = np.round(predictions)
-        accuracy = np.mean(predictions == y_test)
+        accuracy = accuracy_score(y_test, predictions)
         logger.debug("XGBoost model trained.")
-    elif MODEL_CHOICE == "lgbm":
-        model = LGBMClassifier(
-            learning_rate=params["learning_rate"],
-            n_estimators=params["n_estimators"],
-            num_leaves=params["num_leaves"],
-            random_state=SEED,
-            device_type="gpu" if device == "cuda" else "cpu"
-        )
-        logger.debug("Training LightGBM...")
+    elif model_choice == "lgbm":
+        boosting_type = params.get('boosting_type', 'gbdt')  # Default to 'gbdt' if not specified
+        lgbm_params = {
+            "learning_rate": params["learning_rate"],
+            "n_estimators": params["n_estimators"],
+            "num_leaves": params["num_leaves"],
+            "random_state": SEED,
+            "boosting_type": boosting_type,
+            "min_data_in_leaf": params.get("min_data_in_leaf", 20),
+            "min_gain_to_split": params.get("min_gain_to_split", 0.01),
+            "verbose": -1  # Suppress LightGBM warnings
+        }
+
+        if boosting_type == 'goss':
+            lgbm_params["top_rate"] = params["top_rate"]
+            lgbm_params["other_rate"] = params["other_rate"]
+
+        model = LGBMClassifier(**lgbm_params)
+        logger.debug(f"Training LightGBM with parameters: {lgbm_params}")
         model.fit(X_train, y_train)
         accuracy = model.score(X_test, y_test)
         logger.debug("LightGBM model trained.")
     else:
-        raise ValueError(f"Unsupported MODEL_CHOICE: {MODEL_CHOICE}")
+        raise ValueError(f"Unsupported MODEL_CHOICE: {model_choice}")
 
     logger.debug(f"Model training complete. Accuracy: {accuracy:.4f}")
-    return accuracy
+    return accuracy, model
 
 def main():
     # Try to find and claim one job
-    hp_file, lock_file = find_unclaimed_hyperparams()
-    
-    if not hp_file:
+    processing_file = find_and_claim_hyperparams()
+
+    if not processing_file:
         logger.debug("No available work. Exiting with code 0.")
         return 0  # Clean exit, no work found
-        
+
     try:
+        # The original hyperparams file is processing_file renamed from hyperparams_*.json
+        hp_file = processing_file
         logger.info(f"Processing hyperparameters file: {hp_file}")
         with open(hp_file, "r") as f:
             params = json.load(f)
         logger.debug(f"Loaded hyperparameters: {params}")
 
+        # Validate hyperparameters
+        validate_hyperparams(params, MODEL_CHOICE)
+
+        # Extract index to write results_i.json
+        index = extract_index_from_processing_file(processing_file)
+        if index is None:
+            logger.error(f"Could not extract index from file name: {processing_file.name}")
+            return 1  # Error exit code
+
+        # Generate a unique worker ID for this run
+        worker_id = str(uuid.uuid4())
+        logger.debug(f"Assigned Worker ID: {worker_id}")
+
+        # Load and split the dataset
         data = load_breast_cancer()
         X, y = data.data, data.target
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=SEED)
 
-        accuracy = train_model(params, X_train, y_train, X_test, y_test)
+        # Start training
+        start_time = time.time()
+        accuracy, model = train_model(params, X_train, y_train, X_test, y_test, MODEL_CHOICE)
+        training_time = time.time() - start_time
+
         loss = 1.0 - accuracy
 
-        result_file = hp_file.parent / hp_file.name.replace("hyperparams", "results")
+        # Save the model
+        timestamp = int(time.time())
+        model_filename = f"model_{timestamp}.model"
+        model_path = hp_file.parent / model_filename
+        if MODEL_CHOICE == "xgb":
+            model.save_model(str(model_path))
+        elif MODEL_CHOICE == "svm":
+            joblib.dump(model, str(model_path))
+        elif MODEL_CHOICE == "lgbm":
+            model.booster_.save_model(str(model_path))
+        logger.debug(f"Model saved to {model_path}")
+
+        # Write the results
+        result_file = hp_file.parent / f"results_{index}.json"
+        result_data = {
+            "loss": loss,
+            "accuracy": accuracy,
+            "model_path": str(model_path),
+            "training_time": training_time,
+            "worker_id": worker_id
+        }
         with open(result_file, "w") as f:
-            json.dump({"loss": loss, "accuracy": accuracy}, f)
-        logger.info(f"Results saved to {result_file}: Loss={loss:.4f}, Accuracy={accuracy:.4f}")
-        
+            json.dump(result_data, f, indent=4)
+        logger.info(f"Results saved to {result_file}: Loss={loss:.4f}, Accuracy={accuracy:.4f}, Worker_ID={worker_id}, Training_Time={training_time:.2f}s")
+
+        # Remove the processing file after processing
+        hp_file.unlink()
+        logger.debug(f"Removed hyperparameters processing file: {hp_file}")
+
         return 0  # Success
-        
+
     except Exception as e:
         logger.error(f"Error processing file: {e}")
         return 1  # Error exit code
-        
+
     finally:
-        # Clean up lock file
-        try:
-            if lock_file and lock_file.exists():
-                lock_file.unlink()
-                logger.debug(f"Lock file {lock_file} removed.")
-        except Exception as e:
-            logger.error(f"Error cleaning up lock file: {e}")
+        # No cleanup needed since we've renamed and processed the file
+        pass
 
 if __name__ == "__main__":
     exit_code = main()

@@ -4,7 +4,7 @@ DEPRECATED: The legacy builder is deprecated and will be removed in a future rel
             Install the buildx component to build images with BuildKit:
             https://docs.docker.com/go/buildx/
 
-Sending build context to Docker daemon  44.54kB
+Sending build context to Docker daemon  14.86MB
 Step 1/9 : FROM nvidia/cuda:12.2.0-runtime-ubuntu22.04
  ---> 5f87b1ee9f9a
 Step 2/9 : LABEL maintainer="disi-unibo-nlp"
@@ -26,19 +26,19 @@ Step 7/9 : RUN pip3 install --no-cache-dir -r /app/requirements.txt
  ---> Using cache
  ---> f5093998837d
 Step 8/9 : COPY src/manager.py /app/
- ---> 45384aa6165d
+ ---> c38ddf0269f6
 Step 9/9 : CMD ["python3", "manager.py"]
- ---> Running in 48f1ed6f69a9
-Removing intermediate container 48f1ed6f69a9
- ---> b349c421c5be
-Successfully built b349c421c5be
+ ---> Running in 9622ceda1518
+Removing intermediate container 9622ceda1518
+ ---> 547170bb6ae6
+Successfully built 547170bb6ae6
 Successfully tagged build_manager:latest
 Building worker
 DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
             Install the buildx component to build images with BuildKit:
             https://docs.docker.com/go/buildx/
 
-Sending build context to Docker daemon  46.08kB
+Sending build context to Docker daemon  14.86MB
 Step 1/9 : FROM nvidia/cuda:12.2.0-runtime-ubuntu22.04
  ---> 5f87b1ee9f9a
 Step 2/9 : LABEL maintainer="disi-unibo-nlp"
@@ -54,738 +54,235 @@ Step 5/9 : ENV NVIDIA_DRIVER_CAPABILITIES=compute,utility
  ---> Using cache
  ---> 9bd0c4f253cf
 Step 6/9 : COPY build/worker/requirements.txt /app/
- ---> aca3ff4de808
+ ---> Using cache
+ ---> 6660b99caf16
 Step 7/9 : RUN pip3 install --no-cache-dir -r /app/requirements.txt
- ---> Running in 216f9928945f
-Collecting scikit-learn==1.6.0
-  Downloading scikit_learn-1.6.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (13.5 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 13.5/13.5 MB 42.4 MB/s eta 0:00:00
-Collecting xgboost==2.1.3
-  Downloading xgboost-2.1.3-py3-none-manylinux_2_28_x86_64.whl (153.9 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 153.9/153.9 MB 45.5 MB/s eta 0:00:00
-Collecting lightgbm==4.5.0
-  Downloading lightgbm-4.5.0-py3-none-manylinux_2_28_x86_64.whl (3.6 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.6/3.6 MB 45.3 MB/s eta 0:00:00
-Collecting numpy==2.2.1
-  Downloading numpy-2.2.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (16.4 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.4/16.4 MB 46.3 MB/s eta 0:00:00
-Collecting pandas==2.2.3
-  Downloading pandas-2.2.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (13.1 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 13.1/13.1 MB 51.3 MB/s eta 0:00:00
-Collecting torch==2.5.1
-  Downloading torch-2.5.1-cp310-cp310-manylinux1_x86_64.whl (906.4 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 906.4/906.4 MB 48.0 MB/s eta 0:00:00
-Collecting scipy>=1.6.0
-  Downloading scipy-1.14.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (41.2 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 41.2/41.2 MB 49.3 MB/s eta 0:00:00
-Collecting joblib>=1.2.0
-  Downloading joblib-1.4.2-py3-none-any.whl (301 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 301.8/301.8 KB 48.5 MB/s eta 0:00:00
-Collecting threadpoolctl>=3.1.0
-  Downloading threadpoolctl-3.5.0-py3-none-any.whl (18 kB)
-Collecting nvidia-nccl-cu12
-  Downloading nvidia_nccl_cu12-2.23.4-py3-none-manylinux2014_x86_64.whl (199.0 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 199.0/199.0 MB 42.4 MB/s eta 0:00:00
-Collecting pytz>=2020.1
-  Downloading pytz-2024.2-py2.py3-none-any.whl (508 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 508.0/508.0 KB 37.7 MB/s eta 0:00:00
-Collecting python-dateutil>=2.8.2
-  Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 229.9/229.9 KB 58.4 MB/s eta 0:00:00
-Collecting tzdata>=2022.7
-  Downloading tzdata-2024.2-py2.py3-none-any.whl (346 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 346.6/346.6 KB 41.6 MB/s eta 0:00:00
-Collecting nvidia-cublas-cu12==12.4.5.8
-  Downloading nvidia_cublas_cu12-12.4.5.8-py3-none-manylinux2014_x86_64.whl (363.4 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 363.4/363.4 MB 33.8 MB/s eta 0:00:00
-Collecting typing-extensions>=4.8.0
-  Downloading typing_extensions-4.12.2-py3-none-any.whl (37 kB)
-Collecting nvidia-cuda-runtime-cu12==12.4.127
-  Downloading nvidia_cuda_runtime_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl (883 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 883.7/883.7 KB 39.7 MB/s eta 0:00:00
-Collecting nvidia-cudnn-cu12==9.1.0.70
-  Downloading nvidia_cudnn_cu12-9.1.0.70-py3-none-manylinux2014_x86_64.whl (664.8 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 664.8/664.8 MB 41.1 MB/s eta 0:00:00
-Collecting nvidia-cusparse-cu12==12.3.1.170
-  Downloading nvidia_cusparse_cu12-12.3.1.170-py3-none-manylinux2014_x86_64.whl (207.5 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 207.5/207.5 MB 30.2 MB/s eta 0:00:00
-Collecting networkx
-  Downloading networkx-3.4.2-py3-none-any.whl (1.7 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.7/1.7 MB 41.8 MB/s eta 0:00:00
-Collecting nvidia-nccl-cu12
-  Downloading nvidia_nccl_cu12-2.21.5-py3-none-manylinux2014_x86_64.whl (188.7 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 188.7/188.7 MB 48.2 MB/s eta 0:00:00
-Collecting nvidia-cuda-cupti-cu12==12.4.127
-  Downloading nvidia_cuda_cupti_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl (13.8 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 13.8/13.8 MB 47.8 MB/s eta 0:00:00
-Collecting nvidia-nvjitlink-cu12==12.4.127
-  Downloading nvidia_nvjitlink_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl (21.1 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 21.1/21.1 MB 44.5 MB/s eta 0:00:00
-Collecting triton==3.1.0
-  Downloading triton-3.1.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (209.5 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 209.5/209.5 MB 37.3 MB/s eta 0:00:00
-Collecting nvidia-nvtx-cu12==12.4.127
-  Downloading nvidia_nvtx_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl (99 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 99.1/99.1 KB 139.0 MB/s eta 0:00:00
-Collecting fsspec
-  Downloading fsspec-2024.12.0-py3-none-any.whl (183 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 183.9/183.9 KB 38.3 MB/s eta 0:00:00
-Collecting nvidia-cufft-cu12==11.2.1.3
-  Downloading nvidia_cufft_cu12-11.2.1.3-py3-none-manylinux2014_x86_64.whl (211.5 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 211.5/211.5 MB 39.2 MB/s eta 0:00:00
-Collecting nvidia-curand-cu12==10.3.5.147
-  Downloading nvidia_curand_cu12-10.3.5.147-py3-none-manylinux2014_x86_64.whl (56.3 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 56.3/56.3 MB 44.2 MB/s eta 0:00:00
-Collecting sympy==1.13.1
-  Downloading sympy-1.13.1-py3-none-any.whl (6.2 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.2/6.2 MB 43.4 MB/s eta 0:00:00
-Collecting nvidia-cusolver-cu12==11.6.1.9
-  Downloading nvidia_cusolver_cu12-11.6.1.9-py3-none-manylinux2014_x86_64.whl (127.9 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 127.9/127.9 MB 43.2 MB/s eta 0:00:00
-Collecting filelock
-  Downloading filelock-3.16.1-py3-none-any.whl (16 kB)
-Collecting jinja2
-  Downloading jinja2-3.1.5-py3-none-any.whl (134 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 134.6/134.6 KB 40.1 MB/s eta 0:00:00
-Collecting nvidia-cuda-nvrtc-cu12==12.4.127
-  Downloading nvidia_cuda_nvrtc_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl (24.6 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 24.6/24.6 MB 41.0 MB/s eta 0:00:00
-Collecting mpmath<1.4,>=1.1.0
-  Downloading mpmath-1.3.0-py3-none-any.whl (536 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 536.2/536.2 KB 24.7 MB/s eta 0:00:00
-Collecting six>=1.5
-  Downloading six-1.17.0-py2.py3-none-any.whl (11 kB)
-Collecting MarkupSafe>=2.0
-  Downloading MarkupSafe-3.0.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (20 kB)
-Installing collected packages: pytz, mpmath, tzdata, typing-extensions, threadpoolctl, sympy, six, nvidia-nvtx-cu12, nvidia-nvjitlink-cu12, nvidia-nccl-cu12, nvidia-curand-cu12, nvidia-cufft-cu12, nvidia-cuda-runtime-cu12, nvidia-cuda-nvrtc-cu12, nvidia-cuda-cupti-cu12, nvidia-cublas-cu12, numpy, networkx, MarkupSafe, joblib, fsspec, filelock, triton, scipy, python-dateutil, nvidia-cusparse-cu12, nvidia-cudnn-cu12, jinja2, xgboost, scikit-learn, pandas, nvidia-cusolver-cu12, lightgbm, torch
-Successfully installed MarkupSafe-3.0.2 filelock-3.16.1 fsspec-2024.12.0 jinja2-3.1.5 joblib-1.4.2 lightgbm-4.5.0 mpmath-1.3.0 networkx-3.4.2 numpy-2.2.1 nvidia-cublas-cu12-12.4.5.8 nvidia-cuda-cupti-cu12-12.4.127 nvidia-cuda-nvrtc-cu12-12.4.127 nvidia-cuda-runtime-cu12-12.4.127 nvidia-cudnn-cu12-9.1.0.70 nvidia-cufft-cu12-11.2.1.3 nvidia-curand-cu12-10.3.5.147 nvidia-cusolver-cu12-11.6.1.9 nvidia-cusparse-cu12-12.3.1.170 nvidia-nccl-cu12-2.21.5 nvidia-nvjitlink-cu12-12.4.127 nvidia-nvtx-cu12-12.4.127 pandas-2.2.3 python-dateutil-2.9.0.post0 pytz-2024.2 scikit-learn-1.6.0 scipy-1.14.1 six-1.17.0 sympy-1.13.1 threadpoolctl-3.5.0 torch-2.5.1 triton-3.1.0 typing-extensions-4.12.2 tzdata-2024.2 xgboost-2.1.3
-[91mWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
-[0mRemoving intermediate container 216f9928945f
- ---> 3b8649add22b
+ ---> Using cache
+ ---> 3244ca24eebb
 Step 8/9 : COPY src/train.py /app/
- ---> e85d7562fe36
+ ---> 386e92a7dff4
 Step 9/9 : CMD ["python3", "train.py"]
- ---> Running in 6a1934a22351
-Removing intermediate container 6a1934a22351
- ---> c5282b657151
-Successfully built c5282b657151
+ ---> Running in dd2ae49bee37
+Removing intermediate container dd2ae49bee37
+ ---> 1d035cbc9855
+Successfully built 1d035cbc9855
 Successfully tagged build_worker:latest
-Creating build_worker_1 ... 
 Creating build_manager_1 ... 
+Creating build_worker_1  ... 
 Creating build_worker_2  ... 
 Creating build_worker_3  ... 
-Creating build_worker_1  ... done
+Creating build_worker_4  ... 
+Creating build_worker_5  ... 
 Creating build_manager_1 ... done
-Creating build_worker_2  ... done
 Creating build_worker_3  ... done
-Attaching to build_manager_1, build_worker_1, build_worker_2, build_worker_3
+Creating build_worker_1  ... done
+Creating build_worker_4  ... done
+Creating build_worker_2  ... done
+Creating build_worker_5  ... done
+Attaching to build_manager_1, build_worker_3, build_worker_1, build_worker_4, build_worker_2, build_worker_5
 [33mworker_1   |[0m 
 [36mmanager_1  |[0m 
-[33mworker_1   |[0m ==========
 [32mworker_2   |[0m 
+[36mmanager_1  |[0m ==========
 [35mworker_3   |[0m 
-[33mworker_1   |[0m == CUDA ==
-[36mmanager_1  |[0m ==========
-[35mworker_3   |[0m ==========
 [36mmanager_1  |[0m == CUDA ==
-[35mworker_3   |[0m == CUDA ==
-[36mmanager_1  |[0m ==========
-[36mmanager_1  |[0m 
 [32mworker_2   |[0m ==========
-[36mmanager_1  |[0m CUDA Version 12.2.0
+[34mworker_4   |[0m 
+[36;1mworker_5   |[0m 
+[35mworker_3   |[0m ==========
 [33mworker_1   |[0m ==========
-[33mworker_1   |[0m 
+[35mworker_3   |[0m == CUDA ==
+[34mworker_4   |[0m ==========
+[34mworker_4   |[0m == CUDA ==
+[36mmanager_1  |[0m ==========
+[32mworker_2   |[0m == CUDA ==
+[33mworker_1   |[0m == CUDA ==
+[35mworker_3   |[0m ==========
+[36mmanager_1  |[0m 
+[36mmanager_1  |[0m CUDA Version 12.2.0
 [36mmanager_1  |[0m 
 [36mmanager_1  |[0m Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-[33mworker_1   |[0m CUDA Version 12.2.0
-[33mworker_1   |[0m 
-[33mworker_1   |[0m Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+[36;1mworker_5   |[0m ==========
+[35mworker_3   |[0m 
+[35mworker_3   |[0m CUDA Version 12.2.0
 [36mmanager_1  |[0m 
 [36mmanager_1  |[0m This container image and its contents are governed by the NVIDIA Deep Learning Container License.
 [36mmanager_1  |[0m By pulling and using the container, you accept the terms and conditions of this license:
 [36mmanager_1  |[0m https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
 [36mmanager_1  |[0m 
 [36mmanager_1  |[0m A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
-[35mworker_3   |[0m ==========
-[35mworker_3   |[0m 
-[36mmanager_1  |[0m 
-[32mworker_2   |[0m == CUDA ==
-[35mworker_3   |[0m CUDA Version 12.2.0
-[33mworker_1   |[0m 
-[33mworker_1   |[0m This container image and its contents are governed by the NVIDIA Deep Learning Container License.
-[33mworker_1   |[0m By pulling and using the container, you accept the terms and conditions of this license:
-[33mworker_1   |[0m https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
-[33mworker_1   |[0m 
-[33mworker_1   |[0m A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
-[33mworker_1   |[0m 
+[36;1mworker_5   |[0m == CUDA ==
 [35mworker_3   |[0m 
 [35mworker_3   |[0m Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+[36mmanager_1  |[0m 
 [35mworker_3   |[0m 
 [35mworker_3   |[0m This container image and its contents are governed by the NVIDIA Deep Learning Container License.
 [35mworker_3   |[0m By pulling and using the container, you accept the terms and conditions of this license:
 [35mworker_3   |[0m https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
 [35mworker_3   |[0m 
 [35mworker_3   |[0m A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+[34mworker_4   |[0m ==========
+[35mworker_3   |[0m 
+[34mworker_4   |[0m 
+[34mworker_4   |[0m CUDA Version 12.2.0
+[34mworker_4   |[0m 
+[34mworker_4   |[0m Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 [32mworker_2   |[0m ==========
+[34mworker_4   |[0m 
+[34mworker_4   |[0m This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+[34mworker_4   |[0m By pulling and using the container, you accept the terms and conditions of this license:
+[34mworker_4   |[0m https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+[34mworker_4   |[0m 
+[34mworker_4   |[0m A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
 [32mworker_2   |[0m 
+[34mworker_4   |[0m 
 [32mworker_2   |[0m CUDA Version 12.2.0
+[33mworker_1   |[0m ==========
 [32mworker_2   |[0m 
 [32mworker_2   |[0m Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+[33mworker_1   |[0m 
+[33mworker_1   |[0m CUDA Version 12.2.0
 [32mworker_2   |[0m 
 [32mworker_2   |[0m This container image and its contents are governed by the NVIDIA Deep Learning Container License.
 [32mworker_2   |[0m By pulling and using the container, you accept the terms and conditions of this license:
 [32mworker_2   |[0m https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
 [32mworker_2   |[0m 
 [32mworker_2   |[0m A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
-[35mworker_3   |[0m 
-[32mworker_2   |[0m 
-[36mmanager_1  |[0m 2024-12-26 09:09:36,430 - INFO - Starting manager.py
-[36mmanager_1  |[0m 2024-12-26 09:09:36,430 - INFO - Experiment directory created: /app/shared_volume/experiment_20241226_090936
-[36mmanager_1  |[0m 2024-12-26 09:09:36,436 - INFO - Starting iteration 1/3
-[36mmanager_1  |[0m 2024-12-26 09:09:36,440 - DEBUG - Hyperparameter proposals for iteration 0: [[0.040343472274915984, np.int64(232), np.int64(9)], [0.029273475807775187, np.int64(218), np.int64(5)], [0.032988922734276574, np.int64(235), np.int64(4)], [0.0905454692460524, np.int64(187), np.int64(3)], [0.018325318897836135, np.int64(208), np.int64(3)]]
-[36mmanager_1  |[0m 2024-12-26 09:09:36,440 - DEBUG - Writing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_0.json => {'learning_rate': 0.040343472274915984, 'n_estimators': np.int64(232), 'max_depth': np.int64(9)}
-[36mmanager_1  |[0m 2024-12-26 09:09:36,440 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_0.json
-[36mmanager_1  |[0m 2024-12-26 09:09:36,440 - DEBUG - Writing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_1.json => {'learning_rate': 0.029273475807775187, 'n_estimators': np.int64(218), 'max_depth': np.int64(5)}
-[36mmanager_1  |[0m 2024-12-26 09:09:36,440 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_1.json
-[36mmanager_1  |[0m 2024-12-26 09:09:36,440 - DEBUG - Writing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_2.json => {'learning_rate': 0.032988922734276574, 'n_estimators': np.int64(235), 'max_depth': np.int64(4)}
-[36mmanager_1  |[0m 2024-12-26 09:09:36,441 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_2.json
-[36mmanager_1  |[0m 2024-12-26 09:09:36,441 - DEBUG - Writing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_3.json => {'learning_rate': 0.0905454692460524, 'n_estimators': np.int64(187), 'max_depth': np.int64(3)}
-[36mmanager_1  |[0m 2024-12-26 09:09:36,441 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_3.json
-[36mmanager_1  |[0m 2024-12-26 09:09:36,441 - DEBUG - Writing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_4.json => {'learning_rate': 0.018325318897836135, 'n_estimators': np.int64(208), 'max_depth': np.int64(3)}
-[36mmanager_1  |[0m 2024-12-26 09:09:36,441 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_4.json
-[36mmanager_1  |[0m 2024-12-26 09:09:36,441 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241226_090936/iteration_0/results_0.json
-[33mworker_1   |[0m 2024-12-26 09:09:37,106 - DEBUG - Searching for unclaimed hyperparameters files.
-[33mworker_1   |[0m 2024-12-26 09:09:37,106 - DEBUG - Claimed hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_0.json
-[33mworker_1   |[0m 2024-12-26 09:09:37,106 - INFO - Processing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_0.json
-[33mworker_1   |[0m 2024-12-26 09:09:37,106 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.040343472274915984, 'n_estimators': 232, 'max_depth': 9}
-[33mworker_1   |[0m 2024-12-26 09:09:37,127 - DEBUG - Training model: xgb with params: {'learning_rate': 0.040343472274915984, 'n_estimators': 232, 'max_depth': 9} on device: cuda
-[33mworker_1   |[0m 2024-12-26 09:09:37,130 - DEBUG - Training XGBoost...
-[33mworker_1   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:09:37] WARNING: /workspace/src/common/error_msg.cc:27: The tree method `gpu_hist` is deprecated since 2.0.0. To use GPU training, set the `device` parameter to CUDA instead.
 [33mworker_1   |[0m 
-[33mworker_1   |[0m     E.g. tree_method = "hist", device = "cuda"
+[33mworker_1   |[0m Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 [33mworker_1   |[0m 
-[33mworker_1   |[0m   warnings.warn(smsg, UserWarning)
-[33mworker_1   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:09:37] WARNING: /workspace/src/learner.cc:740: 
-[33mworker_1   |[0m Parameters: { "n_estimators" } are not used.
+[33mworker_1   |[0m This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+[33mworker_1   |[0m By pulling and using the container, you accept the terms and conditions of this license:
+[33mworker_1   |[0m https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
 [33mworker_1   |[0m 
-[33mworker_1   |[0m   warnings.warn(smsg, UserWarning)
-[35mworker_3   |[0m 2024-12-26 09:09:37,533 - DEBUG - Searching for unclaimed hyperparameters files.
-[35mworker_3   |[0m 2024-12-26 09:09:37,533 - DEBUG - Claimed hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_0.json
-[35mworker_3   |[0m 2024-12-26 09:09:37,533 - INFO - Processing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_0.json
-[35mworker_3   |[0m 2024-12-26 09:09:37,533 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.040343472274915984, 'n_estimators': 232, 'max_depth': 9}
-[35mworker_3   |[0m 2024-12-26 09:09:37,544 - DEBUG - Training model: xgb with params: {'learning_rate': 0.040343472274915984, 'n_estimators': 232, 'max_depth': 9} on device: cuda
-[32mworker_2   |[0m 2024-12-26 09:09:37,545 - DEBUG - Searching for unclaimed hyperparameters files.
-[35mworker_3   |[0m 2024-12-26 09:09:37,546 - DEBUG - Training XGBoost...
-[32mworker_2   |[0m 2024-12-26 09:09:37,546 - DEBUG - Claimed hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_0.json
-[32mworker_2   |[0m 2024-12-26 09:09:37,546 - INFO - Processing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_0.json
-[32mworker_2   |[0m 2024-12-26 09:09:37,546 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.040343472274915984, 'n_estimators': 232, 'max_depth': 9}
-[35mworker_3   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:09:37] WARNING: /workspace/src/common/error_msg.cc:27: The tree method `gpu_hist` is deprecated since 2.0.0. To use GPU training, set the `device` parameter to CUDA instead.
-[35mworker_3   |[0m 
-[35mworker_3   |[0m     E.g. tree_method = "hist", device = "cuda"
-[35mworker_3   |[0m 
-[35mworker_3   |[0m   warnings.warn(smsg, UserWarning)
-[32mworker_2   |[0m 2024-12-26 09:09:37,562 - DEBUG - Training model: xgb with params: {'learning_rate': 0.040343472274915984, 'n_estimators': 232, 'max_depth': 9} on device: cuda
-[32mworker_2   |[0m 2024-12-26 09:09:37,564 - DEBUG - Training XGBoost...
-[32mworker_2   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:09:37] WARNING: /workspace/src/common/error_msg.cc:27: The tree method `gpu_hist` is deprecated since 2.0.0. To use GPU training, set the `device` parameter to CUDA instead.
+[33mworker_1   |[0m A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+[36;1mworker_5   |[0m ==========
+[33mworker_1   |[0m 
+[36;1mworker_5   |[0m 
+[36;1mworker_5   |[0m CUDA Version 12.2.0
+[36;1mworker_5   |[0m 
+[36;1mworker_5   |[0m Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+[36;1mworker_5   |[0m 
+[36;1mworker_5   |[0m This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+[36;1mworker_5   |[0m By pulling and using the container, you accept the terms and conditions of this license:
+[36;1mworker_5   |[0m https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+[36;1mworker_5   |[0m 
+[36;1mworker_5   |[0m A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+[36;1mworker_5   |[0m 
 [32mworker_2   |[0m 
-[32mworker_2   |[0m     E.g. tree_method = "hist", device = "cuda"
-[32mworker_2   |[0m 
-[32mworker_2   |[0m   warnings.warn(smsg, UserWarning)
-[35mworker_3   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:09:37] WARNING: /workspace/src/learner.cc:740: 
-[35mworker_3   |[0m Parameters: { "n_estimators" } are not used.
-[35mworker_3   |[0m 
-[35mworker_3   |[0m   warnings.warn(smsg, UserWarning)
-[32mworker_2   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:09:37] WARNING: /workspace/src/learner.cc:740: 
-[32mworker_2   |[0m Parameters: { "n_estimators" } are not used.
-[32mworker_2   |[0m 
-[32mworker_2   |[0m   warnings.warn(smsg, UserWarning)
-[33mworker_1   |[0m 2024-12-26 09:09:37,776 - DEBUG - XGBoost model trained.
-[33mworker_1   |[0m 2024-12-26 09:09:37,776 - DEBUG - Model training complete. Accuracy: 0.9386
-[33mworker_1   |[0m 2024-12-26 09:09:37,776 - INFO - Results saved to /app/shared_volume/experiment_20241226_090936/iteration_0/results_0.json: Loss=0.0614, Accuracy=0.9386
-[33mworker_1   |[0m 2024-12-26 09:09:37,776 - DEBUG - Lock file /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_0.lock removed.
-[34mworker_1   |[0m 
-[35mworker_3   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:09:39] WARNING: /workspace/src/common/error_msg.cc:27: The tree method `gpu_hist` is deprecated since 2.0.0. To use GPU training, set the `device` parameter to CUDA instead.
-[35mworker_3   |[0m 
-[35mworker_3   |[0m     E.g. tree_method = "hist", device = "cuda"
-[35mworker_3   |[0m 
-[35mworker_3   |[0m   warnings.warn(smsg, UserWarning)
-[32mworker_2   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:09:39] WARNING: /workspace/src/common/error_msg.cc:27: The tree method `gpu_hist` is deprecated since 2.0.0. To use GPU training, set the `device` parameter to CUDA instead.
-[32mworker_2   |[0m 
-[32mworker_2   |[0m     E.g. tree_method = "hist", device = "cuda"
-[32mworker_2   |[0m 
-[32mworker_2   |[0m   warnings.warn(smsg, UserWarning)
-[35mworker_3   |[0m 2024-12-26 09:09:39,676 - DEBUG - XGBoost model trained.
-[35mworker_3   |[0m 2024-12-26 09:09:39,676 - DEBUG - Model training complete. Accuracy: 0.9386
-[35mworker_3   |[0m 2024-12-26 09:09:39,677 - INFO - Results saved to /app/shared_volume/experiment_20241226_090936/iteration_0/results_0.json: Loss=0.0614, Accuracy=0.9386
-[32mworker_2   |[0m 2024-12-26 09:09:39,686 - DEBUG - XGBoost model trained.
-[32mworker_2   |[0m 2024-12-26 09:09:39,686 - DEBUG - Model training complete. Accuracy: 0.9386
-[32mworker_2   |[0m 2024-12-26 09:09:39,687 - INFO - Results saved to /app/shared_volume/experiment_20241226_090936/iteration_0/results_0.json: Loss=0.0614, Accuracy=0.9386
-[34mworker_1   |[0m 2024-12-26 09:09:40,601 - DEBUG - Searching for unclaimed hyperparameters files.
-[34mworker_1   |[0m 2024-12-26 09:09:40,602 - DEBUG - Claimed hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_1.json
-[34mworker_1   |[0m 2024-12-26 09:09:40,602 - INFO - Processing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_1.json
-[34mworker_1   |[0m 2024-12-26 09:09:40,602 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.029273475807775187, 'n_estimators': 218, 'max_depth': 5}
-[34mworker_1   |[0m 2024-12-26 09:09:40,621 - DEBUG - Training model: xgb with params: {'learning_rate': 0.029273475807775187, 'n_estimators': 218, 'max_depth': 5} on device: cuda
-[34mworker_1   |[0m 2024-12-26 09:09:40,625 - DEBUG - Training XGBoost...
-[34mworker_1   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:09:40] WARNING: /workspace/src/common/error_msg.cc:27: The tree method `gpu_hist` is deprecated since 2.0.0. To use GPU training, set the `device` parameter to CUDA instead.
-[34mworker_1   |[0m 
-[34mworker_1   |[0m     E.g. tree_method = "hist", device = "cuda"
-[34mworker_1   |[0m 
-[34mworker_1   |[0m   warnings.warn(smsg, UserWarning)
-[34mworker_1   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:09:40] WARNING: /workspace/src/learner.cc:740: 
-[34mworker_1   |[0m Parameters: { "n_estimators" } are not used.
-[34mworker_1   |[0m 
-[34mworker_1   |[0m   warnings.warn(smsg, UserWarning)
-[34mworker_1   |[0m 2024-12-26 09:09:40,939 - DEBUG - XGBoost model trained.
-[34mworker_1   |[0m 2024-12-26 09:09:40,939 - DEBUG - Model training complete. Accuracy: 0.9386
-[34mworker_1   |[0m 2024-12-26 09:09:40,940 - INFO - Results saved to /app/shared_volume/experiment_20241226_090936/iteration_0/results_1.json: Loss=0.0614, Accuracy=0.9386
-[34mworker_1   |[0m 2024-12-26 09:09:40,940 - DEBUG - Lock file /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_1.lock removed.
-[33;1mworker_2   |[0m 
-[33mbuild_worker_1 exited with code 0
-[0m[32;1mworker_1   |[0m 
-[36;1mworker_3   |[0m 2024-12-26 09:09:42,957 - DEBUG - Searching for unclaimed hyperparameters files.
-[36;1mworker_3   |[0m 2024-12-26 09:09:42,958 - DEBUG - Claimed hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_2.json
-[36;1mworker_3   |[0m 2024-12-26 09:09:42,958 - INFO - Processing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_2.json
-[36;1mworker_3   |[0m 2024-12-26 09:09:42,958 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.032988922734276574, 'n_estimators': 235, 'max_depth': 4}
-[36;1mworker_3   |[0m 2024-12-26 09:09:42,977 - DEBUG - Training model: xgb with params: {'learning_rate': 0.032988922734276574, 'n_estimators': 235, 'max_depth': 4} on device: cuda
-[36;1mworker_3   |[0m 2024-12-26 09:09:42,982 - DEBUG - Training XGBoost...
-[36;1mworker_3   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:09:42] WARNING: /workspace/src/common/error_msg.cc:27: The tree method `gpu_hist` is deprecated since 2.0.0. To use GPU training, set the `device` parameter to CUDA instead.
-[36;1mworker_3   |[0m 
-[36;1mworker_3   |[0m     E.g. tree_method = "hist", device = "cuda"
-[36;1mworker_3   |[0m 
-[36;1mworker_3   |[0m   warnings.warn(smsg, UserWarning)
-[36;1mworker_3   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:09:43] WARNING: /workspace/src/learner.cc:740: 
-[36;1mworker_3   |[0m Parameters: { "n_estimators" } are not used.
-[36;1mworker_3   |[0m 
-[36;1mworker_3   |[0m   warnings.warn(smsg, UserWarning)
-[33;1mworker_2   |[0m 2024-12-26 09:09:43,059 - DEBUG - Searching for unclaimed hyperparameters files.
-[33;1mworker_2   |[0m 2024-12-26 09:09:43,060 - DEBUG - Claimed hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_2.json
-[33;1mworker_2   |[0m 2024-12-26 09:09:43,060 - INFO - Processing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_2.json
-[33;1mworker_2   |[0m 2024-12-26 09:09:43,060 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.032988922734276574, 'n_estimators': 235, 'max_depth': 4}
-[33;1mworker_2   |[0m 2024-12-26 09:09:43,070 - DEBUG - Training model: xgb with params: {'learning_rate': 0.032988922734276574, 'n_estimators': 235, 'max_depth': 4} on device: cuda
-[33;1mworker_2   |[0m 2024-12-26 09:09:43,072 - DEBUG - Training XGBoost...
-[33;1mworker_2   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:09:43] WARNING: /workspace/src/common/error_msg.cc:27: The tree method `gpu_hist` is deprecated since 2.0.0. To use GPU training, set the `device` parameter to CUDA instead.
-[33;1mworker_2   |[0m 
-[33;1mworker_2   |[0m     E.g. tree_method = "hist", device = "cuda"
-[33;1mworker_2   |[0m 
-[33;1mworker_2   |[0m   warnings.warn(smsg, UserWarning)
-[33;1mworker_2   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:09:43] WARNING: /workspace/src/learner.cc:740: 
-[33;1mworker_2   |[0m Parameters: { "n_estimators" } are not used.
-[33;1mworker_2   |[0m 
-[33;1mworker_2   |[0m   warnings.warn(smsg, UserWarning)
-[32;1mworker_1   |[0m 2024-12-26 09:09:43,895 - DEBUG - Searching for unclaimed hyperparameters files.
-[32;1mworker_1   |[0m 2024-12-26 09:09:43,896 - DEBUG - Claimed hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_2.json
-[32;1mworker_1   |[0m 2024-12-26 09:09:43,896 - INFO - Processing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_2.json
-[32;1mworker_1   |[0m 2024-12-26 09:09:43,896 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.032988922734276574, 'n_estimators': 235, 'max_depth': 4}
-[32;1mworker_1   |[0m 2024-12-26 09:09:43,907 - DEBUG - Training model: xgb with params: {'learning_rate': 0.032988922734276574, 'n_estimators': 235, 'max_depth': 4} on device: cuda
-[32;1mworker_1   |[0m 2024-12-26 09:09:43,908 - DEBUG - Training XGBoost...
-[32;1mworker_1   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:09:43] WARNING: /workspace/src/common/error_msg.cc:27: The tree method `gpu_hist` is deprecated since 2.0.0. To use GPU training, set the `device` parameter to CUDA instead.
-[32;1mworker_1   |[0m 
-[32;1mworker_1   |[0m     E.g. tree_method = "hist", device = "cuda"
-[32;1mworker_1   |[0m 
-[32;1mworker_1   |[0m   warnings.warn(smsg, UserWarning)
-[36;1mworker_3   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:09:43] WARNING: /workspace/src/common/error_msg.cc:27: The tree method `gpu_hist` is deprecated since 2.0.0. To use GPU training, set the `device` parameter to CUDA instead.
-[36;1mworker_3   |[0m 
-[36;1mworker_3   |[0m     E.g. tree_method = "hist", device = "cuda"
-[36;1mworker_3   |[0m 
-[36;1mworker_3   |[0m   warnings.warn(smsg, UserWarning)
-[36;1mworker_3   |[0m 2024-12-26 09:09:43,940 - DEBUG - XGBoost model trained.
-[36;1mworker_3   |[0m 2024-12-26 09:09:43,940 - DEBUG - Model training complete. Accuracy: 0.9386
-[36;1mworker_3   |[0m 2024-12-26 09:09:43,941 - INFO - Results saved to /app/shared_volume/experiment_20241226_090936/iteration_0/results_2.json: Loss=0.0614, Accuracy=0.9386
-[36;1mworker_3   |[0m 2024-12-26 09:09:43,941 - DEBUG - Lock file /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_2.lock removed.
-[32;1mworker_1   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:09:43] WARNING: /workspace/src/learner.cc:740: 
-[32;1mworker_1   |[0m Parameters: { "n_estimators" } are not used.
-[32;1mworker_1   |[0m 
-[32;1mworker_1   |[0m   warnings.warn(smsg, UserWarning)
-[33;1mworker_2   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:09:44] WARNING: /workspace/src/common/error_msg.cc:27: The tree method `gpu_hist` is deprecated since 2.0.0. To use GPU training, set the `device` parameter to CUDA instead.
-[33;1mworker_2   |[0m 
-[33;1mworker_2   |[0m     E.g. tree_method = "hist", device = "cuda"
-[33;1mworker_2   |[0m 
-[33;1mworker_2   |[0m   warnings.warn(smsg, UserWarning)
-[33;1mworker_2   |[0m 2024-12-26 09:09:44,038 - DEBUG - XGBoost model trained.
-[33;1mworker_2   |[0m 2024-12-26 09:09:44,038 - DEBUG - Model training complete. Accuracy: 0.9386
-[33;1mworker_2   |[0m 2024-12-26 09:09:44,039 - INFO - Results saved to /app/shared_volume/experiment_20241226_090936/iteration_0/results_2.json: Loss=0.0614, Accuracy=0.9386
-[32;1mworker_1   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:09:44] WARNING: /workspace/src/common/error_msg.cc:27: The tree method `gpu_hist` is deprecated since 2.0.0. To use GPU training, set the `device` parameter to CUDA instead.
-[32;1mworker_1   |[0m 
-[32;1mworker_1   |[0m     E.g. tree_method = "hist", device = "cuda"
-[32;1mworker_1   |[0m 
-[32;1mworker_1   |[0m   warnings.warn(smsg, UserWarning)
-[32;1mworker_1   |[0m 2024-12-26 09:09:44,205 - DEBUG - XGBoost model trained.
-[32;1mworker_1   |[0m 2024-12-26 09:09:44,205 - DEBUG - Model training complete. Accuracy: 0.9386
-[32;1mworker_1   |[0m 2024-12-26 09:09:44,206 - INFO - Results saved to /app/shared_volume/experiment_20241226_090936/iteration_0/results_2.json: Loss=0.0614, Accuracy=0.9386
-[35mbuild_worker_3 exited with code 0
-[0m[32mbuild_worker_2 exited with code 0
-[0m[34mbuild_worker_1 exited with code 0
-[0m[36mworker_1   |[0m 
-[36mmanager_1  |[0m 2024-12-26 09:09:46,451 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241226_090936/iteration_0/results_3.json
-[35;1mworker_3   |[0m 2024-12-26 09:09:47,215 - DEBUG - Searching for unclaimed hyperparameters files.
-[35;1mworker_3   |[0m 2024-12-26 09:09:47,216 - DEBUG - Claimed hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_3.json
-[35;1mworker_3   |[0m 2024-12-26 09:09:47,216 - INFO - Processing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_3.json
-[35;1mworker_3   |[0m 2024-12-26 09:09:47,216 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.0905454692460524, 'n_estimators': 187, 'max_depth': 3}
-[35;1mworker_3   |[0m 2024-12-26 09:09:47,236 - DEBUG - Training model: xgb with params: {'learning_rate': 0.0905454692460524, 'n_estimators': 187, 'max_depth': 3} on device: cuda
-[35;1mworker_3   |[0m 2024-12-26 09:09:47,239 - DEBUG - Training XGBoost...
-[35;1mworker_3   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:09:47] WARNING: /workspace/src/common/error_msg.cc:27: The tree method `gpu_hist` is deprecated since 2.0.0. To use GPU training, set the `device` parameter to CUDA instead.
-[35;1mworker_3   |[0m 
-[35;1mworker_3   |[0m     E.g. tree_method = "hist", device = "cuda"
-[35;1mworker_3   |[0m 
-[35;1mworker_3   |[0m   warnings.warn(smsg, UserWarning)
-[35;1mworker_3   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:09:47] WARNING: /workspace/src/learner.cc:740: 
-[35;1mworker_3   |[0m Parameters: { "n_estimators" } are not used.
-[35;1mworker_3   |[0m 
-[35;1mworker_3   |[0m   warnings.warn(smsg, UserWarning)
-[35;1mworker_3   |[0m 2024-12-26 09:09:47,473 - DEBUG - XGBoost model trained.
-[35;1mworker_3   |[0m 2024-12-26 09:09:47,473 - DEBUG - Model training complete. Accuracy: 0.9561
-[35;1mworker_3   |[0m 2024-12-26 09:09:47,473 - INFO - Results saved to /app/shared_volume/experiment_20241226_090936/iteration_0/results_3.json: Loss=0.0439, Accuracy=0.9561
-[35;1mworker_3   |[0m 2024-12-26 09:09:47,474 - DEBUG - Lock file /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_3.lock removed.
-[34;1mworker_2   |[0m 2024-12-26 09:09:47,475 - DEBUG - Searching for unclaimed hyperparameters files.
-[34;1mworker_2   |[0m 2024-12-26 09:09:47,475 - DEBUG - Claimed hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_4.json
-[34;1mworker_2   |[0m 2024-12-26 09:09:47,475 - INFO - Processing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_4.json
-[34;1mworker_2   |[0m 2024-12-26 09:09:47,476 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.018325318897836135, 'n_estimators': 208, 'max_depth': 3}
-[34;1mworker_2   |[0m 2024-12-26 09:09:47,486 - DEBUG - Training model: xgb with params: {'learning_rate': 0.018325318897836135, 'n_estimators': 208, 'max_depth': 3} on device: cuda
-[34;1mworker_2   |[0m 2024-12-26 09:09:47,487 - DEBUG - Training XGBoost...
-[34;1mworker_2   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:09:47] WARNING: /workspace/src/common/error_msg.cc:27: The tree method `gpu_hist` is deprecated since 2.0.0. To use GPU training, set the `device` parameter to CUDA instead.
-[34;1mworker_2   |[0m 
-[34;1mworker_2   |[0m     E.g. tree_method = "hist", device = "cuda"
-[34;1mworker_2   |[0m 
-[34;1mworker_2   |[0m   warnings.warn(smsg, UserWarning)
-[36mworker_1   |[0m 2024-12-26 09:09:47,509 - DEBUG - Searching for unclaimed hyperparameters files.
-[36mworker_1   |[0m 2024-12-26 09:09:47,510 - DEBUG - Claimed hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_4.json
-[36mworker_1   |[0m 2024-12-26 09:09:47,510 - INFO - Processing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_4.json
-[36mworker_1   |[0m 2024-12-26 09:09:47,510 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.018325318897836135, 'n_estimators': 208, 'max_depth': 3}
-[36mworker_1   |[0m 2024-12-26 09:09:47,521 - DEBUG - Training model: xgb with params: {'learning_rate': 0.018325318897836135, 'n_estimators': 208, 'max_depth': 3} on device: cuda
-[36mworker_1   |[0m 2024-12-26 09:09:47,523 - DEBUG - Training XGBoost...
-[36mworker_1   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:09:47] WARNING: /workspace/src/common/error_msg.cc:27: The tree method `gpu_hist` is deprecated since 2.0.0. To use GPU training, set the `device` parameter to CUDA instead.
-[36mworker_1   |[0m 
-[36mworker_1   |[0m     E.g. tree_method = "hist", device = "cuda"
-[36mworker_1   |[0m 
-[36mworker_1   |[0m   warnings.warn(smsg, UserWarning)
-[34;1mworker_2   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:09:47] WARNING: /workspace/src/learner.cc:740: 
-[34;1mworker_2   |[0m Parameters: { "n_estimators" } are not used.
-[34;1mworker_2   |[0m 
-[34;1mworker_2   |[0m   warnings.warn(smsg, UserWarning)
-[36mworker_1   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:09:47] WARNING: /workspace/src/learner.cc:740: 
-[36mworker_1   |[0m Parameters: { "n_estimators" } are not used.
-[36mworker_1   |[0m 
-[36mworker_1   |[0m   warnings.warn(smsg, UserWarning)
-[36;1mbuild_worker_3 exited with code 0
-[0m[34;1mworker_2   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:09:48] WARNING: /workspace/src/common/error_msg.cc:27: The tree method `gpu_hist` is deprecated since 2.0.0. To use GPU training, set the `device` parameter to CUDA instead.
-[34;1mworker_2   |[0m 
-[34;1mworker_2   |[0m     E.g. tree_method = "hist", device = "cuda"
-[34;1mworker_2   |[0m 
-[34;1mworker_2   |[0m   warnings.warn(smsg, UserWarning)
-[34;1mworker_2   |[0m 2024-12-26 09:09:48,338 - DEBUG - XGBoost model trained.
-[34;1mworker_2   |[0m 2024-12-26 09:09:48,338 - DEBUG - Model training complete. Accuracy: 0.9561
-[34;1mworker_2   |[0m 2024-12-26 09:09:48,339 - INFO - Results saved to /app/shared_volume/experiment_20241226_090936/iteration_0/results_4.json: Loss=0.0439, Accuracy=0.9561
-[34;1mworker_2   |[0m 2024-12-26 09:09:48,339 - DEBUG - Lock file /app/shared_volume/experiment_20241226_090936/iteration_0/hyperparams_4.lock removed.
-[36mworker_1   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:09:48] WARNING: /workspace/src/common/error_msg.cc:27: The tree method `gpu_hist` is deprecated since 2.0.0. To use GPU training, set the `device` parameter to CUDA instead.
-[36mworker_1   |[0m 
-[36mworker_1   |[0m     E.g. tree_method = "hist", device = "cuda"
-[36mworker_1   |[0m 
-[36mworker_1   |[0m   warnings.warn(smsg, UserWarning)
-[36mworker_1   |[0m 2024-12-26 09:09:48,363 - DEBUG - XGBoost model trained.
-[36mworker_1   |[0m 2024-12-26 09:09:48,363 - DEBUG - Model training complete. Accuracy: 0.9561
-[36mworker_1   |[0m 2024-12-26 09:09:48,364 - INFO - Results saved to /app/shared_volume/experiment_20241226_090936/iteration_0/results_4.json: Loss=0.0439, Accuracy=0.9561
-[33mworker_3   |[0m 
-[33;1mbuild_worker_2 exited with code 0
-[0m[32;1mbuild_worker_1 exited with code 0
-[0m[32mworker_2   |[0m 
-[35mworker_1   |[0m 
-[33mworker_3   |[0m 2024-12-26 09:09:50,701 - DEBUG - Searching for unclaimed hyperparameters files.
-[33mworker_3   |[0m 2024-12-26 09:09:50,702 - DEBUG - No unclaimed hyperparameters files found.
-[33mworker_3   |[0m 2024-12-26 09:09:50,702 - DEBUG - No available work. Exiting with code 0.
-[35;1mbuild_worker_3 exited with code 0
-[0m[32mworker_2   |[0m 2024-12-26 09:09:51,559 - DEBUG - Searching for unclaimed hyperparameters files.
-[32mworker_2   |[0m 2024-12-26 09:09:51,560 - DEBUG - No unclaimed hyperparameters files found.
-[32mworker_2   |[0m 2024-12-26 09:09:51,560 - DEBUG - No available work. Exiting with code 0.
-[35mworker_1   |[0m 2024-12-26 09:09:52,002 - DEBUG - Searching for unclaimed hyperparameters files.
-[35mworker_1   |[0m 2024-12-26 09:09:52,002 - DEBUG - No unclaimed hyperparameters files found.
-[35mworker_1   |[0m 2024-12-26 09:09:52,002 - DEBUG - No available work. Exiting with code 0.
-[34;1mbuild_worker_2 exited with code 0
-[0m[34mworker_3   |[0m 
-[36mbuild_worker_1 exited with code 0
-[0m[36;1mworker_2   |[0m 
-[36;1mworker_2   |[0m This container image and its contents are governed by the NVIDIA Deep Learning Container License.
-[36;1mworker_2   |[0m By pulling and using the container, you accept the terms and conditions of this license:
-[36;1mworker_2   |[0m https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
-[36;1mworker_2   |[0m 
-[36;1mworker_2   |[0m A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
-[36;1mworker_2   |[0m 
-[34mworker_3   |[0m 2024-12-26 09:09:54,345 - DEBUG - Searching for unclaimed hyperparameters files.
-[34mworker_3   |[0m 2024-12-26 09:09:54,346 - DEBUG - No unclaimed hyperparameters files found.
-[34mworker_3   |[0m 2024-12-26 09:09:54,346 - DEBUG - No available work. Exiting with code 0.
-[33;1mworker_1   |[0m 
-[33mbuild_worker_3 exited with code 0
-[0m[36;1mworker_2   |[0m 2024-12-26 09:09:55,084 - DEBUG - Searching for unclaimed hyperparameters files.
-[36;1mworker_2   |[0m 2024-12-26 09:09:55,084 - DEBUG - No unclaimed hyperparameters files found.
-[36;1mworker_2   |[0m 2024-12-26 09:09:55,084 - DEBUG - No available work. Exiting with code 0.
-[32mbuild_worker_2 exited with code 0
-[0m[33;1mworker_1   |[0m 2024-12-26 09:09:56,232 - DEBUG - Searching for unclaimed hyperparameters files.
-[33;1mworker_1   |[0m 2024-12-26 09:09:56,233 - DEBUG - No unclaimed hyperparameters files found.
-[33;1mworker_1   |[0m 2024-12-26 09:09:56,233 - DEBUG - No available work. Exiting with code 0.
-[36mmanager_1  |[0m 2024-12-26 09:09:56,461 - INFO - Processed /app/shared_volume/experiment_20241226_090936/iteration_0/results_0.json: Loss=0.06140350877192979, Accuracy=0.9385964912280702
-[36mmanager_1  |[0m 2024-12-26 09:09:56,461 - INFO - Processed /app/shared_volume/experiment_20241226_090936/iteration_0/results_1.json: Loss=0.06140350877192979, Accuracy=0.9385964912280702
-[36mmanager_1  |[0m 2024-12-26 09:09:56,462 - INFO - Processed /app/shared_volume/experiment_20241226_090936/iteration_0/results_2.json: Loss=0.06140350877192979, Accuracy=0.9385964912280702
-[36mmanager_1  |[0m 2024-12-26 09:09:56,462 - INFO - Processed /app/shared_volume/experiment_20241226_090936/iteration_0/results_3.json: Loss=0.04385964912280704, Accuracy=0.956140350877193
-[36mmanager_1  |[0m 2024-12-26 09:09:56,462 - INFO - Processed /app/shared_volume/experiment_20241226_090936/iteration_0/results_4.json: Loss=0.04385964912280704, Accuracy=0.956140350877193
-[36mmanager_1  |[0m 2024-12-26 09:09:56,462 - INFO - Starting iteration 2/3
-[36mmanager_1  |[0m 2024-12-26 09:09:56,593 - DEBUG - Hyperparameter proposals for iteration 1: [[0.17255364529395611, np.int64(271), np.int64(4)], [0.2541400145361314, np.int64(266), np.int64(2)], [0.016006577495754397, np.int64(138), np.int64(7)], [0.2560977693994406, np.int64(207), np.int64(10)], [0.13571971016500325, np.int64(147), np.int64(7)]]
-[36mmanager_1  |[0m 2024-12-26 09:09:56,593 - DEBUG - Writing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_1/hyperparams_0.json => {'learning_rate': 0.17255364529395611, 'n_estimators': np.int64(271), 'max_depth': np.int64(4)}
-[36mmanager_1  |[0m 2024-12-26 09:09:56,593 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_1/hyperparams_0.json
-[36mmanager_1  |[0m 2024-12-26 09:09:56,593 - DEBUG - Writing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_1/hyperparams_1.json => {'learning_rate': 0.2541400145361314, 'n_estimators': np.int64(266), 'max_depth': np.int64(2)}
-[36mmanager_1  |[0m 2024-12-26 09:09:56,594 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_1/hyperparams_1.json
-[36mmanager_1  |[0m 2024-12-26 09:09:56,594 - DEBUG - Writing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_1/hyperparams_2.json => {'learning_rate': 0.016006577495754397, 'n_estimators': np.int64(138), 'max_depth': np.int64(7)}
-[36mmanager_1  |[0m 2024-12-26 09:09:56,594 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_1/hyperparams_2.json
-[36mmanager_1  |[0m 2024-12-26 09:09:56,594 - DEBUG - Writing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_1/hyperparams_3.json => {'learning_rate': 0.2560977693994406, 'n_estimators': np.int64(207), 'max_depth': np.int64(10)}
-[36mmanager_1  |[0m 2024-12-26 09:09:56,594 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_1/hyperparams_3.json
-[36mmanager_1  |[0m 2024-12-26 09:09:56,594 - DEBUG - Writing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_1/hyperparams_4.json => {'learning_rate': 0.13571971016500325, 'n_estimators': np.int64(147), 'max_depth': np.int64(7)}
-[36mmanager_1  |[0m 2024-12-26 09:09:56,594 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_1/hyperparams_4.json
-[36mmanager_1  |[0m 2024-12-26 09:09:56,594 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241226_090936/iteration_1/results_0.json
-[35mbuild_worker_1 exited with code 0
-[0m[32;1mworker_3   |[0m 
-[35;1mworker_2   |[0m 
-[32;1mworker_3   |[0m 2024-12-26 09:09:58,837 - DEBUG - Searching for unclaimed hyperparameters files.
-[32;1mworker_3   |[0m 2024-12-26 09:09:58,838 - DEBUG - Claimed hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_1/hyperparams_0.json
-[32;1mworker_3   |[0m 2024-12-26 09:09:58,838 - INFO - Processing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_1/hyperparams_0.json
-[32;1mworker_3   |[0m 2024-12-26 09:09:58,838 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.17255364529395611, 'n_estimators': 271, 'max_depth': 4}
-[32;1mworker_3   |[0m 2024-12-26 09:09:58,858 - DEBUG - Training model: xgb with params: {'learning_rate': 0.17255364529395611, 'n_estimators': 271, 'max_depth': 4} on device: cuda
-[32;1mworker_3   |[0m 2024-12-26 09:09:58,863 - DEBUG - Training XGBoost...
-[32;1mworker_3   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:09:58] WARNING: /workspace/src/common/error_msg.cc:27: The tree method `gpu_hist` is deprecated since 2.0.0. To use GPU training, set the `device` parameter to CUDA instead.
-[32;1mworker_3   |[0m 
-[32;1mworker_3   |[0m     E.g. tree_method = "hist", device = "cuda"
-[32;1mworker_3   |[0m 
-[32;1mworker_3   |[0m   warnings.warn(smsg, UserWarning)
-[32;1mworker_3   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:09:58] WARNING: /workspace/src/learner.cc:740: 
-[32;1mworker_3   |[0m Parameters: { "n_estimators" } are not used.
-[32;1mworker_3   |[0m 
-[32;1mworker_3   |[0m   warnings.warn(smsg, UserWarning)
-[32;1mworker_3   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:09:59] WARNING: /workspace/src/common/error_msg.cc:27: The tree method `gpu_hist` is deprecated since 2.0.0. To use GPU training, set the `device` parameter to CUDA instead.
-[32;1mworker_3   |[0m 
-[32;1mworker_3   |[0m     E.g. tree_method = "hist", device = "cuda"
-[32;1mworker_3   |[0m 
-[32;1mworker_3   |[0m   warnings.warn(smsg, UserWarning)
-[32;1mworker_3   |[0m 2024-12-26 09:09:59,157 - DEBUG - XGBoost model trained.
-[32;1mworker_3   |[0m 2024-12-26 09:09:59,157 - DEBUG - Model training complete. Accuracy: 0.9386
-[32;1mworker_3   |[0m 2024-12-26 09:09:59,157 - INFO - Results saved to /app/shared_volume/experiment_20241226_090936/iteration_1/results_0.json: Loss=0.0614, Accuracy=0.9386
-[32;1mworker_3   |[0m 2024-12-26 09:09:59,158 - DEBUG - Lock file /app/shared_volume/experiment_20241226_090936/iteration_1/hyperparams_0.lock removed.
-[35;1mworker_2   |[0m 2024-12-26 09:09:59,327 - DEBUG - Searching for unclaimed hyperparameters files.
-[35;1mworker_2   |[0m 2024-12-26 09:09:59,328 - DEBUG - Claimed hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_1/hyperparams_1.json
-[35;1mworker_2   |[0m 2024-12-26 09:09:59,328 - INFO - Processing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_1/hyperparams_1.json
-[35;1mworker_2   |[0m 2024-12-26 09:09:59,328 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.2541400145361314, 'n_estimators': 266, 'max_depth': 2}
-[35;1mworker_2   |[0m 2024-12-26 09:09:59,339 - DEBUG - Training model: xgb with params: {'learning_rate': 0.2541400145361314, 'n_estimators': 266, 'max_depth': 2} on device: cuda
-[35;1mworker_2   |[0m 2024-12-26 09:09:59,341 - DEBUG - Training XGBoost...
-[35;1mworker_2   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:09:59] WARNING: /workspace/src/common/error_msg.cc:27: The tree method `gpu_hist` is deprecated since 2.0.0. To use GPU training, set the `device` parameter to CUDA instead.
-[35;1mworker_2   |[0m 
-[35;1mworker_2   |[0m     E.g. tree_method = "hist", device = "cuda"
-[35;1mworker_2   |[0m 
-[35;1mworker_2   |[0m   warnings.warn(smsg, UserWarning)
-[35;1mworker_2   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:09:59] WARNING: /workspace/src/learner.cc:740: 
-[35;1mworker_2   |[0m Parameters: { "n_estimators" } are not used.
-[35;1mworker_2   |[0m 
-[35;1mworker_2   |[0m   warnings.warn(smsg, UserWarning)
-[35;1mworker_2   |[0m 2024-12-26 09:09:59,558 - DEBUG - XGBoost model trained.
-[35;1mworker_2   |[0m 2024-12-26 09:09:59,558 - DEBUG - Model training complete. Accuracy: 0.9561
-[35;1mworker_2   |[0m 2024-12-26 09:09:59,559 - INFO - Results saved to /app/shared_volume/experiment_20241226_090936/iteration_1/results_1.json: Loss=0.0439, Accuracy=0.9561
-[35;1mworker_2   |[0m 2024-12-26 09:09:59,559 - DEBUG - Lock file /app/shared_volume/experiment_20241226_090936/iteration_1/hyperparams_1.lock removed.
-[34mbuild_worker_3 exited with code 0
-[0m[36;1mbuild_worker_2 exited with code 0
-[0m[34;1mworker_1   |[0m 
-[34;1mworker_1   |[0m 2024-12-26 09:10:02,131 - DEBUG - Searching for unclaimed hyperparameters files.
-[34;1mworker_1   |[0m 2024-12-26 09:10:02,132 - DEBUG - Claimed hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_1/hyperparams_2.json
-[34;1mworker_1   |[0m 2024-12-26 09:10:02,132 - INFO - Processing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_1/hyperparams_2.json
-[34;1mworker_1   |[0m 2024-12-26 09:10:02,132 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.016006577495754397, 'n_estimators': 138, 'max_depth': 7}
-[34;1mworker_1   |[0m 2024-12-26 09:10:02,153 - DEBUG - Training model: xgb with params: {'learning_rate': 0.016006577495754397, 'n_estimators': 138, 'max_depth': 7} on device: cuda
-[34;1mworker_1   |[0m 2024-12-26 09:10:02,158 - DEBUG - Training XGBoost...
-[34;1mworker_1   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:10:02] WARNING: /workspace/src/common/error_msg.cc:27: The tree method `gpu_hist` is deprecated since 2.0.0. To use GPU training, set the `device` parameter to CUDA instead.
-[34;1mworker_1   |[0m 
-[34;1mworker_1   |[0m     E.g. tree_method = "hist", device = "cuda"
-[34;1mworker_1   |[0m 
-[34;1mworker_1   |[0m   warnings.warn(smsg, UserWarning)
-[34;1mworker_1   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:10:02] WARNING: /workspace/src/learner.cc:740: 
-[34;1mworker_1   |[0m Parameters: { "n_estimators" } are not used.
-[34;1mworker_1   |[0m 
-[34;1mworker_1   |[0m   warnings.warn(smsg, UserWarning)
-[34;1mworker_1   |[0m 2024-12-26 09:10:02,452 - DEBUG - XGBoost model trained.
-[34;1mworker_1   |[0m 2024-12-26 09:10:02,452 - DEBUG - Model training complete. Accuracy: 0.9298
-[34;1mworker_1   |[0m 2024-12-26 09:10:02,453 - INFO - Results saved to /app/shared_volume/experiment_20241226_090936/iteration_1/results_2.json: Loss=0.0702, Accuracy=0.9298
-[34;1mworker_1   |[0m 2024-12-26 09:10:02,453 - DEBUG - Lock file /app/shared_volume/experiment_20241226_090936/iteration_1/hyperparams_2.lock removed.
-[33;1mbuild_worker_1 exited with code 0
-[0m[36mworker_3   |[0m 
-[33mworker_2   |[0m 
-[36mworker_3   |[0m 2024-12-26 09:10:05,099 - DEBUG - Searching for unclaimed hyperparameters files.
-[36mworker_3   |[0m 2024-12-26 09:10:05,100 - DEBUG - Claimed hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_1/hyperparams_3.json
-[36mworker_3   |[0m 2024-12-26 09:10:05,100 - INFO - Processing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_1/hyperparams_3.json
-[36mworker_3   |[0m 2024-12-26 09:10:05,100 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.2560977693994406, 'n_estimators': 207, 'max_depth': 10}
-[36mworker_3   |[0m 2024-12-26 09:10:05,120 - DEBUG - Training model: xgb with params: {'learning_rate': 0.2560977693994406, 'n_estimators': 207, 'max_depth': 10} on device: cuda
-[36mworker_3   |[0m 2024-12-26 09:10:05,125 - DEBUG - Training XGBoost...
-[36mworker_3   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:10:05] WARNING: /workspace/src/common/error_msg.cc:27: The tree method `gpu_hist` is deprecated since 2.0.0. To use GPU training, set the `device` parameter to CUDA instead.
-[36mworker_3   |[0m 
-[36mworker_3   |[0m     E.g. tree_method = "hist", device = "cuda"
-[36mworker_3   |[0m 
-[36mworker_3   |[0m   warnings.warn(smsg, UserWarning)
-[36mworker_3   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:10:05] WARNING: /workspace/src/learner.cc:740: 
-[36mworker_3   |[0m Parameters: { "n_estimators" } are not used.
-[36mworker_3   |[0m 
-[36mworker_3   |[0m   warnings.warn(smsg, UserWarning)
-[36mworker_3   |[0m 2024-12-26 09:10:05,391 - DEBUG - XGBoost model trained.
-[36mworker_3   |[0m 2024-12-26 09:10:05,391 - DEBUG - Model training complete. Accuracy: 0.9298
-[36mworker_3   |[0m 2024-12-26 09:10:05,391 - INFO - Results saved to /app/shared_volume/experiment_20241226_090936/iteration_1/results_3.json: Loss=0.0702, Accuracy=0.9298
-[36mworker_3   |[0m 2024-12-26 09:10:05,391 - DEBUG - Lock file /app/shared_volume/experiment_20241226_090936/iteration_1/hyperparams_3.lock removed.
-[33mworker_2   |[0m 2024-12-26 09:10:05,515 - DEBUG - Searching for unclaimed hyperparameters files.
-[33mworker_2   |[0m 2024-12-26 09:10:05,516 - DEBUG - Claimed hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_1/hyperparams_4.json
-[33mworker_2   |[0m 2024-12-26 09:10:05,516 - INFO - Processing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_1/hyperparams_4.json
-[33mworker_2   |[0m 2024-12-26 09:10:05,516 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.13571971016500325, 'n_estimators': 147, 'max_depth': 7}
-[33mworker_2   |[0m 2024-12-26 09:10:05,526 - DEBUG - Training model: xgb with params: {'learning_rate': 0.13571971016500325, 'n_estimators': 147, 'max_depth': 7} on device: cuda
-[33mworker_2   |[0m 2024-12-26 09:10:05,530 - DEBUG - Training XGBoost...
-[33mworker_2   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:10:05] WARNING: /workspace/src/common/error_msg.cc:27: The tree method `gpu_hist` is deprecated since 2.0.0. To use GPU training, set the `device` parameter to CUDA instead.
-[33mworker_2   |[0m 
-[33mworker_2   |[0m     E.g. tree_method = "hist", device = "cuda"
-[33mworker_2   |[0m 
-[33mworker_2   |[0m   warnings.warn(smsg, UserWarning)
-[33mworker_2   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:10:05] WARNING: /workspace/src/learner.cc:740: 
-[33mworker_2   |[0m Parameters: { "n_estimators" } are not used.
-[33mworker_2   |[0m 
-[33mworker_2   |[0m   warnings.warn(smsg, UserWarning)
-[33mworker_2   |[0m 2024-12-26 09:10:05,773 - DEBUG - XGBoost model trained.
-[33mworker_2   |[0m 2024-12-26 09:10:05,773 - DEBUG - Model training complete. Accuracy: 0.9298
-[33mworker_2   |[0m 2024-12-26 09:10:05,773 - INFO - Results saved to /app/shared_volume/experiment_20241226_090936/iteration_1/results_4.json: Loss=0.0702, Accuracy=0.9298
-[33mworker_2   |[0m 2024-12-26 09:10:05,774 - DEBUG - Lock file /app/shared_volume/experiment_20241226_090936/iteration_1/hyperparams_4.lock removed.
-[32;1mbuild_worker_3 exited with code 0
-[0m[35;1mbuild_worker_2 exited with code 0
-[0m[36mmanager_1  |[0m 2024-12-26 09:10:06,603 - INFO - Processed /app/shared_volume/experiment_20241226_090936/iteration_1/results_0.json: Loss=0.06140350877192979, Accuracy=0.9385964912280702
-[36mmanager_1  |[0m 2024-12-26 09:10:06,604 - INFO - Processed /app/shared_volume/experiment_20241226_090936/iteration_1/results_1.json: Loss=0.04385964912280704, Accuracy=0.956140350877193
-[36mmanager_1  |[0m 2024-12-26 09:10:06,604 - INFO - Processed /app/shared_volume/experiment_20241226_090936/iteration_1/results_2.json: Loss=0.07017543859649122, Accuracy=0.9298245614035088
-[36mmanager_1  |[0m 2024-12-26 09:10:06,604 - INFO - Processed /app/shared_volume/experiment_20241226_090936/iteration_1/results_3.json: Loss=0.07017543859649122, Accuracy=0.9298245614035088
-[36mmanager_1  |[0m 2024-12-26 09:10:06,604 - INFO - Processed /app/shared_volume/experiment_20241226_090936/iteration_1/results_4.json: Loss=0.07017543859649122, Accuracy=0.9298245614035088
-[36mmanager_1  |[0m 2024-12-26 09:10:06,747 - INFO - Starting iteration 3/3
-[36mmanager_1  |[0m 2024-12-26 09:10:07,608 - DEBUG - Hyperparameter proposals for iteration 2: [[0.010291588858425892, np.int64(56), np.int64(3)], [0.291283408967694, np.int64(55), np.int64(8)], [0.28463695534940525, np.int64(292), np.int64(6)], [0.01, np.int64(295), np.int64(8)], [0.04274228372140277, np.int64(151), np.int64(4)]]
-[36mmanager_1  |[0m 2024-12-26 09:10:07,609 - DEBUG - Writing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_2/hyperparams_0.json => {'learning_rate': 0.010291588858425892, 'n_estimators': np.int64(56), 'max_depth': np.int64(3)}
-[36mmanager_1  |[0m 2024-12-26 09:10:07,609 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_2/hyperparams_0.json
-[36mmanager_1  |[0m 2024-12-26 09:10:07,609 - DEBUG - Writing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_2/hyperparams_1.json => {'learning_rate': 0.291283408967694, 'n_estimators': np.int64(55), 'max_depth': np.int64(8)}
-[36mmanager_1  |[0m 2024-12-26 09:10:07,609 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_2/hyperparams_1.json
-[36mmanager_1  |[0m 2024-12-26 09:10:07,609 - DEBUG - Writing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_2/hyperparams_2.json => {'learning_rate': 0.28463695534940525, 'n_estimators': np.int64(292), 'max_depth': np.int64(6)}
-[36mmanager_1  |[0m 2024-12-26 09:10:07,609 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_2/hyperparams_2.json
-[36mmanager_1  |[0m 2024-12-26 09:10:07,609 - DEBUG - Writing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_2/hyperparams_3.json => {'learning_rate': 0.01, 'n_estimators': np.int64(295), 'max_depth': np.int64(8)}
-[36mmanager_1  |[0m 2024-12-26 09:10:07,609 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_2/hyperparams_3.json
-[36mmanager_1  |[0m 2024-12-26 09:10:07,609 - DEBUG - Writing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_2/hyperparams_4.json => {'learning_rate': 0.04274228372140277, 'n_estimators': np.int64(151), 'max_depth': np.int64(4)}
-[36mmanager_1  |[0m 2024-12-26 09:10:07,610 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_2/hyperparams_4.json
-[36mmanager_1  |[0m 2024-12-26 09:10:07,610 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241226_090936/iteration_2/results_0.json
-[32mworker_1   |[0m 
-[32mworker_1   |[0m 2024-12-26 09:10:11,561 - DEBUG - Searching for unclaimed hyperparameters files.
-[32mworker_1   |[0m 2024-12-26 09:10:11,562 - DEBUG - Claimed hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_2/hyperparams_0.json
-[32mworker_1   |[0m 2024-12-26 09:10:11,562 - INFO - Processing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_2/hyperparams_0.json
-[32mworker_1   |[0m 2024-12-26 09:10:11,562 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.010291588858425892, 'n_estimators': 56, 'max_depth': 3}
-[32mworker_1   |[0m 2024-12-26 09:10:11,583 - DEBUG - Training model: xgb with params: {'learning_rate': 0.010291588858425892, 'n_estimators': 56, 'max_depth': 3} on device: cuda
-[32mworker_1   |[0m 2024-12-26 09:10:11,586 - DEBUG - Training XGBoost...
-[32mworker_1   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:10:11] WARNING: /workspace/src/common/error_msg.cc:27: The tree method `gpu_hist` is deprecated since 2.0.0. To use GPU training, set the `device` parameter to CUDA instead.
-[32mworker_1   |[0m 
-[32mworker_1   |[0m     E.g. tree_method = "hist", device = "cuda"
-[32mworker_1   |[0m 
-[32mworker_1   |[0m   warnings.warn(smsg, UserWarning)
-[32mworker_1   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:10:11] WARNING: /workspace/src/learner.cc:740: 
-[32mworker_1   |[0m Parameters: { "n_estimators" } are not used.
-[32mworker_1   |[0m 
-[32mworker_1   |[0m   warnings.warn(smsg, UserWarning)
-[32mworker_1   |[0m 2024-12-26 09:10:11,749 - DEBUG - XGBoost model trained.
-[32mworker_1   |[0m 2024-12-26 09:10:11,749 - DEBUG - Model training complete. Accuracy: 0.9561
-[32mworker_1   |[0m 2024-12-26 09:10:11,750 - INFO - Results saved to /app/shared_volume/experiment_20241226_090936/iteration_2/results_0.json: Loss=0.0439, Accuracy=0.9561
-[32mworker_1   |[0m 2024-12-26 09:10:11,750 - DEBUG - Lock file /app/shared_volume/experiment_20241226_090936/iteration_2/hyperparams_0.lock removed.
-[34;1mbuild_worker_1 exited with code 0
-[0m[35mworker_3   |[0m 
-[34mworker_2   |[0m 
-[35mworker_3   |[0m 2024-12-26 09:10:14,621 - DEBUG - Searching for unclaimed hyperparameters files.
-[35mworker_3   |[0m 2024-12-26 09:10:14,622 - DEBUG - Claimed hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_2/hyperparams_1.json
-[35mworker_3   |[0m 2024-12-26 09:10:14,622 - INFO - Processing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_2/hyperparams_1.json
-[35mworker_3   |[0m 2024-12-26 09:10:14,622 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.291283408967694, 'n_estimators': 55, 'max_depth': 8}
-[35mworker_3   |[0m 2024-12-26 09:10:14,642 - DEBUG - Training model: xgb with params: {'learning_rate': 0.291283408967694, 'n_estimators': 55, 'max_depth': 8} on device: cuda
-[35mworker_3   |[0m 2024-12-26 09:10:14,648 - DEBUG - Training XGBoost...
-[35mworker_3   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:10:14] WARNING: /workspace/src/common/error_msg.cc:27: The tree method `gpu_hist` is deprecated since 2.0.0. To use GPU training, set the `device` parameter to CUDA instead.
-[35mworker_3   |[0m 
-[35mworker_3   |[0m     E.g. tree_method = "hist", device = "cuda"
-[35mworker_3   |[0m 
-[35mworker_3   |[0m   warnings.warn(smsg, UserWarning)
-[35mworker_3   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:10:14] WARNING: /workspace/src/learner.cc:740: 
-[35mworker_3   |[0m Parameters: { "n_estimators" } are not used.
-[35mworker_3   |[0m 
-[35mworker_3   |[0m   warnings.warn(smsg, UserWarning)
-[35mworker_3   |[0m 2024-12-26 09:10:14,821 - DEBUG - XGBoost model trained.
-[35mworker_3   |[0m 2024-12-26 09:10:14,821 - DEBUG - Model training complete. Accuracy: 0.9298
-[35mworker_3   |[0m 2024-12-26 09:10:14,822 - INFO - Results saved to /app/shared_volume/experiment_20241226_090936/iteration_2/results_1.json: Loss=0.0702, Accuracy=0.9298
-[35mworker_3   |[0m 2024-12-26 09:10:14,822 - DEBUG - Lock file /app/shared_volume/experiment_20241226_090936/iteration_2/hyperparams_1.lock removed.
-[34mworker_2   |[0m 2024-12-26 09:10:15,085 - DEBUG - Searching for unclaimed hyperparameters files.
-[34mworker_2   |[0m 2024-12-26 09:10:15,086 - DEBUG - Claimed hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_2/hyperparams_2.json
-[34mworker_2   |[0m 2024-12-26 09:10:15,086 - INFO - Processing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_2/hyperparams_2.json
-[34mworker_2   |[0m 2024-12-26 09:10:15,086 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.28463695534940525, 'n_estimators': 292, 'max_depth': 6}
-[34mworker_2   |[0m 2024-12-26 09:10:15,096 - DEBUG - Training model: xgb with params: {'learning_rate': 0.28463695534940525, 'n_estimators': 292, 'max_depth': 6} on device: cuda
-[34mworker_2   |[0m 2024-12-26 09:10:15,098 - DEBUG - Training XGBoost...
-[34mworker_2   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:10:15] WARNING: /workspace/src/common/error_msg.cc:27: The tree method `gpu_hist` is deprecated since 2.0.0. To use GPU training, set the `device` parameter to CUDA instead.
-[34mworker_2   |[0m 
-[34mworker_2   |[0m     E.g. tree_method = "hist", device = "cuda"
-[34mworker_2   |[0m 
-[34mworker_2   |[0m   warnings.warn(smsg, UserWarning)
-[34mworker_2   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:10:15] WARNING: /workspace/src/learner.cc:740: 
-[34mworker_2   |[0m Parameters: { "n_estimators" } are not used.
-[34mworker_2   |[0m 
-[34mworker_2   |[0m   warnings.warn(smsg, UserWarning)
-[34mworker_2   |[0m 2024-12-26 09:10:15,339 - DEBUG - XGBoost model trained.
-[34mworker_2   |[0m 2024-12-26 09:10:15,339 - DEBUG - Model training complete. Accuracy: 0.9298
-[34mworker_2   |[0m 2024-12-26 09:10:15,340 - INFO - Results saved to /app/shared_volume/experiment_20241226_090936/iteration_2/results_2.json: Loss=0.0702, Accuracy=0.9298
-[34mworker_2   |[0m 2024-12-26 09:10:15,340 - DEBUG - Lock file /app/shared_volume/experiment_20241226_090936/iteration_2/hyperparams_2.lock removed.
-[36mbuild_worker_3 exited with code 0
-[0m[33mbuild_worker_2 exited with code 0
-[0m[36mmanager_1  |[0m 2024-12-26 09:10:17,617 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241226_090936/iteration_2/results_3.json
-[36;1mworker_1   |[0m 
-[36;1mworker_1   |[0m 2024-12-26 09:10:27,202 - DEBUG - Searching for unclaimed hyperparameters files.
-[36;1mworker_1   |[0m 2024-12-26 09:10:27,203 - DEBUG - Claimed hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_2/hyperparams_3.json
-[36;1mworker_1   |[0m 2024-12-26 09:10:27,204 - INFO - Processing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_2/hyperparams_3.json
-[36;1mworker_1   |[0m 2024-12-26 09:10:27,204 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.01, 'n_estimators': 295, 'max_depth': 8}
-[36;1mworker_1   |[0m 2024-12-26 09:10:27,224 - DEBUG - Training model: xgb with params: {'learning_rate': 0.01, 'n_estimators': 295, 'max_depth': 8} on device: cuda
-[36;1mworker_1   |[0m 2024-12-26 09:10:27,226 - DEBUG - Training XGBoost...
-[36;1mworker_1   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:10:27] WARNING: /workspace/src/common/error_msg.cc:27: The tree method `gpu_hist` is deprecated since 2.0.0. To use GPU training, set the `device` parameter to CUDA instead.
-[36;1mworker_1   |[0m 
-[36;1mworker_1   |[0m     E.g. tree_method = "hist", device = "cuda"
-[36;1mworker_1   |[0m 
-[36;1mworker_1   |[0m   warnings.warn(smsg, UserWarning)
-[36;1mworker_1   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:10:27] WARNING: /workspace/src/learner.cc:740: 
-[36;1mworker_1   |[0m Parameters: { "n_estimators" } are not used.
-[36;1mworker_1   |[0m 
-[36;1mworker_1   |[0m   warnings.warn(smsg, UserWarning)
-[36mmanager_1  |[0m 2024-12-26 09:10:27,626 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241226_090936/iteration_2/results_3.json
-[36;1mworker_1   |[0m 2024-12-26 09:10:27,752 - DEBUG - XGBoost model trained.
-[36;1mworker_1   |[0m 2024-12-26 09:10:27,753 - DEBUG - Model training complete. Accuracy: 0.9298
-[36;1mworker_1   |[0m 2024-12-26 09:10:27,754 - INFO - Results saved to /app/shared_volume/experiment_20241226_090936/iteration_2/results_3.json: Loss=0.0702, Accuracy=0.9298
-[36;1mworker_1   |[0m 2024-12-26 09:10:27,754 - DEBUG - Lock file /app/shared_volume/experiment_20241226_090936/iteration_2/hyperparams_3.lock removed.
-[32mbuild_worker_1 exited with code 0
-[0m[33;1mworker_3   |[0m 
-[32;1mworker_2   |[0m 
-[33;1mworker_3   |[0m 2024-12-26 09:10:30,394 - DEBUG - Searching for unclaimed hyperparameters files.
-[33;1mworker_3   |[0m 2024-12-26 09:10:30,395 - DEBUG - Claimed hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_2/hyperparams_4.json
-[33;1mworker_3   |[0m 2024-12-26 09:10:30,395 - INFO - Processing hyperparameters file: /app/shared_volume/experiment_20241226_090936/iteration_2/hyperparams_4.json
-[33;1mworker_3   |[0m 2024-12-26 09:10:30,395 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.04274228372140277, 'n_estimators': 151, 'max_depth': 4}
-[33;1mworker_3   |[0m 2024-12-26 09:10:30,416 - DEBUG - Training model: xgb with params: {'learning_rate': 0.04274228372140277, 'n_estimators': 151, 'max_depth': 4} on device: cuda
-[33;1mworker_3   |[0m 2024-12-26 09:10:30,420 - DEBUG - Training XGBoost...
-[33;1mworker_3   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:10:30] WARNING: /workspace/src/common/error_msg.cc:27: The tree method `gpu_hist` is deprecated since 2.0.0. To use GPU training, set the `device` parameter to CUDA instead.
-[33;1mworker_3   |[0m 
-[33;1mworker_3   |[0m     E.g. tree_method = "hist", device = "cuda"
-[33;1mworker_3   |[0m 
-[33;1mworker_3   |[0m   warnings.warn(smsg, UserWarning)
-[33;1mworker_3   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [09:10:30] WARNING: /workspace/src/learner.cc:740: 
-[33;1mworker_3   |[0m Parameters: { "n_estimators" } are not used.
-[33;1mworker_3   |[0m 
-[33;1mworker_3   |[0m   warnings.warn(smsg, UserWarning)
-[33;1mworker_3   |[0m 2024-12-26 09:10:30,687 - DEBUG - XGBoost model trained.
-[33;1mworker_3   |[0m 2024-12-26 09:10:30,688 - DEBUG - Model training complete. Accuracy: 0.9386
-[33;1mworker_3   |[0m 2024-12-26 09:10:30,688 - INFO - Results saved to /app/shared_volume/experiment_20241226_090936/iteration_2/results_4.json: Loss=0.0614, Accuracy=0.9386
-[33;1mworker_3   |[0m 2024-12-26 09:10:30,688 - DEBUG - Lock file /app/shared_volume/experiment_20241226_090936/iteration_2/hyperparams_4.lock removed.
-[32;1mworker_2   |[0m 2024-12-26 09:10:30,868 - DEBUG - Searching for unclaimed hyperparameters files.
-[32;1mworker_2   |[0m 2024-12-26 09:10:30,869 - DEBUG - No unclaimed hyperparameters files found.
-[32;1mworker_2   |[0m 2024-12-26 09:10:30,869 - DEBUG - No available work. Exiting with code 0.
-[35mbuild_worker_3 exited with code 0
-[0m[34mbuild_worker_2 exited with code 0
-[0m[36mmanager_1  |[0m 2024-12-26 09:10:37,633 - INFO - Processed /app/shared_volume/experiment_20241226_090936/iteration_2/results_0.json: Loss=0.04385964912280704, Accuracy=0.956140350877193
-[36mmanager_1  |[0m 2024-12-26 09:10:37,634 - INFO - Processed /app/shared_volume/experiment_20241226_090936/iteration_2/results_1.json: Loss=0.07017543859649122, Accuracy=0.9298245614035088
-[36mmanager_1  |[0m 2024-12-26 09:10:37,634 - INFO - Processed /app/shared_volume/experiment_20241226_090936/iteration_2/results_2.json: Loss=0.07017543859649122, Accuracy=0.9298245614035088
-[36mmanager_1  |[0m 2024-12-26 09:10:37,634 - INFO - Processed /app/shared_volume/experiment_20241226_090936/iteration_2/results_3.json: Loss=0.07017543859649122, Accuracy=0.9298245614035088
-[36mmanager_1  |[0m 2024-12-26 09:10:37,634 - INFO - Processed /app/shared_volume/experiment_20241226_090936/iteration_2/results_4.json: Loss=0.06140350877192979, Accuracy=0.9385964912280702
-[36mmanager_1  |[0m 2024-12-26 09:10:37,773 - INFO - Final results saved to /app/shared_volume/experiment_20241226_090936/final_results.json
-[36mmanager_1  |[0m 2024-12-26 09:10:37,773 - INFO - Manager completed successfully.
-[36mbuild_manager_1 exited with code 0
-[0m
+[36mmanager_1  |[0m 2024-12-26 11:10:59,757 - INFO - Starting manager.py
+[36mmanager_1  |[0m 2024-12-26 11:10:59,757 - INFO - Experiment directory created: /app/shared_volume/xgb/experiment_20241226_111059
+[36mmanager_1  |[0m 2024-12-26 11:10:59,765 - INFO - Starting iteration 1/5
+[36mmanager_1  |[0m 2024-12-26 11:10:59,861 - DEBUG - Hyperparameter proposals for iteration 0: [[0.040343472274915984, np.int64(232), np.int64(9)], [0.029273475807775187, np.int64(218), np.int64(5)], [0.032988922734276574, np.int64(235), np.int64(4)], [0.0905454692460524, np.int64(187), np.int64(3)], [0.018325318897836135, np.int64(208), np.int64(3)], [0.0966022266863361, np.int64(221), np.int64(8)], [0.011496207116490216, np.int64(296), np.int64(6)], [0.010154474818021387, np.int64(261), np.int64(8)], [0.023297040350832666, np.int64(226), np.int64(4)], [0.07009627162524486, np.int64(174), np.int64(6)]]
+[36mmanager_1  |[0m 2024-12-26 11:10:59,861 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_0.json => {'learning_rate': 0.040343472274915984, 'n_estimators': np.int64(232), 'max_depth': np.int64(9)}
+[36mmanager_1  |[0m 2024-12-26 11:10:59,861 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_0.json
+[36mmanager_1  |[0m 2024-12-26 11:10:59,861 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_1.json => {'learning_rate': 0.029273475807775187, 'n_estimators': np.int64(218), 'max_depth': np.int64(5)}
+[36mmanager_1  |[0m 2024-12-26 11:10:59,861 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_1.json
+[36mmanager_1  |[0m 2024-12-26 11:10:59,861 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_2.json => {'learning_rate': 0.032988922734276574, 'n_estimators': np.int64(235), 'max_depth': np.int64(4)}
+[36mmanager_1  |[0m 2024-12-26 11:10:59,862 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_2.json
+[36mmanager_1  |[0m 2024-12-26 11:10:59,862 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_3.json => {'learning_rate': 0.0905454692460524, 'n_estimators': np.int64(187), 'max_depth': np.int64(3)}
+[36mmanager_1  |[0m 2024-12-26 11:10:59,862 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_3.json
+[36mmanager_1  |[0m 2024-12-26 11:10:59,862 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_4.json => {'learning_rate': 0.018325318897836135, 'n_estimators': np.int64(208), 'max_depth': np.int64(3)}
+[36mmanager_1  |[0m 2024-12-26 11:10:59,862 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_4.json
+[36mmanager_1  |[0m 2024-12-26 11:10:59,862 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_5.json => {'learning_rate': 0.0966022266863361, 'n_estimators': np.int64(221), 'max_depth': np.int64(8)}
+[36mmanager_1  |[0m 2024-12-26 11:10:59,862 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_5.json
+[36mmanager_1  |[0m 2024-12-26 11:10:59,862 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_6.json => {'learning_rate': 0.011496207116490216, 'n_estimators': np.int64(296), 'max_depth': np.int64(6)}
+[36mmanager_1  |[0m 2024-12-26 11:10:59,863 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_6.json
+[36mmanager_1  |[0m 2024-12-26 11:10:59,863 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_7.json => {'learning_rate': 0.010154474818021387, 'n_estimators': np.int64(261), 'max_depth': np.int64(8)}
+[36mmanager_1  |[0m 2024-12-26 11:10:59,863 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_7.json
+[36mmanager_1  |[0m 2024-12-26 11:10:59,863 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_8.json => {'learning_rate': 0.023297040350832666, 'n_estimators': np.int64(226), 'max_depth': np.int64(4)}
+[36mmanager_1  |[0m 2024-12-26 11:10:59,863 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_8.json
+[36mmanager_1  |[0m 2024-12-26 11:10:59,863 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_9.json => {'learning_rate': 0.07009627162524486, 'n_estimators': np.int64(174), 'max_depth': np.int64(6)}
+[36mmanager_1  |[0m 2024-12-26 11:10:59,863 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_9.json
+[36mmanager_1  |[0m 2024-12-26 11:10:59,863 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
+[35mworker_3   |[0m 2024-12-26 11:11:00,993 - DEBUG - Searching for unclaimed hyperparameters files.
+[35mworker_3   |[0m 2024-12-26 11:11:00,994 - DEBUG - Claimed hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_0.processing.json
+[35mworker_3   |[0m 2024-12-26 11:11:00,994 - INFO - Processing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_0.processing.json
+[35mworker_3   |[0m 2024-12-26 11:11:00,994 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.040343472274915984, 'n_estimators': 232, 'max_depth': 9}
+[35mworker_3   |[0m 2024-12-26 11:11:00,994 - DEBUG - Validating hyperparameters.
+[35mworker_3   |[0m 2024-12-26 11:11:00,994 - DEBUG - Hyperparameters validation passed.
+[35mworker_3   |[0m 2024-12-26 11:11:00,994 - DEBUG - Assigned Worker ID: 8829bfe3-9ad8-4fcc-a49a-40036fc9c205
+[35mworker_3   |[0m 2024-12-26 11:11:01,013 - DEBUG - Training model: xgb with params: {'learning_rate': 0.040343472274915984, 'n_estimators': 232, 'max_depth': 9} on device: cuda
+[33mworker_1   |[0m 2024-12-26 11:11:01,081 - DEBUG - Searching for unclaimed hyperparameters files.
+[33mworker_1   |[0m 2024-12-26 11:11:01,082 - DEBUG - Claimed hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_1.processing.json
+[33mworker_1   |[0m 2024-12-26 11:11:01,082 - INFO - Processing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_1.processing.json
+[33mworker_1   |[0m 2024-12-26 11:11:01,082 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.029273475807775187, 'n_estimators': 218, 'max_depth': 5}
+[33mworker_1   |[0m 2024-12-26 11:11:01,082 - DEBUG - Validating hyperparameters.
+[33mworker_1   |[0m 2024-12-26 11:11:01,082 - DEBUG - Hyperparameters validation passed.
+[33mworker_1   |[0m 2024-12-26 11:11:01,082 - DEBUG - Assigned Worker ID: 34a65dac-9a55-4595-a930-919e5af08640
+[33mworker_1   |[0m 2024-12-26 11:11:01,098 - DEBUG - Training model: xgb with params: {'learning_rate': 0.029273475807775187, 'n_estimators': 218, 'max_depth': 5} on device: cuda
+[35mworker_3   |[0m 2024-12-26 11:11:01,100 - DEBUG - Training XGBoost with parameters: {'learning_rate': 0.040343472274915984, 'max_depth': 9, 'objective': 'binary:logistic', 'eval_metric': 'logloss', 'tree_method': 'hist', 'seed': 42}
+[34mworker_4   |[0m 2024-12-26 11:11:01,213 - DEBUG - Searching for unclaimed hyperparameters files.
+[34mworker_4   |[0m 2024-12-26 11:11:01,214 - DEBUG - Claimed hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_2.processing.json
+[34mworker_4   |[0m 2024-12-26 11:11:01,214 - INFO - Processing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_2.processing.json
+[34mworker_4   |[0m 2024-12-26 11:11:01,215 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.032988922734276574, 'n_estimators': 235, 'max_depth': 4}
+[34mworker_4   |[0m 2024-12-26 11:11:01,215 - DEBUG - Validating hyperparameters.
+[34mworker_4   |[0m 2024-12-26 11:11:01,215 - DEBUG - Hyperparameters validation passed.
+[34mworker_4   |[0m 2024-12-26 11:11:01,215 - DEBUG - Assigned Worker ID: 42601100-2ad5-40e1-ac4e-822af791a580
+[34mworker_4   |[0m 2024-12-26 11:11:01,229 - DEBUG - Training model: xgb with params: {'learning_rate': 0.032988922734276574, 'n_estimators': 235, 'max_depth': 4} on device: cuda
+[33mworker_1   |[0m 2024-12-26 11:11:01,281 - DEBUG - Training XGBoost with parameters: {'learning_rate': 0.029273475807775187, 'max_depth': 5, 'objective': 'binary:logistic', 'eval_metric': 'logloss', 'tree_method': 'hist', 'seed': 42}
+[34mworker_4   |[0m 2024-12-26 11:11:01,466 - DEBUG - Training XGBoost with parameters: {'learning_rate': 0.032988922734276574, 'max_depth': 4, 'objective': 'binary:logistic', 'eval_metric': 'logloss', 'tree_method': 'hist', 'seed': 42}
+[32mworker_2   |[0m 2024-12-26 11:11:01,484 - DEBUG - Searching for unclaimed hyperparameters files.
+[32mworker_2   |[0m 2024-12-26 11:11:01,485 - DEBUG - Claimed hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_3.processing.json
+[32mworker_2   |[0m 2024-12-26 11:11:01,486 - INFO - Processing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_3.processing.json
+[32mworker_2   |[0m 2024-12-26 11:11:01,486 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.0905454692460524, 'n_estimators': 187, 'max_depth': 3}
+[32mworker_2   |[0m 2024-12-26 11:11:01,486 - DEBUG - Validating hyperparameters.
+[32mworker_2   |[0m 2024-12-26 11:11:01,486 - DEBUG - Hyperparameters validation passed.
+[32mworker_2   |[0m 2024-12-26 11:11:01,486 - DEBUG - Assigned Worker ID: 46037795-3989-4d38-8b5e-7394fb937586
+[32mworker_2   |[0m 2024-12-26 11:11:01,507 - DEBUG - Training model: xgb with params: {'learning_rate': 0.0905454692460524, 'n_estimators': 187, 'max_depth': 3} on device: cuda
+[36;1mworker_5   |[0m 2024-12-26 11:11:01,582 - DEBUG - Searching for unclaimed hyperparameters files.
+[36;1mworker_5   |[0m 2024-12-26 11:11:01,588 - DEBUG - Claimed hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_4.processing.json
+[36;1mworker_5   |[0m 2024-12-26 11:11:01,589 - INFO - Processing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_4.processing.json
+[36;1mworker_5   |[0m 2024-12-26 11:11:01,589 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.018325318897836135, 'n_estimators': 208, 'max_depth': 3}
+[36;1mworker_5   |[0m 2024-12-26 11:11:01,589 - DEBUG - Validating hyperparameters.
+[36;1mworker_5   |[0m 2024-12-26 11:11:01,589 - DEBUG - Hyperparameters validation passed.
+[36;1mworker_5   |[0m 2024-12-26 11:11:01,590 - DEBUG - Assigned Worker ID: 5907ff47-df38-4bf6-80d2-d704a852058f
+[36;1mworker_5   |[0m 2024-12-26 11:11:01,602 - DEBUG - Training model: xgb with params: {'learning_rate': 0.018325318897836135, 'n_estimators': 208, 'max_depth': 3} on device: cuda
+[32mworker_2   |[0m 2024-12-26 11:11:01,925 - DEBUG - Training XGBoost with parameters: {'learning_rate': 0.0905454692460524, 'max_depth': 3, 'objective': 'binary:logistic', 'eval_metric': 'logloss', 'tree_method': 'hist', 'seed': 42}
+[36;1mworker_5   |[0m 2024-12-26 11:11:02,067 - DEBUG - Training XGBoost with parameters: {'learning_rate': 0.018325318897836135, 'max_depth': 3, 'objective': 'binary:logistic', 'eval_metric': 'logloss', 'tree_method': 'hist', 'seed': 42}
+[36mmanager_1  |[0m 2024-12-26 11:11:04,868 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 11:11:09,873 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 11:11:14,879 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 11:11:19,881 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 11:11:24,885 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 11:11:29,889 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 11:11:34,893 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 11:11:39,897 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 11:11:44,901 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 11:11:49,905 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 11:11:54,910 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 11:11:59,915 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 11:12:04,917 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 11:12:09,921 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 11:12:14,925 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 11:12:19,929 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 11:12:24,933 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 11:12:29,938 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 11:12:34,941 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 11:12:39,945 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 11:12:44,949 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 11:12:49,953 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 11:12:54,957 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 11:12:59,961 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 11:13:04,965 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 11:13:09,973 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 11:13:14,977 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 11:13:19,981 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 11:13:24,985 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 11:13:29,989 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 11:13:34,993 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 11:13:39,999 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 11:13:45,001 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
+Stopping build_worker_4  ... 
+Stopping build_worker_3  ... 
+Stopping build_worker_2  ... 
+Stopping build_worker_1  ... 
+Stopping build_worker_5  ... 
+Stopping build_manager_1 ... 
+Stopping build_manager_1 ... done
+Stopping build_worker_1  ... done
+Stopping build_worker_4  ... done
+Stopping build_worker_5  ... done
+Stopping build_worker_3  ... done
+Stopping build_worker_2  ... done
+Gracefully stopping... (press Ctrl+C again to force)
