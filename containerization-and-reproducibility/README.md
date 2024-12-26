@@ -26,18 +26,20 @@ multi-model-bayesian-opt/
 │       └─ requirements.txt
 ├─ src/
 │   ├─ manager.py
-│   └─ train.py
+│   ├─ train.py
+│   └─ utils.py      # New utility functions
 └─ shared_volume/
 ```
 
-- **build/**:
-  - **docker-compose.yml**: Defines the manager and worker services, environment variables, and volumes.
-  - **manager/**: Dockerfile + `requirements.txt` for the manager service.
-  - **worker/**: Dockerfile + `requirements.txt` for the worker service.
-- **src/**:
-  - **manager.py**: Orchestrates Bayesian optimization (asks for hyperparameters, collects results, updates the optimization process).
-  - **train.py**: Worker script that trains one hyperparameter set and writes results.
-- **shared_volume/**: A directory **on the host** (outside the containers) that is mounted as `/app/shared_volume` in both manager and worker containers. We use this folder to exchange `.json` files with hyperparams and results.
+- **build/**: Contains Docker and configuration files
+  - **docker-compose.yml**: Defines services, env vars, and volumes
+  - **manager/**: Manager service configuration
+  - **worker/**: Worker service configuration
+- **src/**: Python source code
+  - **manager.py**: Orchestrates optimization process
+  - **train.py**: Handles model training and evaluation
+  - **utils.py**: Common utilities and helper functions
+- **shared_volume/**: Shared storage for inter-container communication
 
 ---
 
@@ -45,26 +47,25 @@ multi-model-bayesian-opt/
 
 ### 1. Choose a Model
 
-By default, the project uses `MODEL_CHOICE=svm` in `docker-compose.yml`. You can switch to XGBoost or LightGBM by editing the environment variables in **`build/docker-compose.yml`**:
+By default, the project uses `MODEL_CHOICE=svm` in `docker-compose.yml`. You can switch to XGBoost or LightGBM by editing the environment variables in **`build/variables.env`**:
 
-```yaml
-environment:
-  - NUM_ITERATIONS=3     # total Bayesian optimization iterations
-  - BATCH_SIZE=2         # number of hyperparam sets per iteration
-  - MODEL_CHOICE=svm     # or "xgb" or "lgbm"
+```env
+SEED=42                       # reproducibility random seed
+NUM_ITERATIONS=3              # total Bayesian optimization iterations
+NUM_HYPERPARAM_SETS=2         # number of hyperparam sets per iteration
+MODEL_CHOICE=svm              # "svm" or "xgb" or "lgbm"
 ```
-
-Make sure the manager’s and worker’s `MODEL_CHOICE` environment variables match.
 
 ### 2. Build and Run
 
-In the **project root** (which contains `build/` and `src/`), do:
+From the project root:
 
 ```bash
 cd build
 docker-compose up --build --scale worker=4
 ```
-where **`--scale worker=4`** will launch 4 worker containers in parallel.
+
+The `--scale worker=4` flag launches 4 worker containers for parallel processing. Adjust this number based on your system's capabilities and requirements.
 
 ### 3. Check Logs
 
@@ -117,12 +118,18 @@ docker-compose down --rmi all --volumes --remove-orphans
    - Update `manager.py` > `get_search_space()` and `train.py` > `train_model()` for more hyperparameters (e.g., `subsample`, `colsample_bytree` for XGB, or `reg_alpha`, `reg_lambda` for LGBM).
 
 2. **Dataset**:  
-   - Currently uses the **Breast Cancer** dataset via `sklearn.datasets.load_breast_cancer()`.  
-   - Switch to **Iris**, **California Housing**, or any custom dataset by editing `train.py` accordingly.
+   - **Breast Cancer** classification
 
 3. **Parallelism**:  
-   - Increase **`BATCH_SIZE`** or **`--scale worker=<N>`** for more parallel workers.  
+   - Scale workers with `--scale worker=N`
+   - Automatic work distribution
 
 4. **Optimization Strategy**:  
-   - Currently uses Gaussian Process with Expected Improvement (`base_estimator="GP", acq_func="EI"`).  
-   - Try `"RF"` (random forest) or `"ET"` (extra trees) as the `base_estimator` in the `Optimizer` if GP becomes too slow or if you want a different strategy.
+   - Default: Gaussian Process with EI
+   - Configurable via environment variables
+   - Support for RF and ET base estimators
+
+5. **Monitoring**:
+   - Real-time progress tracking
+   - Detailed worker logs
+   - Result persistence in shared volume
