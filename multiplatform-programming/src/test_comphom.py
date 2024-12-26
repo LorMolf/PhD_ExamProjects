@@ -1,28 +1,4 @@
 from comphom_wrapper import py_process_file, py_find_generators, py_create_matrix
-
-# def test():
-#     # Test `py_process_file`
-#     data = py_process_file("/app/multiplatform-programming/test_files/test.ct")
-#     print("Processed data:", data)
-
-#     # Test `py_find_generators`
-#     chains = [
-#         [[1, [1, 2]], [-1, [2, 3]]],  # Example chains
-#     ]
-#     generators = py_find_generators(chains)
-#     print("Generators:", generators)
-
-#     # Test `py_create_matrix`
-#     generators = [[1, 2], [2, 3]]  # Example simplices
-#     boundaries = [
-#         [[1, [1, 2]], [-1, [2, 3]]],  # Example chains
-#     ]
-#     matrix = py_create_matrix(generators, boundaries)
-#     matrix.print()
-
-# if __name__ == "__main__":
-#     test()
-
 import os
 
 def compute_boundary(simplex):
@@ -66,57 +42,80 @@ def process_triangulation(triangulation):
         boundary = compute_boundary(simplex)
         boundaries.extend(boundary)
     
+    print(f"BOUNDARIES: {boundaries}")
+
     result = "("
     
+    print(f"MAX DIM: {max_dim}")
     for dim in range(max_dim):
-        # Find generators
-        generators = py_find_generators(boundaries)
-        
-        # Create boundary matrix
-        matrix_wrapper = py_create_matrix(generators, boundaries)
-        
-        # Compute Smith Normal Form (SNF)
-        matrix_snf = matrix_wrapper.nf_smith()
-        
-        if matrix_snf is None:
-            # Handle case where SNF could not be computed
-            homology_number = 0
-            torsion = []
-        else:
-            # Get number of zero columns in SNF
-            z_cur = matrix_snf.get_num_zero_cols()
+        try:
+            generators = py_find_generators(boundaries)
+            if not generators:
+                print(f"No generators found for dimension {dim}")
+                result += "0,"
+                continue
+                
+            matrix_wrapper = py_create_matrix(generators, boundaries)
+            if matrix_wrapper is None:
+                print(f"Failed to create matrix for dimension {dim}")
+                result += "0,"
+                continue
+                
+            # Validate matrix dimensions
+            rows = matrix_wrapper.get_num_rows()
+            cols = matrix_wrapper.get_num_cols()
+            if rows == 0 or cols == 0:
+                print(f"Invalid matrix dimensions: {rows}x{cols}")
+                result += "0,"
+                continue
+                
+            print(f"Processing matrix {rows}x{cols} for dimension {dim}")
+            matrix_snf = matrix_wrapper.nf_smith()
             
-            # Compute homology number: z_cur - w_prev
-            homology_number = z_cur - w_prev
+            if matrix_snf is None:
+                print("Failed to compute Smith Normal Form")
+                homology_number = 0
+                torsion = []
+            else:
+                # Get number of zero columns in SNF
+                z_cur = matrix_snf.get_num_zero_cols()
+                
+                # Compute homology number: z_cur - w_prev
+                homology_number = z_cur - w_prev
+                
+                # Get torsion coefficients
+                torsion = matrix_snf.get_torsion()
             
-            # Get torsion coefficients
-            torsion = matrix_snf.get_torsion()
+            # Append homology number
+            result += str(homology_number)
+            
+            # Append torsion coefficients, if any
+            if torsion:
+                for coeff in torsion:
+                    result += f"+Z_{coeff}"
+            
+            # Append comma if not the last dimension
+            if dim < max_dim - 1:
+                result += ","
+            
+            # Update w_prev and b_prev for the next dimension
+            if matrix_snf is not None:
+                w_prev = matrix_snf.get_num_non_zero_rows()
+                b_prev = torsion
+            else:
+                w_prev = 0
+                b_prev = []
+            
+            # Prepare boundaries for the next dimension by computing boundaries of generators
+            boundaries = []
+            for generator in generators:
+                boundary = compute_boundary(generator)
+                boundaries.extend(boundary)
         
-        # Append homology number
-        result += str(homology_number)
-        
-        # Append torsion coefficients, if any
-        if torsion:
-            for coeff in torsion:
-                result += f"+Z_{coeff}"
-        
-        # Append comma if not the last dimension
-        if dim < max_dim - 1:
-            result += ","
-        
-        # Update w_prev and b_prev for the next dimension
-        if matrix_snf is not None:
-            w_prev = matrix_snf.get_num_non_zero_rows()
-            b_prev = torsion
-        else:
-            w_prev = 0
-            b_prev = []
-        
-        # Prepare boundaries for the next dimension by computing boundaries of generators
-        boundaries = []
-        for generator in generators:
-            boundary = compute_boundary(generator)
-            boundaries.extend(boundary)
+        except Exception as e:
+            print(f"Error in dimension {dim}: {str(e)}")
+            result += "0,"
+            continue
     
     result += ")\n"
     
@@ -132,7 +131,7 @@ def test():
     # Process the input file
     print(f"Processing input file: {input_file}")
     data = py_process_file(input_file)
-    print("Processed data:", data)
+    #print("Processed data:", data)
     
     # Open output file
     try:
