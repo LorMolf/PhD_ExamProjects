@@ -83,10 +83,16 @@ cdef vector[chain] pylist_to_vector_chain(list py_list):
 cdef class MatrixWrapper:
     cdef matrix* c_matrix
 
-    def __cinit__(self, list generators, list boundaries):
-        cdef vector[simplex] c_generators = pylist_to_vector_simplex(generators)
-        cdef vector[chain] c_boundaries = pylist_to_vector_chain(boundaries)
-        self.c_matrix = new matrix(create_matrix(c_generators, c_boundaries))
+    def __cinit__(self, list generators=None, list boundaries=None):
+        self.c_matrix = NULL
+        if generators is not None and boundaries is not None:
+            self._init_from_generators(generators, boundaries)
+
+    def _init_from_generators(self, list generators, list boundaries):
+        self.c_matrix = new matrix(create_matrix(
+            pylist_to_vector_simplex(generators),
+            pylist_to_vector_chain(boundaries)
+        ))
 
     def __dealloc__(self):
         if self.c_matrix != NULL:
@@ -108,8 +114,7 @@ cdef class MatrixWrapper:
 
     @staticmethod
     cdef create_from_matrix(matrix* m):
-        # Create a MatrixWrapper instance from a C++ matrix pointer
-        cdef MatrixWrapper wrapper = MatrixWrapper.__new__(MatrixWrapper)
+        cdef MatrixWrapper wrapper = MatrixWrapper(None, None)
         wrapper.c_matrix = m
         return wrapper
 
@@ -130,18 +135,12 @@ cdef class MatrixWrapper:
             if rows == 0 or cols == 0:
                 print(f"Invalid matrix dimensions: {rows}x{cols}")
                 return None
-
-            print(f"Computing SNF for {rows}x{cols} matrix...")
-            #self.c_matrix.print()
-
+                
             # Call nf_smith in C++ (returns by value)
             snf_res = self.c_matrix.nf_smith()
 
             # Allocate a new matrix from the result
             snf_matrix = new matrix(snf_res)
-
-            print("SNF computation completed")
-            #snf_matrix.print()
 
             # Convert the raw pointer to a MatrixWrapper
             wrapper = MatrixWrapper.create_from_matrix(snf_matrix)

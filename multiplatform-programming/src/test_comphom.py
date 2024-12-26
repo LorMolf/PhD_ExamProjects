@@ -23,117 +23,80 @@ def compute_boundary(simplex):
 def process_triangulation(triangulation):
     """
     Processes a single triangulation to compute homology groups.
-    
-    :param triangulation: List of simplices, each simplex is a list of vertex indices.
-    :return: Homology group information as a string.
     """
     w_prev = 0
     z_cur = 0
     b_prev = []
     
     if not triangulation:
-        return ""
+        return "(0)\n"
     
-    # Get max_dim from first simplex
     max_dim = len(triangulation[0])
-    
-    # Compute initial boundaries
     boundaries = []
     for simplex in triangulation:
         boundary = compute_boundary(simplex)
         boundaries.extend(boundary)
     
-    print(f"BOUNDARIES: {boundaries}")
-
     result = "("
     
     for dim in range(max_dim):
         try:
             generators = py_find_generators(boundaries)
             if not generators:
-                print(f"No generators found for dimension {dim}")
-                result += "0,"
+                result += "0"
+                if dim < max_dim - 1:
+                    result += ","
                 continue
-                
+            
+            # Create matrix with actual data - no need for empty initialization
             matrix_wrapper = py_create_matrix(generators, boundaries)
             if matrix_wrapper is None:
-                print(f"Failed to create matrix for dimension {dim}")
-                result += "0,"
+                result += "0"
+                if dim < max_dim - 1:
+                    result += ","
                 continue
-                
-            # Validate matrix dimensions
-            rows = matrix_wrapper.get_num_rows()
-            cols = matrix_wrapper.get_num_cols()
-            if rows == 0 or cols == 0:
-                print(f"Invalid matrix dimensions: {rows}x{cols}")
-                result += "0,"
-                continue
-                
-            print(f"Processing matrix {rows}x{cols} for dimension {dim}")
-            #print("Input matrix:")
-            #matrix_wrapper.print()
             
-            print("Computing Smith Normal Form...")
-            matrix_snf = matrix_wrapper.nf_smith()
+            try:
+                matrix_snf = matrix_wrapper.nf_smith()
+            except Exception as e:
+                print(f"SNF computation error: {e}")
+                matrix_snf = None
             
             if matrix_snf is None:
-                print(f"Failed to compute Smith Normal Form for dimension {dim}")
-                result += "0,"
+                result += "0"
+                if dim < max_dim - 1:
+                    result += ","
                 continue
                 
-            print("Smith Normal Form computed successfully")
-            #print("Result matrix:")
-            #matrix_snf.print()
+            # Get homology information
+            z_cur = matrix_snf.get_num_zero_cols()
+            homology_number = z_cur - w_prev
+            torsion = matrix_snf.get_torsion()
             
-            if matrix_snf is None:
-                print("Failed to compute Smith Normal Form")
-                homology_number = 0
-                torsion = []
-            else:
-                # Get number of zero columns in SNF
-                z_cur = matrix_snf.get_num_zero_cols()
-                
-                # Compute homology number: z_cur - w_prev
-                homology_number = z_cur - w_prev
-                
-                # Get torsion coefficients
-                torsion = matrix_snf.get_torsion()
-            
-            # Append homology number
             result += str(homology_number)
-            
-            # Append torsion coefficients, if any
             if torsion:
                 for coeff in torsion:
                     result += f"+Z_{coeff}"
             
-            # Append comma if not the last dimension
             if dim < max_dim - 1:
                 result += ","
             
-            # Update w_prev and b_prev for the next dimension
-            if matrix_snf is not None:
-                w_prev = matrix_snf.get_num_non_zero_rows()
-                b_prev = torsion
-            else:
-                w_prev = 0
-                b_prev = []
+            w_prev = matrix_snf.get_num_non_zero_rows()
             
-            # Prepare boundaries for the next dimension by computing boundaries of generators
+            # Update boundaries for next iteration
             boundaries = []
             for generator in generators:
                 boundary = compute_boundary(generator)
                 boundaries.extend(boundary)
-        
+                
         except Exception as e:
             print(f"Error processing dimension {dim}: {e}")
-            import traceback
-            traceback.print_exc()
-            result += "0,"
+            result += "0"
+            if dim < max_dim - 1:
+                result += ","
             continue
     
     result += ")\n"
-    
     return result
 
 def test():
@@ -165,11 +128,11 @@ def test():
                 homology_info = process_triangulation(triangulation)
                 out.write(homology_info)
                 # Print progress dot
-                print(".", end='', flush=True)
-                dots += 1
-                if dots >= 80:
-                    print()
-                    dots = 0
+                #print(".", end='', flush=True)
+                #dots += 1
+                #if dots >= 80:
+                #    print()
+                #    dots = 0
             print("\n...finished.")
     except Exception as e:
         print(f"Error writing to output file: {e}")
