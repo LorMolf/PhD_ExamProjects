@@ -38,4 +38,4 @@ services:
               device_ids: [ "2" ]
       #mode: replicated
       #replicas: 3  # Default number of independent workers
-    restart: on-failure
+    restart: always

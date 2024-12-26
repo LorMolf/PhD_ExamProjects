@@ -27,7 +27,6 @@ from xgboost import XGBClassifier
 import xgboost as xgb
 from lightgbm import LGBMClassifier
 
-
 import fcntl
 import errno
 from contextlib import contextmanager
@@ -40,21 +39,17 @@ SEED = int(os.environ.get("SEED", "42"))
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-
 @contextmanager
 def file_lock(lock_file):
     """Context manager for file locking to ensure atomic operations."""
-    lock = open(lock_file, 'wb')
     try:
-        fcntl.flock(lock.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
-        yield True
+        with open(lock_file, 'w') as lf:
+            fcntl.flock(lf, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            yield True
     except IOError as e:
         if e.errno != errno.EAGAIN:
             raise
         yield False
-    finally:
-        fcntl.flock(lock.fileno(), fcntl.LOCK_UN)
-        lock.close()
 
 def find_unclaimed_hyperparams():
     """
@@ -63,27 +58,30 @@ def find_unclaimed_hyperparams():
     """
     logger.debug("Searching for unclaimed hyperparameters files.")
     
-    for iteration_dir in sorted(SHARED_DIR.glob("iteration_*")):
-        for hp_file in sorted(iteration_dir.glob("hyperparams_*.json")):
-            result_file = iteration_dir / hp_file.name.replace("hyperparams", "results")
-            lock_file = iteration_dir / f"{hp_file.stem}.lock"
-            
-            if result_file.exists():
-                continue
+    # Recursively search for all experiment_* directories
+    for experiment_dir in sorted(SHARED_DIR.glob("experiment_*")):
+        # Within each experiment, search for all iteration_* directories
+        for iteration_dir in sorted(experiment_dir.glob("iteration_*")):
+            # Within each iteration, search for all hyperparams_*.json files
+            for hp_file in sorted(iteration_dir.glob("hyperparams_*.json")):
+                result_file = iteration_dir / hp_file.name.replace("hyperparams", "results")
+                lock_file = iteration_dir / f"{hp_file.stem}.lock"
                 
-            try:
-                # Create lock file if it doesn't exist
-                lock_file.touch(exist_ok=True)
+                if result_file.exists():
+                    continue  # Skip if results already exist
                 
-                with file_lock(lock_file) as acquired:
-                    if acquired and not result_file.exists():
-                        return hp_file, lock_file
-            except Exception as e:
-                logger.error(f"Error checking file {hp_file}: {e}")
-                continue
+                try:
+                    # Attempt to acquire a lock
+                    with file_lock(lock_file) as acquired:
+                        if acquired and not result_file.exists():
+                            logger.debug(f"Claimed hyperparameters file: {hp_file}")
+                            return hp_file, lock_file
+                except Exception as e:
+                    logger.error(f"Error acquiring lock for file {hp_file}: {e}")
+                    continue
     
+    logger.debug("No unclaimed hyperparameters files found.")
     return None, None
-
 
 def train_model(params, X_train, y_train, X_test, y_test):
     """
@@ -170,9 +168,9 @@ def main():
         try:
             if lock_file and lock_file.exists():
                 lock_file.unlink()
+                logger.debug(f"Lock file {lock_file} removed.")
         except Exception as e:
             logger.error(f"Error cleaning up lock file: {e}")
-
 
 if __name__ == "__main__":
     exit_code = main()

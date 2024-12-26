@@ -33,7 +33,10 @@ def get_search_space():
     Returns the hyperparameter search space for the specified model.
     """
     if MODEL_CHOICE == "svm":
-        return [Real(1e-3, 1.0, name='C', prior='log-uniform'), Real(1e-4, 1e-1, name='gamma', prior='log-uniform')]
+        return [
+            Real(1e-3, 1.0, name='C', prior='log-uniform'), 
+            Real(1e-4, 1e-1, name='gamma', prior='log-uniform')
+        ]
     elif MODEL_CHOICE == "xgb":
         return [
             Real(0.01, 0.3, name='learning_rate', prior='log-uniform'),
@@ -97,16 +100,32 @@ def main():
 
         for i, params in enumerate(proposals):
             params_file = iteration_dir / f"hyperparams_{i}.json"
-            params_dict = {"C": params[0], "gamma": params[1]} if MODEL_CHOICE == "svm" else params
+            if MODEL_CHOICE == "svm":
+                params_dict = {"C": params[0], "gamma": params[1]}
+            elif MODEL_CHOICE == "xgb":
+                params_dict = {
+                    "learning_rate": params[0],
+                    "n_estimators": params[1],
+                    "max_depth": params[2]
+                }
+            elif MODEL_CHOICE == "lgbm":
+                params_dict = {
+                    "learning_rate": params[0],
+                    "n_estimators": params[1],
+                    "num_leaves": params[2]
+                }
+            else:
+                raise ValueError(f"Unsupported MODEL_CHOICE: {MODEL_CHOICE}")
+            
             logger.debug(f"Writing hyperparameters file: {params_file} => {params_dict}")
             write_hyperparams_atomic(params_file, params_dict)
 
-        # TODO: Handle waiting for sparse order of results
+        # Wait for results
         for i in range(NUM_HYPERPARAM_SETS):
             result_file = iteration_dir / f"results_{i}.json"
             while not result_file.exists():
                 logger.debug(f"Waiting for result file: {result_file}")
-                time.sleep(10)
+                time.sleep(10)  # Poll every 10 seconds
 
         # Process results
         losses = []
@@ -119,7 +138,7 @@ def main():
                 if result["loss"] < best_metric:
                     best_metric = result["loss"]
                     best_model_path = result.get("model_path", None)
-                logger.info(f"Processed {result_file}: Loss={result['loss']}")
+                logger.info(f"Processed {result_file}: Loss={result['loss']}, Accuracy={result['accuracy']}")
             except Exception as e:
                 logger.error(f"Error processing result file {result_file}: {e}")
 
