@@ -101,6 +101,7 @@ def main():
             logger.debug(f"Writing hyperparameters file: {params_file} => {params_dict}")
             write_hyperparams_atomic(params_file, params_dict)
 
+        # TODO: Handle waiting for sparse order of results
         for i in range(NUM_HYPERPARAM_SETS):
             result_file = iteration_dir / f"results_{i}.json"
             while not result_file.exists():

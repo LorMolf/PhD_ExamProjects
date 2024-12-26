@@ -36,4 +36,6 @@ services:
           devices:
             - capabilities: [ gpu ]
               device_ids: [ "2" ]
-    restart: always
+      #mode: replicated
+      #replicas: 3  # Default number of independent workers
+    restart: on-failure

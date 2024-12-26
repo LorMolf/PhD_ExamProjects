@@ -27,6 +27,11 @@ from xgboost import XGBClassifier
 import xgboost as xgb
 from lightgbm import LGBMClassifier
 
+
+import fcntl
+import errno
+from contextlib import contextmanager
+
 SHARED_DIR = Path("/app/shared_volume")
 MODEL_CHOICE = os.environ.get("MODEL_CHOICE", "svm").lower()
 SEED = int(os.environ.get("SEED", "42"))
@@ -35,20 +40,50 @@ SEED = int(os.environ.get("SEED", "42"))
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
+
+@contextmanager
+def file_lock(lock_file):
+    """Context manager for file locking to ensure atomic operations."""
+    lock = open(lock_file, 'wb')
+    try:
+        fcntl.flock(lock.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+        yield True
+    except IOError as e:
+        if e.errno != errno.EAGAIN:
+            raise
+        yield False
+    finally:
+        fcntl.flock(lock.fileno(), fcntl.LOCK_UN)
+        lock.close()
+
 def find_unclaimed_hyperparams():
     """
-    Return the first hyperparams_*.json that doesn't have a matching results_*.json,
-    or None if none found.
+    Atomically find and claim an unclaimed hyperparameters file.
+    Returns (hp_file, lock_file) tuple if successful, (None, None) otherwise.
     """
     logger.debug("Searching for unclaimed hyperparameters files.")
+    
     for iteration_dir in sorted(SHARED_DIR.glob("iteration_*")):
         for hp_file in sorted(iteration_dir.glob("hyperparams_*.json")):
             result_file = iteration_dir / hp_file.name.replace("hyperparams", "results")
-            if not result_file.exists():
-                logger.debug(f"Found unclaimed hyperparameters file: {hp_file}")
-                return hp_file
-    logger.debug("No unclaimed hyperparameters files found.")
-    return None
+            lock_file = iteration_dir / f"{hp_file.stem}.lock"
+            
+            if result_file.exists():
+                continue
+                
+            try:
+                # Create lock file if it doesn't exist
+                lock_file.touch(exist_ok=True)
+                
+                with file_lock(lock_file) as acquired:
+                    if acquired and not result_file.exists():
+                        return hp_file, lock_file
+            except Exception as e:
+                logger.error(f"Error checking file {hp_file}: {e}")
+                continue
+    
+    return None, None
+
 
 def train_model(params, X_train, y_train, X_test, y_test):
     """
@@ -99,13 +134,14 @@ def train_model(params, X_train, y_train, X_test, y_test):
     return accuracy
 
 def main():
-    while True:
-        hp_file = find_unclaimed_hyperparams()
-        if not hp_file:
-            logger.debug("No available work. Retrying in 30 seconds...")
-            time.sleep(30)
-            continue
-
+    # Try to find and claim one job
+    hp_file, lock_file = find_unclaimed_hyperparams()
+    
+    if not hp_file:
+        logger.debug("No available work. Exiting with code 0.")
+        return 0  # Clean exit, no work found
+        
+    try:
         logger.info(f"Processing hyperparameters file: {hp_file}")
         with open(hp_file, "r") as f:
             params = json.load(f)
@@ -122,7 +158,22 @@ def main():
         with open(result_file, "w") as f:
             json.dump({"loss": loss, "accuracy": accuracy}, f)
         logger.info(f"Results saved to {result_file}: Loss={loss:.4f}, Accuracy={accuracy:.4f}")
-        break
+        
+        return 0  # Success
+        
+    except Exception as e:
+        logger.error(f"Error processing file: {e}")
+        return 1  # Error exit code
+        
+    finally:
+        # Clean up lock file
+        try:
+            if lock_file and lock_file.exists():
+                lock_file.unlink()
+        except Exception as e:
+            logger.error(f"Error cleaning up lock file: {e}")
+
 
 if __name__ == "__main__":
-    main()
+    exit_code = main()
+    exit(exit_code)

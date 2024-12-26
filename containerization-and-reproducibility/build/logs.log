@@ -4,7 +4,7 @@ DEPRECATED: The legacy builder is deprecated and will be removed in a future rel
             Install the buildx component to build images with BuildKit:
             https://docs.docker.com/go/buildx/
 
-Sending build context to Docker daemon  43.52kB
+Sending build context to Docker daemon  44.03kB
 Step 1/9 : FROM nvidia/cuda:12.2.0-runtime-ubuntu22.04
  ---> 5f87b1ee9f9a
 Step 2/9 : LABEL maintainer="disi-unibo-nlp"
@@ -26,19 +26,19 @@ Step 7/9 : RUN pip3 install --no-cache-dir -r /app/requirements.txt
  ---> Using cache
  ---> f5093998837d
 Step 8/9 : COPY src/manager.py /app/
- ---> c0518984f41e
+ ---> 382f9bffadec
 Step 9/9 : CMD ["python3", "manager.py"]
- ---> Running in 446e4bd8f247
-Removing intermediate container 446e4bd8f247
- ---> e4ff3b11586b
-Successfully built e4ff3b11586b
+ ---> Running in 764bb3b0385c
+Removing intermediate container 764bb3b0385c
+ ---> c3080967cba8
+Successfully built c3080967cba8
 Successfully tagged build_manager:latest
 Building worker
 DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
             Install the buildx component to build images with BuildKit:
             https://docs.docker.com/go/buildx/
 
-Sending build context to Docker daemon  45.06kB
+Sending build context to Docker daemon  45.57kB
 Step 1/9 : FROM nvidia/cuda:12.2.0-runtime-ubuntu22.04
  ---> 5f87b1ee9f9a
 Step 2/9 : LABEL maintainer="disi-unibo-nlp"
@@ -54,105 +54,105 @@ Step 5/9 : ENV NVIDIA_DRIVER_CAPABILITIES=compute,utility
  ---> Using cache
  ---> 9bd0c4f253cf
 Step 6/9 : COPY build/worker/requirements.txt /app/
- ---> 44923852a262
+ ---> 558e472ecc2c
 Step 7/9 : RUN pip3 install --no-cache-dir -r /app/requirements.txt
- ---> Running in 0395c4cc2e2e
+ ---> Running in 734b9c66b7ec
 Collecting scikit-learn==1.6.0
   Downloading scikit_learn-1.6.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (13.5 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 13.5/13.5 MB 33.0 MB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 13.5/13.5 MB 32.6 MB/s eta 0:00:00
 Collecting xgboost==2.1.3
   Downloading xgboost-2.1.3-py3-none-manylinux_2_28_x86_64.whl (153.9 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 153.9/153.9 MB 37.3 MB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 153.9/153.9 MB 44.9 MB/s eta 0:00:00
 Collecting lightgbm==4.5.0
   Downloading lightgbm-4.5.0-py3-none-manylinux_2_28_x86_64.whl (3.6 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.6/3.6 MB 32.4 MB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.6/3.6 MB 44.0 MB/s eta 0:00:00
 Collecting numpy==2.2.1
   Downloading numpy-2.2.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (16.4 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.4/16.4 MB 32.6 MB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.4/16.4 MB 42.3 MB/s eta 0:00:00
 Collecting pandas==2.2.3
   Downloading pandas-2.2.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (13.1 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 13.1/13.1 MB 34.7 MB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 13.1/13.1 MB 48.8 MB/s eta 0:00:00
 Collecting torch==2.5.1
   Downloading torch-2.5.1-cp310-cp310-manylinux1_x86_64.whl (906.4 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 906.4/906.4 MB 39.8 MB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 906.4/906.4 MB 40.2 MB/s eta 0:00:00
 Collecting scipy>=1.6.0
   Downloading scipy-1.14.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (41.2 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 41.2/41.2 MB 42.4 MB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 41.2/41.2 MB 47.4 MB/s eta 0:00:00
 Collecting joblib>=1.2.0
   Downloading joblib-1.4.2-py3-none-any.whl (301 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 301.8/301.8 KB 46.6 MB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 301.8/301.8 KB 38.2 MB/s eta 0:00:00
 Collecting threadpoolctl>=3.1.0
   Downloading threadpoolctl-3.5.0-py3-none-any.whl (18 kB)
 Collecting nvidia-nccl-cu12
   Downloading nvidia_nccl_cu12-2.23.4-py3-none-manylinux2014_x86_64.whl (199.0 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 199.0/199.0 MB 25.9 MB/s eta 0:00:00
-Collecting tzdata>=2022.7
-  Downloading tzdata-2024.2-py2.py3-none-any.whl (346 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 346.6/346.6 KB 25.1 MB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 199.0/199.0 MB 47.3 MB/s eta 0:00:00
 Collecting python-dateutil>=2.8.2
   Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 229.9/229.9 KB 32.3 MB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 229.9/229.9 KB 54.7 MB/s eta 0:00:00
 Collecting pytz>=2020.1
   Downloading pytz-2024.2-py2.py3-none-any.whl (508 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 508.0/508.0 KB 24.9 MB/s eta 0:00:00
-Collecting nvidia-curand-cu12==10.3.5.147
-  Downloading nvidia_curand_cu12-10.3.5.147-py3-none-manylinux2014_x86_64.whl (56.3 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 56.3/56.3 MB 30.2 MB/s eta 0:00:00
-Collecting nvidia-nvtx-cu12==12.4.127
-  Downloading nvidia_nvtx_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl (99 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 99.1/99.1 KB 121.9 MB/s eta 0:00:00
-Collecting nvidia-nvjitlink-cu12==12.4.127
-  Downloading nvidia_nvjitlink_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl (21.1 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 21.1/21.1 MB 32.4 MB/s eta 0:00:00
-Collecting nvidia-cuda-runtime-cu12==12.4.127
-  Downloading nvidia_cuda_runtime_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl (883 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 883.7/883.7 KB 32.4 MB/s eta 0:00:00
-Collecting nvidia-cusolver-cu12==11.6.1.9
-  Downloading nvidia_cusolver_cu12-11.6.1.9-py3-none-manylinux2014_x86_64.whl (127.9 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 127.9/127.9 MB 18.8 MB/s eta 0:00:00
-Collecting networkx
-  Downloading networkx-3.4.2-py3-none-any.whl (1.7 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.7/1.7 MB 20.7 MB/s eta 0:00:00
-Collecting nvidia-cusparse-cu12==12.3.1.170
-  Downloading nvidia_cusparse_cu12-12.3.1.170-py3-none-manylinux2014_x86_64.whl (207.5 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 207.5/207.5 MB 23.9 MB/s eta 0:00:00
-Collecting triton==3.1.0
-  Downloading triton-3.1.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (209.5 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 209.5/209.5 MB 26.6 MB/s eta 0:00:00
-Collecting nvidia-cuda-cupti-cu12==12.4.127
-  Downloading nvidia_cuda_cupti_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl (13.8 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 13.8/13.8 MB 28.6 MB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 508.0/508.0 KB 42.0 MB/s eta 0:00:00
+Collecting tzdata>=2022.7
+  Downloading tzdata-2024.2-py2.py3-none-any.whl (346 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 346.6/346.6 KB 46.7 MB/s eta 0:00:00
 Collecting nvidia-nccl-cu12
   Downloading nvidia_nccl_cu12-2.21.5-py3-none-manylinux2014_x86_64.whl (188.7 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 188.7/188.7 MB 20.9 MB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 188.7/188.7 MB 39.7 MB/s eta 0:00:00
+Collecting fsspec
+  Downloading fsspec-2024.12.0-py3-none-any.whl (183 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 183.9/183.9 KB 73.9 MB/s eta 0:00:00
+Collecting nvidia-cuda-runtime-cu12==12.4.127
+  Downloading nvidia_cuda_runtime_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl (883 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 883.7/883.7 KB 43.2 MB/s eta 0:00:00
+Collecting triton==3.1.0
+  Downloading triton-3.1.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (209.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 209.5/209.5 MB 32.4 MB/s eta 0:00:00
+Collecting jinja2
+  Downloading jinja2-3.1.5-py3-none-any.whl (134 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 134.6/134.6 KB 99.8 MB/s eta 0:00:00
+Collecting nvidia-cuda-cupti-cu12==12.4.127
+  Downloading nvidia_cuda_cupti_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl (13.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 13.8/13.8 MB 34.7 MB/s eta 0:00:00
+Collecting nvidia-cufft-cu12==11.2.1.3
+  Downloading nvidia_cufft_cu12-11.2.1.3-py3-none-manylinux2014_x86_64.whl (211.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 211.5/211.5 MB 49.5 MB/s eta 0:00:00
 Collecting sympy==1.13.1
   Downloading sympy-1.13.1-py3-none-any.whl (6.2 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.2/6.2 MB 22.1 MB/s eta 0:00:00
-Collecting nvidia-cuda-nvrtc-cu12==12.4.127
-  Downloading nvidia_cuda_nvrtc_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl (24.6 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 24.6/24.6 MB 26.9 MB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.2/6.2 MB 47.3 MB/s eta 0:00:00
+Collecting nvidia-cublas-cu12==12.4.5.8
+  Downloading nvidia_cublas_cu12-12.4.5.8-py3-none-manylinux2014_x86_64.whl (363.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 363.4/363.4 MB 32.3 MB/s eta 0:00:00
+Collecting nvidia-cusolver-cu12==11.6.1.9
+  Downloading nvidia_cusolver_cu12-11.6.1.9-py3-none-manylinux2014_x86_64.whl (127.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 127.9/127.9 MB 27.8 MB/s eta 0:00:00
 Collecting typing-extensions>=4.8.0
   Downloading typing_extensions-4.12.2-py3-none-any.whl (37 kB)
+Collecting nvidia-curand-cu12==10.3.5.147
+  Downloading nvidia_curand_cu12-10.3.5.147-py3-none-manylinux2014_x86_64.whl (56.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 56.3/56.3 MB 32.4 MB/s eta 0:00:00
+Collecting nvidia-nvtx-cu12==12.4.127
+  Downloading nvidia_nvtx_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl (99 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 99.1/99.1 KB 84.2 MB/s eta 0:00:00
+Collecting nvidia-cuda-nvrtc-cu12==12.4.127
+  Downloading nvidia_cuda_nvrtc_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl (24.6 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 24.6/24.6 MB 25.9 MB/s eta 0:00:00
+Collecting networkx
+  Downloading networkx-3.4.2-py3-none-any.whl (1.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.7/1.7 MB 28.3 MB/s eta 0:00:00
 Collecting filelock
   Downloading filelock-3.16.1-py3-none-any.whl (16 kB)
 Collecting nvidia-cudnn-cu12==9.1.0.70
   Downloading nvidia_cudnn_cu12-9.1.0.70-py3-none-manylinux2014_x86_64.whl (664.8 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 664.8/664.8 MB 46.3 MB/s eta 0:00:00
-Collecting fsspec
-  Downloading fsspec-2024.12.0-py3-none-any.whl (183 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 183.9/183.9 KB 59.1 MB/s eta 0:00:00
-Collecting nvidia-cublas-cu12==12.4.5.8
-  Downloading nvidia_cublas_cu12-12.4.5.8-py3-none-manylinux2014_x86_64.whl (363.4 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 363.4/363.4 MB 41.2 MB/s eta 0:00:00
-Collecting nvidia-cufft-cu12==11.2.1.3
-  Downloading nvidia_cufft_cu12-11.2.1.3-py3-none-manylinux2014_x86_64.whl (211.5 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 211.5/211.5 MB 54.0 MB/s eta 0:00:00
-Collecting jinja2
-  Downloading jinja2-3.1.5-py3-none-any.whl (134 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 134.6/134.6 KB 42.1 MB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 664.8/664.8 MB 47.4 MB/s eta 0:00:00
+Collecting nvidia-nvjitlink-cu12==12.4.127
+  Downloading nvidia_nvjitlink_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl (21.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 21.1/21.1 MB 48.5 MB/s eta 0:00:00
+Collecting nvidia-cusparse-cu12==12.3.1.170
+  Downloading nvidia_cusparse_cu12-12.3.1.170-py3-none-manylinux2014_x86_64.whl (207.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 207.5/207.5 MB 21.0 MB/s eta 0:00:00
 Collecting mpmath<1.4,>=1.1.0
   Downloading mpmath-1.3.0-py3-none-any.whl (536 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 536.2/536.2 KB 49.0 MB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 536.2/536.2 KB 25.3 MB/s eta 0:00:00
 Collecting six>=1.5
   Downloading six-1.17.0-py2.py3-none-any.whl (11 kB)
 Collecting MarkupSafe>=2.0
@@ -160,212 +160,115 @@ Collecting MarkupSafe>=2.0
 Installing collected packages: pytz, mpmath, tzdata, typing-extensions, threadpoolctl, sympy, six, nvidia-nvtx-cu12, nvidia-nvjitlink-cu12, nvidia-nccl-cu12, nvidia-curand-cu12, nvidia-cufft-cu12, nvidia-cuda-runtime-cu12, nvidia-cuda-nvrtc-cu12, nvidia-cuda-cupti-cu12, nvidia-cublas-cu12, numpy, networkx, MarkupSafe, joblib, fsspec, filelock, triton, scipy, python-dateutil, nvidia-cusparse-cu12, nvidia-cudnn-cu12, jinja2, xgboost, scikit-learn, pandas, nvidia-cusolver-cu12, lightgbm, torch
 Successfully installed MarkupSafe-3.0.2 filelock-3.16.1 fsspec-2024.12.0 jinja2-3.1.5 joblib-1.4.2 lightgbm-4.5.0 mpmath-1.3.0 networkx-3.4.2 numpy-2.2.1 nvidia-cublas-cu12-12.4.5.8 nvidia-cuda-cupti-cu12-12.4.127 nvidia-cuda-nvrtc-cu12-12.4.127 nvidia-cuda-runtime-cu12-12.4.127 nvidia-cudnn-cu12-9.1.0.70 nvidia-cufft-cu12-11.2.1.3 nvidia-curand-cu12-10.3.5.147 nvidia-cusolver-cu12-11.6.1.9 nvidia-cusparse-cu12-12.3.1.170 nvidia-nccl-cu12-2.21.5 nvidia-nvjitlink-cu12-12.4.127 nvidia-nvtx-cu12-12.4.127 pandas-2.2.3 python-dateutil-2.9.0.post0 pytz-2024.2 scikit-learn-1.6.0 scipy-1.14.1 six-1.17.0 sympy-1.13.1 threadpoolctl-3.5.0 torch-2.5.1 triton-3.1.0 typing-extensions-4.12.2 tzdata-2024.2 xgboost-2.1.3
 [91mWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
-[0mRemoving intermediate container 0395c4cc2e2e
- ---> 4f092c5ceed5
+[0mRemoving intermediate container 734b9c66b7ec
+ ---> 760bab878d98
 Step 8/9 : COPY src/train.py /app/
- ---> fb1132dfae9f
+ ---> 9fa07943d79b
 Step 9/9 : CMD ["python3", "train.py"]
- ---> Running in fe9877457d3a
-Removing intermediate container fe9877457d3a
- ---> 2570f99595ae
-Successfully built 2570f99595ae
+ ---> Running in 55d9e1e7f9ba
+Removing intermediate container 55d9e1e7f9ba
+ ---> 06161cc97499
+Successfully built 06161cc97499
 Successfully tagged build_worker:latest
 Creating build_manager_1 ... 
 Creating build_worker_1  ... 
 Creating build_worker_2  ... 
 Creating build_worker_3  ... 
-Creating build_manager_1 ... done
-Creating build_worker_3  ... done
-Creating build_worker_1  ... done
 Creating build_worker_2  ... done
-Attaching to build_manager_1, build_worker_3, build_worker_1, build_worker_2
+Creating build_manager_1 ... done
+Creating build_worker_1  ... done
+Creating build_worker_3  ... done
+Attaching to build_manager_1, build_worker_2, build_worker_1, build_worker_3
 [36mmanager_1  |[0m 
 [33mworker_1   |[0m 
 [36mmanager_1  |[0m ==========
 [32mworker_2   |[0m 
 [36mmanager_1  |[0m == CUDA ==
-[33mworker_1   |[0m ==========
 [35mworker_3   |[0m 
-[33mworker_1   |[0m == CUDA ==
-[35mworker_3   |[0m ==========
 [36mmanager_1  |[0m ==========
-[32mworker_2   |[0m ==========
+[33mworker_1   |[0m ==========
 [36mmanager_1  |[0m 
 [36mmanager_1  |[0m CUDA Version 12.2.0
-[35mworker_3   |[0m == CUDA ==
+[33mworker_1   |[0m == CUDA ==
+[35mworker_3   |[0m ==========
+[32mworker_2   |[0m ==========
 [32mworker_2   |[0m == CUDA ==
-[33mworker_1   |[0m ==========
 [36mmanager_1  |[0m 
 [36mmanager_1  |[0m Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-[33mworker_1   |[0m 
-[33mworker_1   |[0m CUDA Version 12.2.0
-[32mworker_2   |[0m ==========
-[33mworker_1   |[0m 
-[33mworker_1   |[0m Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-[32mworker_2   |[0m 
-[32mworker_2   |[0m CUDA Version 12.2.0
-[33mworker_1   |[0m 
-[33mworker_1   |[0m This container image and its contents are governed by the NVIDIA Deep Learning Container License.
-[33mworker_1   |[0m By pulling and using the container, you accept the terms and conditions of this license:
-[33mworker_1   |[0m https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
-[33mworker_1   |[0m 
-[33mworker_1   |[0m A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
-[32mworker_2   |[0m 
-[32mworker_2   |[0m Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+[35mworker_3   |[0m == CUDA ==
+[33mworker_1   |[0m ==========
 [36mmanager_1  |[0m 
 [36mmanager_1  |[0m This container image and its contents are governed by the NVIDIA Deep Learning Container License.
 [36mmanager_1  |[0m By pulling and using the container, you accept the terms and conditions of this license:
 [36mmanager_1  |[0m https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
 [36mmanager_1  |[0m 
 [36mmanager_1  |[0m A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+[33mworker_1   |[0m 
+[33mworker_1   |[0m CUDA Version 12.2.0
 [36mmanager_1  |[0m 
+[33mworker_1   |[0m 
+[33mworker_1   |[0m Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+[33mworker_1   |[0m 
+[33mworker_1   |[0m This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+[33mworker_1   |[0m By pulling and using the container, you accept the terms and conditions of this license:
+[33mworker_1   |[0m https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+[33mworker_1   |[0m 
+[33mworker_1   |[0m A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
 [35mworker_3   |[0m ==========
-[32mworker_2   |[0m 
-[32mworker_2   |[0m This container image and its contents are governed by the NVIDIA Deep Learning Container License.
-[32mworker_2   |[0m By pulling and using the container, you accept the terms and conditions of this license:
-[32mworker_2   |[0m https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
-[32mworker_2   |[0m 
-[32mworker_2   |[0m A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
 [35mworker_3   |[0m 
 [35mworker_3   |[0m CUDA Version 12.2.0
+[32mworker_2   |[0m ==========
 [35mworker_3   |[0m 
 [35mworker_3   |[0m Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+[32mworker_2   |[0m 
 [35mworker_3   |[0m 
 [35mworker_3   |[0m This container image and its contents are governed by the NVIDIA Deep Learning Container License.
 [35mworker_3   |[0m By pulling and using the container, you accept the terms and conditions of this license:
 [35mworker_3   |[0m https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
 [35mworker_3   |[0m 
 [35mworker_3   |[0m A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
-[35mworker_3   |[0m 
+[32mworker_2   |[0m CUDA Version 12.2.0
 [32mworker_2   |[0m 
+[32mworker_2   |[0m Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+[32mworker_2   |[0m 
+[32mworker_2   |[0m This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+[32mworker_2   |[0m By pulling and using the container, you accept the terms and conditions of this license:
+[32mworker_2   |[0m https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+[32mworker_2   |[0m 
+[32mworker_2   |[0m A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+[32mworker_2   |[0m 
+[35mworker_3   |[0m 
 [33mworker_1   |[0m 
-[36mmanager_1  |[0m 2024-12-24 18:19:20,325 - INFO - Starting manager.py
-[36mmanager_1  |[0m 2024-12-24 18:19:20,325 - INFO - Experiment directory created: /app/shared_volume/experiment_20241224_181920
-[36mmanager_1  |[0m 2024-12-24 18:19:20,331 - INFO - Starting iteration 1/3
-[36mmanager_1  |[0m 2024-12-24 18:19:20,335 - DEBUG - Hyperparameter proposals for iteration 0: [[0.040343472274915984, np.int64(232), np.int64(9)], [0.029273475807775187, np.int64(218), np.int64(5)], [0.032988922734276574, np.int64(235), np.int64(4)], [0.0905454692460524, np.int64(187), np.int64(3)], [0.018325318897836135, np.int64(208), np.int64(3)]]
-[36mmanager_1  |[0m 2024-12-24 18:19:20,335 - DEBUG - Writing hyperparameters file: /app/shared_volume/experiment_20241224_181920/iteration_0/hyperparams_0.json => [0.040343472274915984, np.int64(232), np.int64(9)]
-[36mmanager_1  |[0m 2024-12-24 18:19:20,335 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/experiment_20241224_181920/iteration_0/hyperparams_0.json
-[36mmanager_1  |[0m 2024-12-24 18:19:20,335 - DEBUG - Writing hyperparameters file: /app/shared_volume/experiment_20241224_181920/iteration_0/hyperparams_1.json => [0.029273475807775187, np.int64(218), np.int64(5)]
-[36mmanager_1  |[0m 2024-12-24 18:19:20,335 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/experiment_20241224_181920/iteration_0/hyperparams_1.json
-[36mmanager_1  |[0m 2024-12-24 18:19:20,335 - DEBUG - Writing hyperparameters file: /app/shared_volume/experiment_20241224_181920/iteration_0/hyperparams_2.json => [0.032988922734276574, np.int64(235), np.int64(4)]
-[36mmanager_1  |[0m 2024-12-24 18:19:20,335 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/experiment_20241224_181920/iteration_0/hyperparams_2.json
-[36mmanager_1  |[0m 2024-12-24 18:19:20,336 - DEBUG - Writing hyperparameters file: /app/shared_volume/experiment_20241224_181920/iteration_0/hyperparams_3.json => [0.0905454692460524, np.int64(187), np.int64(3)]
-[36mmanager_1  |[0m 2024-12-24 18:19:20,336 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/experiment_20241224_181920/iteration_0/hyperparams_3.json
-[36mmanager_1  |[0m 2024-12-24 18:19:20,336 - DEBUG - Writing hyperparameters file: /app/shared_volume/experiment_20241224_181920/iteration_0/hyperparams_4.json => [0.018325318897836135, np.int64(208), np.int64(3)]
-[36mmanager_1  |[0m 2024-12-24 18:19:20,336 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/experiment_20241224_181920/iteration_0/hyperparams_4.json
-[36mmanager_1  |[0m 2024-12-24 18:19:20,336 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241224_181920/iteration_0/results_0.json
-[35mworker_3   |[0m 2024-12-24 18:19:21,741 - DEBUG - Searching for unclaimed hyperparameters files.
-[35mworker_3   |[0m 2024-12-24 18:19:21,742 - DEBUG - No unclaimed hyperparameters files found.
-[35mworker_3   |[0m 2024-12-24 18:19:21,742 - DEBUG - No available work. Retrying in 30 seconds...
-[32mworker_2   |[0m 2024-12-24 18:19:21,802 - DEBUG - Searching for unclaimed hyperparameters files.
-[32mworker_2   |[0m 2024-12-24 18:19:21,803 - DEBUG - No unclaimed hyperparameters files found.
-[32mworker_2   |[0m 2024-12-24 18:19:21,803 - DEBUG - No available work. Retrying in 30 seconds...
-[33mworker_1   |[0m 2024-12-24 18:19:21,846 - DEBUG - Searching for unclaimed hyperparameters files.
-[33mworker_1   |[0m 2024-12-24 18:19:21,847 - DEBUG - No unclaimed hyperparameters files found.
-[33mworker_1   |[0m 2024-12-24 18:19:21,847 - DEBUG - No available work. Retrying in 30 seconds...
-[36mmanager_1  |[0m 2024-12-24 18:19:30,346 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241224_181920/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-24 18:19:40,357 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241224_181920/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-24 18:19:50,367 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241224_181920/iteration_0/results_0.json
-[35mworker_3   |[0m 2024-12-24 18:19:51,772 - DEBUG - Searching for unclaimed hyperparameters files.
-[35mworker_3   |[0m 2024-12-24 18:19:51,772 - DEBUG - No unclaimed hyperparameters files found.
-[35mworker_3   |[0m 2024-12-24 18:19:51,772 - DEBUG - No available work. Retrying in 30 seconds...
-[32mworker_2   |[0m 2024-12-24 18:19:51,824 - DEBUG - Searching for unclaimed hyperparameters files.
-[32mworker_2   |[0m 2024-12-24 18:19:51,824 - DEBUG - No unclaimed hyperparameters files found.
-[32mworker_2   |[0m 2024-12-24 18:19:51,824 - DEBUG - No available work. Retrying in 30 seconds...
-[33mworker_1   |[0m 2024-12-24 18:19:51,877 - DEBUG - Searching for unclaimed hyperparameters files.
-[33mworker_1   |[0m 2024-12-24 18:19:51,877 - DEBUG - No unclaimed hyperparameters files found.
-[33mworker_1   |[0m 2024-12-24 18:19:51,877 - DEBUG - No available work. Retrying in 30 seconds...
-[36mmanager_1  |[0m 2024-12-24 18:20:00,377 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241224_181920/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-24 18:20:10,385 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241224_181920/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-24 18:20:20,396 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241224_181920/iteration_0/results_0.json
-[35mworker_3   |[0m 2024-12-24 18:20:21,803 - DEBUG - Searching for unclaimed hyperparameters files.
-[35mworker_3   |[0m 2024-12-24 18:20:21,804 - DEBUG - No unclaimed hyperparameters files found.
-[35mworker_3   |[0m 2024-12-24 18:20:21,804 - DEBUG - No available work. Retrying in 30 seconds...
-[32mworker_2   |[0m 2024-12-24 18:20:21,854 - DEBUG - Searching for unclaimed hyperparameters files.
-[32mworker_2   |[0m 2024-12-24 18:20:21,854 - DEBUG - No unclaimed hyperparameters files found.
-[32mworker_2   |[0m 2024-12-24 18:20:21,854 - DEBUG - No available work. Retrying in 30 seconds...
-[33mworker_1   |[0m 2024-12-24 18:20:21,907 - DEBUG - Searching for unclaimed hyperparameters files.
-[33mworker_1   |[0m 2024-12-24 18:20:21,908 - DEBUG - No unclaimed hyperparameters files found.
-[33mworker_1   |[0m 2024-12-24 18:20:21,908 - DEBUG - No available work. Retrying in 30 seconds...
-[36mmanager_1  |[0m 2024-12-24 18:20:30,405 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241224_181920/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-24 18:20:40,411 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241224_181920/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-24 18:20:50,421 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241224_181920/iteration_0/results_0.json
-[35mworker_3   |[0m 2024-12-24 18:20:51,825 - DEBUG - Searching for unclaimed hyperparameters files.
-[35mworker_3   |[0m 2024-12-24 18:20:51,825 - DEBUG - No unclaimed hyperparameters files found.
-[35mworker_3   |[0m 2024-12-24 18:20:51,825 - DEBUG - No available work. Retrying in 30 seconds...
-[32mworker_2   |[0m 2024-12-24 18:20:51,881 - DEBUG - Searching for unclaimed hyperparameters files.
-[32mworker_2   |[0m 2024-12-24 18:20:51,881 - DEBUG - No unclaimed hyperparameters files found.
-[32mworker_2   |[0m 2024-12-24 18:20:51,881 - DEBUG - No available work. Retrying in 30 seconds...
-[33mworker_1   |[0m 2024-12-24 18:20:51,938 - DEBUG - Searching for unclaimed hyperparameters files.
-[33mworker_1   |[0m 2024-12-24 18:20:51,938 - DEBUG - No unclaimed hyperparameters files found.
-[33mworker_1   |[0m 2024-12-24 18:20:51,938 - DEBUG - No available work. Retrying in 30 seconds...
-[36mmanager_1  |[0m 2024-12-24 18:21:00,432 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241224_181920/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-24 18:21:10,441 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241224_181920/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-24 18:21:20,451 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241224_181920/iteration_0/results_0.json
-[35mworker_3   |[0m 2024-12-24 18:21:21,856 - DEBUG - Searching for unclaimed hyperparameters files.
-[35mworker_3   |[0m 2024-12-24 18:21:21,856 - DEBUG - No unclaimed hyperparameters files found.
-[35mworker_3   |[0m 2024-12-24 18:21:21,856 - DEBUG - No available work. Retrying in 30 seconds...
-[32mworker_2   |[0m 2024-12-24 18:21:21,911 - DEBUG - Searching for unclaimed hyperparameters files.
-[32mworker_2   |[0m 2024-12-24 18:21:21,912 - DEBUG - No unclaimed hyperparameters files found.
-[32mworker_2   |[0m 2024-12-24 18:21:21,912 - DEBUG - No available work. Retrying in 30 seconds...
-[33mworker_1   |[0m 2024-12-24 18:21:21,968 - DEBUG - Searching for unclaimed hyperparameters files.
-[33mworker_1   |[0m 2024-12-24 18:21:21,969 - DEBUG - No unclaimed hyperparameters files found.
-[33mworker_1   |[0m 2024-12-24 18:21:21,969 - DEBUG - No available work. Retrying in 30 seconds...
-[36mmanager_1  |[0m 2024-12-24 18:21:30,462 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241224_181920/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-24 18:21:40,469 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241224_181920/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-24 18:21:50,479 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241224_181920/iteration_0/results_0.json
-[35mworker_3   |[0m 2024-12-24 18:21:51,886 - DEBUG - Searching for unclaimed hyperparameters files.
-[35mworker_3   |[0m 2024-12-24 18:21:51,887 - DEBUG - No unclaimed hyperparameters files found.
-[35mworker_3   |[0m 2024-12-24 18:21:51,887 - DEBUG - No available work. Retrying in 30 seconds...
-[32mworker_2   |[0m 2024-12-24 18:21:51,923 - DEBUG - Searching for unclaimed hyperparameters files.
-[32mworker_2   |[0m 2024-12-24 18:21:51,923 - DEBUG - No unclaimed hyperparameters files found.
-[32mworker_2   |[0m 2024-12-24 18:21:51,924 - DEBUG - No available work. Retrying in 30 seconds...
-[33mworker_1   |[0m 2024-12-24 18:21:51,977 - DEBUG - Searching for unclaimed hyperparameters files.
-[33mworker_1   |[0m 2024-12-24 18:21:51,977 - DEBUG - No unclaimed hyperparameters files found.
-[33mworker_1   |[0m 2024-12-24 18:21:51,978 - DEBUG - No available work. Retrying in 30 seconds...
-[36mmanager_1  |[0m 2024-12-24 18:22:00,490 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241224_181920/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-24 18:22:10,497 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241224_181920/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-24 18:22:20,505 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241224_181920/iteration_0/results_0.json
-[35mworker_3   |[0m 2024-12-24 18:22:21,909 - DEBUG - Searching for unclaimed hyperparameters files.
-[35mworker_3   |[0m 2024-12-24 18:22:21,909 - DEBUG - No unclaimed hyperparameters files found.
-[35mworker_3   |[0m 2024-12-24 18:22:21,909 - DEBUG - No available work. Retrying in 30 seconds...
-[32mworker_2   |[0m 2024-12-24 18:22:21,954 - DEBUG - Searching for unclaimed hyperparameters files.
-[32mworker_2   |[0m 2024-12-24 18:22:21,954 - DEBUG - No unclaimed hyperparameters files found.
-[32mworker_2   |[0m 2024-12-24 18:22:21,954 - DEBUG - No available work. Retrying in 30 seconds...
-[33mworker_1   |[0m 2024-12-24 18:22:22,008 - DEBUG - Searching for unclaimed hyperparameters files.
-[33mworker_1   |[0m 2024-12-24 18:22:22,008 - DEBUG - No unclaimed hyperparameters files found.
-[33mworker_1   |[0m 2024-12-24 18:22:22,008 - DEBUG - No available work. Retrying in 30 seconds...
-[36mmanager_1  |[0m 2024-12-24 18:22:30,515 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241224_181920/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-24 18:22:40,526 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241224_181920/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-24 18:22:50,536 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241224_181920/iteration_0/results_0.json
-[35mworker_3   |[0m 2024-12-24 18:22:51,914 - DEBUG - Searching for unclaimed hyperparameters files.
-[35mworker_3   |[0m 2024-12-24 18:22:51,915 - DEBUG - No unclaimed hyperparameters files found.
-[35mworker_3   |[0m 2024-12-24 18:22:51,915 - DEBUG - No available work. Retrying in 30 seconds...
-[32mworker_2   |[0m 2024-12-24 18:22:51,984 - DEBUG - Searching for unclaimed hyperparameters files.
-[32mworker_2   |[0m 2024-12-24 18:22:51,985 - DEBUG - No unclaimed hyperparameters files found.
-[32mworker_2   |[0m 2024-12-24 18:22:51,985 - DEBUG - No available work. Retrying in 30 seconds...
-[33mworker_1   |[0m 2024-12-24 18:22:52,037 - DEBUG - Searching for unclaimed hyperparameters files.
-[33mworker_1   |[0m 2024-12-24 18:22:52,037 - DEBUG - No unclaimed hyperparameters files found.
-[33mworker_1   |[0m 2024-12-24 18:22:52,037 - DEBUG - No available work. Retrying in 30 seconds...
-[36mmanager_1  |[0m 2024-12-24 18:23:00,545 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241224_181920/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-24 18:23:10,553 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241224_181920/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-24 18:23:20,564 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241224_181920/iteration_0/results_0.json
-[35mworker_3   |[0m 2024-12-24 18:23:21,941 - DEBUG - Searching for unclaimed hyperparameters files.
-[35mworker_3   |[0m 2024-12-24 18:23:21,941 - DEBUG - No unclaimed hyperparameters files found.
-[35mworker_3   |[0m 2024-12-24 18:23:21,941 - DEBUG - No available work. Retrying in 30 seconds...
-[32mworker_2   |[0m 2024-12-24 18:23:22,015 - DEBUG - Searching for unclaimed hyperparameters files.
-[32mworker_2   |[0m 2024-12-24 18:23:22,015 - DEBUG - No unclaimed hyperparameters files found.
-[32mworker_2   |[0m 2024-12-24 18:23:22,015 - DEBUG - No available work. Retrying in 30 seconds...
-[33mworker_1   |[0m 2024-12-24 18:23:22,055 - DEBUG - Searching for unclaimed hyperparameters files.
-[33mworker_1   |[0m 2024-12-24 18:23:22,055 - DEBUG - No unclaimed hyperparameters files found.
-[33mworker_1   |[0m 2024-12-24 18:23:22,055 - DEBUG - No available work. Retrying in 30 seconds...
-[36mmanager_1  |[0m 2024-12-24 18:23:30,569 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241224_181920/iteration_0/results_0.json
-Stopping build_worker_2  ... 
-Stopping build_worker_3  ... 
-Stopping build_worker_1  ... 
+[36mmanager_1  |[0m 2024-12-26 08:45:35,415 - INFO - Starting manager.py
+[36mmanager_1  |[0m 2024-12-26 08:45:35,415 - INFO - Experiment directory created: /app/shared_volume/experiment_20241226_084535
+[36mmanager_1  |[0m 2024-12-26 08:45:35,421 - INFO - Starting iteration 1/3
+[36mmanager_1  |[0m 2024-12-26 08:45:35,425 - DEBUG - Hyperparameter proposals for iteration 0: [[0.040343472274915984, np.int64(232), np.int64(9)], [0.029273475807775187, np.int64(218), np.int64(5)], [0.032988922734276574, np.int64(235), np.int64(4)], [0.0905454692460524, np.int64(187), np.int64(3)], [0.018325318897836135, np.int64(208), np.int64(3)]]
+[36mmanager_1  |[0m 2024-12-26 08:45:35,425 - DEBUG - Writing hyperparameters file: /app/shared_volume/experiment_20241226_084535/iteration_0/hyperparams_0.json => [0.040343472274915984, np.int64(232), np.int64(9)]
+[36mmanager_1  |[0m 2024-12-26 08:45:35,425 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/experiment_20241226_084535/iteration_0/hyperparams_0.json
+[36mmanager_1  |[0m 2024-12-26 08:45:35,425 - DEBUG - Writing hyperparameters file: /app/shared_volume/experiment_20241226_084535/iteration_0/hyperparams_1.json => [0.029273475807775187, np.int64(218), np.int64(5)]
+[36mmanager_1  |[0m 2024-12-26 08:45:35,425 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/experiment_20241226_084535/iteration_0/hyperparams_1.json
+[36mmanager_1  |[0m 2024-12-26 08:45:35,425 - DEBUG - Writing hyperparameters file: /app/shared_volume/experiment_20241226_084535/iteration_0/hyperparams_2.json => [0.032988922734276574, np.int64(235), np.int64(4)]
+[36mmanager_1  |[0m 2024-12-26 08:45:35,425 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/experiment_20241226_084535/iteration_0/hyperparams_2.json
+[36mmanager_1  |[0m 2024-12-26 08:45:35,425 - DEBUG - Writing hyperparameters file: /app/shared_volume/experiment_20241226_084535/iteration_0/hyperparams_3.json => [0.0905454692460524, np.int64(187), np.int64(3)]
+[36mmanager_1  |[0m 2024-12-26 08:45:35,426 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/experiment_20241226_084535/iteration_0/hyperparams_3.json
+[36mmanager_1  |[0m 2024-12-26 08:45:35,426 - DEBUG - Writing hyperparameters file: /app/shared_volume/experiment_20241226_084535/iteration_0/hyperparams_4.json => [0.018325318897836135, np.int64(208), np.int64(3)]
+[36mmanager_1  |[0m 2024-12-26 08:45:35,426 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/experiment_20241226_084535/iteration_0/hyperparams_4.json
+[36mmanager_1  |[0m 2024-12-26 08:45:35,426 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241226_084535/iteration_0/results_0.json
+[32mworker_2   |[0m 2024-12-26 08:45:36,416 - DEBUG - Searching for unclaimed hyperparameters files.
+[32mworker_2   |[0m 2024-12-26 08:45:36,416 - DEBUG - No available work. Exiting with code 0.
+[35mworker_3   |[0m 2024-12-26 08:45:36,646 - DEBUG - Searching for unclaimed hyperparameters files.
+[35mworker_3   |[0m 2024-12-26 08:45:36,646 - DEBUG - No available work. Exiting with code 0.
+[33mworker_1   |[0m 2024-12-26 08:45:36,764 - DEBUG - Searching for unclaimed hyperparameters files.
+[33mworker_1   |[0m 2024-12-26 08:45:36,764 - DEBUG - No available work. Exiting with code 0.
+[32mbuild_worker_2 exited with code 0
+[0m[35mbuild_worker_3 exited with code 0
+[0m[33mbuild_worker_1 exited with code 0
+[0m[36mmanager_1  |[0m 2024-12-26 08:45:45,436 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241226_084535/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 08:45:55,446 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241226_084535/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 08:46:05,457 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241226_084535/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 08:46:15,467 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241226_084535/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 08:46:25,478 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241226_084535/iteration_0/results_0.json
+[36mmanager_1  |[0m 2024-12-26 08:46:35,488 - DEBUG - Waiting for result file: /app/shared_volume/experiment_20241226_084535/iteration_0/results_0.json
 Stopping build_manager_1 ... 
-Stopping build_worker_1  ... done
 Stopping build_manager_1 ... done
-Stopping build_worker_2  ... done
-Stopping build_worker_3  ... done
 Gracefully stopping... (press Ctrl+C again to force)
