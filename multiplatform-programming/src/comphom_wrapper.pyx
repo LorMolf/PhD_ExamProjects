@@ -106,34 +106,47 @@ cdef class MatrixWrapper:
             return self.c_matrix.get_num_cols()
         return 0
 
-    def nf_smith(self):
-        """Compute Smith Normal Form of the matrix"""
+    @staticmethod
+    cdef create_from_matrix(matrix* m):
+        # Create a MatrixWrapper instance from a C++ matrix pointer
+        cdef MatrixWrapper wrapper = MatrixWrapper.__new__(MatrixWrapper)
+        wrapper.c_matrix = m
+        return wrapper
+
+    cpdef nf_smith(self):
+        cdef size_t rows
+        cdef size_t cols
+        cdef matrix snf_res
+        cdef matrix* snf_matrix = NULL
         cdef MatrixWrapper wrapper
-        cdef size_t rows, cols
-        
+
         if self.c_matrix == NULL:
             print("Null matrix pointer")
             return None
-            
+
         try:
             rows = self.c_matrix.get_num_rows()
             cols = self.c_matrix.get_num_cols()
             if rows == 0 or cols == 0:
                 print(f"Invalid matrix dimensions: {rows}x{cols}")
                 return None
-                
+
             print(f"Computing SNF for {rows}x{cols} matrix...")
-            
-            # Create new wrapper and assign SNF result
-            wrapper = MatrixWrapper([], [])
-            wrapper.c_matrix = new matrix(self.c_matrix.nf_smith())
-            
-            if wrapper.c_matrix == NULL:
-                print("Failed to create result matrix")
-                return None
-                
+            #self.c_matrix.print()
+
+            # Call nf_smith in C++ (returns by value)
+            snf_res = self.c_matrix.nf_smith()
+
+            # Allocate a new matrix from the result
+            snf_matrix = new matrix(snf_res)
+
+            print("SNF computation completed")
+            #snf_matrix.print()
+
+            # Convert the raw pointer to a MatrixWrapper
+            wrapper = MatrixWrapper.create_from_matrix(snf_matrix)
             return wrapper
-            
+
         except Exception as e:
             print(f"SNF computation failed: {str(e)}")
             return None
@@ -162,11 +175,8 @@ def py_process_file(filename):
     return [[list(s.vertices) for s in simplex_list] for simplex_list in result]
 
 def py_find_generators(chains):
-    print(f"input")
     cdef vector[chain] c_chains = pylist_to_vector_chain(chains)
-    print(f"cch")
     cdef vector[simplex] generators = find_generators(c_chains)
-    print(f"GENs")
     return [list(g.vertices) for g in generators]
 
 def py_create_matrix(generators, boundaries):

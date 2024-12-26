@@ -21,6 +21,6 @@ RUN apt-get update -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN pip3 install --no-cache-dir Cython==3.0.11
+RUN pip3 install --no-cache-dir Cython==3.0.11 tqdm==4.67.1
 
 ENV DEBIAN_FRONTEND=dialog

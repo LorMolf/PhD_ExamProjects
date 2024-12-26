@@ -1,4 +1,5 @@
 from comphom_wrapper import py_process_file, py_find_generators, py_create_matrix
+from tqdm import tqdm
 import os
 
 def compute_boundary(simplex):
@@ -46,7 +47,6 @@ def process_triangulation(triangulation):
 
     result = "("
     
-    print(f"MAX DIM: {max_dim}")
     for dim in range(max_dim):
         try:
             generators = py_find_generators(boundaries)
@@ -70,7 +70,20 @@ def process_triangulation(triangulation):
                 continue
                 
             print(f"Processing matrix {rows}x{cols} for dimension {dim}")
+            #print("Input matrix:")
+            #matrix_wrapper.print()
+            
+            print("Computing Smith Normal Form...")
             matrix_snf = matrix_wrapper.nf_smith()
+            
+            if matrix_snf is None:
+                print(f"Failed to compute Smith Normal Form for dimension {dim}")
+                result += "0,"
+                continue
+                
+            print("Smith Normal Form computed successfully")
+            #print("Result matrix:")
+            #matrix_snf.print()
             
             if matrix_snf is None:
                 print("Failed to compute Smith Normal Form")
@@ -113,7 +126,9 @@ def process_triangulation(triangulation):
                 boundaries.extend(boundary)
         
         except Exception as e:
-            print(f"Error in dimension {dim}: {str(e)}")
+            print(f"Error processing dimension {dim}: {e}")
+            import traceback
+            traceback.print_exc()
             result += "0,"
             continue
     
@@ -131,7 +146,6 @@ def test():
     # Process the input file
     print(f"Processing input file: {input_file}")
     data = py_process_file(input_file)
-    #print("Processed data:", data)
     
     # Open output file
     try:
@@ -144,11 +158,7 @@ def test():
             print("Computing...")
             
             dots = 0
-            for triangulation in data:
-                print("***")
-                print("Triangulation:")
-                print(triangulation)
-                print("**")
+            for triangulation in tqdm(data, desc="Computing homology groups"):
                 if not triangulation:
                     print("Warning: Detected empty triangulation. Ignoring...\n")
                     continue
