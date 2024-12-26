@@ -7,8 +7,6 @@ Worker script that:
    on the Breast Cancer dataset (via sklearn).
 3. Outputs results_*.json with "loss" = 1 - accuracy, "model_path", "training_time", and "worker_id".
 4. Exits after processing one set.
-
-If you scale the worker service, multiple containers can pick up multiple hyperparam sets in parallel.
 """
 
 import os
@@ -17,18 +15,21 @@ import json
 import logging
 import uuid
 from pathlib import Path
+
 from sklearn.datasets import load_breast_cancer
 from sklearn.model_selection import train_test_split
 import xgboost as xgb
 from sklearn.svm import SVC
 from lightgbm import LGBMClassifier
 from sklearn.metrics import accuracy_score
+
 import torch
 import numpy as np
 
 import joblib  # For saving SVM models
 import re
 
+# Constants and Environment Variables
 SHARED_DIR = Path("/app/shared_volume")
 MODEL_CHOICE = os.environ.get("MODEL_CHOICE", "svm").lower()
 SEED = int(os.environ.get("SEED", "42"))
@@ -100,17 +101,17 @@ def validate_hyperparams(params, model_choice):
     logger.debug("Validating hyperparameters.")
 
     # Common required hyperparameters
-    common_params = ["learning_rate", "n_estimators"]
+    hyperparams = []
     if model_choice == "svm":
-        common_params.extend(["C", "gamma"])
+        hyperparams.extend(["C", "gamma"])
     elif model_choice == "xgb":
-        common_params.extend(["max_depth"])
+        hyperparams.extend(["max_depth", "learning_rate", "n_estimators"])
     elif model_choice == "lgbm":
-        common_params.extend(["num_leaves"])
+        hyperparams.extend(["num_leaves", "learning_rate", "n_estimators"])
     else:
         raise ValueError(f"Unsupported MODEL_CHOICE for hyperparameter validation: {model_choice}")
 
-    missing_params = [param for param in common_params if param not in params]
+    missing_params = [param for param in hyperparams if param not in params]
     if missing_params:
         raise ValueError(f"Missing required hyperparameters for {model_choice}: {missing_params}")
 
@@ -126,13 +127,19 @@ def validate_hyperparams(params, model_choice):
             if not (0 < params['top_rate'] < 1) or not (0 < params['other_rate'] < 1):
                 raise ValueError("'top_rate' and 'other_rate' must be between 0 and 1 for 'goss' boosting_type.")
 
+    # Additional validation for XGBoost GPU parameters
+    if model_choice == "xgb":
+        if 'tree_method' in params:
+            if params['tree_method'] not in ['auto', 'exact', 'approx', 'hist', 'gpu_hist']:
+                raise ValueError(f"Invalid tree_method '{params['tree_method']}' for XGBoost.")
+        # No specific GPU parameters needed beyond tree_method for basic usage
+
     logger.debug("Hyperparameters validation passed.")
 
-def train_model(params, X_train, y_train, X_test, y_test, model_choice):
+def train_model(params, X_train, y_train, X_test, y_test, model_choice, device):
     """
     Trains the chosen model with the given params. Returns test accuracy and trained model.
     """
-    device = "cuda" if torch.cuda.is_available() else "cpu"
     logger.debug(f"Training model: {model_choice} with params: {params} on device: {device}")
 
     if model_choice == "svm":
@@ -142,17 +149,32 @@ def train_model(params, X_train, y_train, X_test, y_test, model_choice):
         logger.debug("SVM model fitted. Predicting...")
         accuracy = model.score(X_test, y_test)
     elif model_choice == "xgb":
+        # Configure tree_method based on device
+        if device == "cuda":
+            tree_method = 'hist'
+            xgb_params = {
+                "learning_rate": params["learning_rate"],
+                "max_depth": params["max_depth"],
+                "objective": "binary:logistic",
+                "eval_metric": "logloss",
+                "tree_method": tree_method,
+                "device" : device,
+                "seed": SEED
+            }
+        else:
+            tree_method = 'hist'
+            xgb_params = {
+                "learning_rate": params["learning_rate"],
+                "max_depth": params["max_depth"],
+                "objective": "binary:logistic",
+                "eval_metric": "logloss",
+                "tree_method": tree_method,
+                "seed": SEED
+            }
+
+        logger.debug(f"Training XGBoost with parameters: {xgb_params}")
         dtrain = xgb.DMatrix(X_train, label=y_train)
         dtest = xgb.DMatrix(X_test, label=y_test)
-        xgb_params = {
-            "learning_rate": params["learning_rate"],
-            "max_depth": params["max_depth"],
-            "objective": "binary:logistic",
-            "eval_metric": "logloss",
-            "tree_method": "hist",  # Updated as per deprecation
-            "seed": SEED
-        }
-        logger.debug(f"Training XGBoost with parameters: {xgb_params}")
         model = xgb.train(xgb_params, dtrain, num_boost_round=params["n_estimators"])
         predictions = model.predict(dtest)
         predictions = np.round(predictions)
@@ -171,6 +193,11 @@ def train_model(params, X_train, y_train, X_test, y_test, model_choice):
             "verbose": -1  # Suppress LightGBM warnings
         }
 
+        # Add GPU support for LightGBM if desired and available
+        if 'gpu_device_id' in params and device == "cuda":
+            lgbm_params["device"] = "gpu"
+            lgbm_params["gpu_device_id"] = params.get("gpu_device_id", 0)
+
         if boosting_type == 'goss':
             lgbm_params["top_rate"] = params["top_rate"]
             lgbm_params["other_rate"] = params["other_rate"]
@@ -187,6 +214,10 @@ def train_model(params, X_train, y_train, X_test, y_test, model_choice):
     return accuracy, model
 
 def main():
+    # Determine if CUDA is available
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    logger.debug(f"CUDA Available: {torch.cuda.is_available()}, Using device: {device}")
+
     # Try to find and claim one job
     processing_file = find_and_claim_hyperparams()
 
@@ -222,7 +253,7 @@ def main():
 
         # Start training
         start_time = time.time()
-        accuracy, model = train_model(params, X_train, y_train, X_test, y_test, MODEL_CHOICE)
+        accuracy, model = train_model(params, X_train, y_train, X_test, y_test, MODEL_CHOICE, device)
         training_time = time.time() - start_time
 
         loss = 1.0 - accuracy

@@ -1,10 +1,9 @@
-Creating network "build_default" with the default driver
 Building manager
 DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
             Install the buildx component to build images with BuildKit:
             https://docs.docker.com/go/buildx/
 
-Sending build context to Docker daemon  14.86MB
+Sending build context to Docker daemon   30.2MB
 Step 1/9 : FROM nvidia/cuda:12.2.0-runtime-ubuntu22.04
  ---> 5f87b1ee9f9a
 Step 2/9 : LABEL maintainer="disi-unibo-nlp"
@@ -26,19 +25,19 @@ Step 7/9 : RUN pip3 install --no-cache-dir -r /app/requirements.txt
  ---> Using cache
  ---> f5093998837d
 Step 8/9 : COPY src/manager.py /app/
- ---> c38ddf0269f6
+ ---> Using cache
+ ---> 62a90991e0ab
 Step 9/9 : CMD ["python3", "manager.py"]
- ---> Running in 9622ceda1518
-Removing intermediate container 9622ceda1518
- ---> 547170bb6ae6
-Successfully built 547170bb6ae6
+ ---> Using cache
+ ---> ee07816a90a8
+Successfully built ee07816a90a8
 Successfully tagged build_manager:latest
 Building worker
 DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
             Install the buildx component to build images with BuildKit:
             https://docs.docker.com/go/buildx/
 
-Sending build context to Docker daemon  14.86MB
+Sending build context to Docker daemon  30.21MB
 Step 1/9 : FROM nvidia/cuda:12.2.0-runtime-ubuntu22.04
  ---> 5f87b1ee9f9a
 Step 2/9 : LABEL maintainer="disi-unibo-nlp"
@@ -60,94 +59,32 @@ Step 7/9 : RUN pip3 install --no-cache-dir -r /app/requirements.txt
  ---> Using cache
  ---> 3244ca24eebb
 Step 8/9 : COPY src/train.py /app/
- ---> 386e92a7dff4
+ ---> Using cache
+ ---> 49542f72e12e
 Step 9/9 : CMD ["python3", "train.py"]
- ---> Running in dd2ae49bee37
-Removing intermediate container dd2ae49bee37
- ---> 1d035cbc9855
-Successfully built 1d035cbc9855
+ ---> Using cache
+ ---> ba76bc67a2a0
+Successfully built ba76bc67a2a0
 Successfully tagged build_worker:latest
-Creating build_manager_1 ... 
-Creating build_worker_1  ... 
-Creating build_worker_2  ... 
-Creating build_worker_3  ... 
-Creating build_worker_4  ... 
-Creating build_worker_5  ... 
-Creating build_manager_1 ... done
-Creating build_worker_3  ... done
-Creating build_worker_1  ... done
-Creating build_worker_4  ... done
-Creating build_worker_2  ... done
-Creating build_worker_5  ... done
-Attaching to build_manager_1, build_worker_3, build_worker_1, build_worker_4, build_worker_2, build_worker_5
+Recreating build_manager_1 ... 
+Recreating build_worker_1  ... 
+Recreating build_worker_2  ... 
+Recreating build_worker_3  ... 
+Recreating build_worker_4  ... 
+Recreating build_worker_5  ... 
+Recreating build_worker_1  ... done
+Recreating build_worker_5  ... done
+Recreating build_worker_3  ... done
+Recreating build_worker_2  ... done
+Recreating build_worker_4  ... done
+Recreating build_manager_1 ... done
+Attaching to build_worker_1, build_worker_5, build_worker_3, build_worker_2, build_worker_4, build_manager_1
 [33mworker_1   |[0m 
-[36mmanager_1  |[0m 
-[32mworker_2   |[0m 
-[36mmanager_1  |[0m ==========
-[35mworker_3   |[0m 
-[36mmanager_1  |[0m == CUDA ==
-[32mworker_2   |[0m ==========
-[34mworker_4   |[0m 
-[36;1mworker_5   |[0m 
-[35mworker_3   |[0m ==========
 [33mworker_1   |[0m ==========
-[35mworker_3   |[0m == CUDA ==
-[34mworker_4   |[0m ==========
-[34mworker_4   |[0m == CUDA ==
-[36mmanager_1  |[0m ==========
-[32mworker_2   |[0m == CUDA ==
 [33mworker_1   |[0m == CUDA ==
-[35mworker_3   |[0m ==========
-[36mmanager_1  |[0m 
-[36mmanager_1  |[0m CUDA Version 12.2.0
-[36mmanager_1  |[0m 
-[36mmanager_1  |[0m Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-[36;1mworker_5   |[0m ==========
-[35mworker_3   |[0m 
-[35mworker_3   |[0m CUDA Version 12.2.0
-[36mmanager_1  |[0m 
-[36mmanager_1  |[0m This container image and its contents are governed by the NVIDIA Deep Learning Container License.
-[36mmanager_1  |[0m By pulling and using the container, you accept the terms and conditions of this license:
-[36mmanager_1  |[0m https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
-[36mmanager_1  |[0m 
-[36mmanager_1  |[0m A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
-[36;1mworker_5   |[0m == CUDA ==
-[35mworker_3   |[0m 
-[35mworker_3   |[0m Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-[36mmanager_1  |[0m 
-[35mworker_3   |[0m 
-[35mworker_3   |[0m This container image and its contents are governed by the NVIDIA Deep Learning Container License.
-[35mworker_3   |[0m By pulling and using the container, you accept the terms and conditions of this license:
-[35mworker_3   |[0m https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
-[35mworker_3   |[0m 
-[35mworker_3   |[0m A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
-[34mworker_4   |[0m ==========
-[35mworker_3   |[0m 
-[34mworker_4   |[0m 
-[34mworker_4   |[0m CUDA Version 12.2.0
-[34mworker_4   |[0m 
-[34mworker_4   |[0m Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-[32mworker_2   |[0m ==========
-[34mworker_4   |[0m 
-[34mworker_4   |[0m This container image and its contents are governed by the NVIDIA Deep Learning Container License.
-[34mworker_4   |[0m By pulling and using the container, you accept the terms and conditions of this license:
-[34mworker_4   |[0m https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
-[34mworker_4   |[0m 
-[34mworker_4   |[0m A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
-[32mworker_2   |[0m 
-[34mworker_4   |[0m 
-[32mworker_2   |[0m CUDA Version 12.2.0
 [33mworker_1   |[0m ==========
-[32mworker_2   |[0m 
-[32mworker_2   |[0m Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 [33mworker_1   |[0m 
 [33mworker_1   |[0m CUDA Version 12.2.0
-[32mworker_2   |[0m 
-[32mworker_2   |[0m This container image and its contents are governed by the NVIDIA Deep Learning Container License.
-[32mworker_2   |[0m By pulling and using the container, you accept the terms and conditions of this license:
-[32mworker_2   |[0m https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
-[32mworker_2   |[0m 
-[32mworker_2   |[0m A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
 [33mworker_1   |[0m 
 [33mworker_1   |[0m Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 [33mworker_1   |[0m 
@@ -156,8 +93,51 @@ Attaching to build_manager_1, build_worker_3, build_worker_1, build_worker_4, bu
 [33mworker_1   |[0m https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
 [33mworker_1   |[0m 
 [33mworker_1   |[0m A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
-[36;1mworker_5   |[0m ==========
 [33mworker_1   |[0m 
+[32mworker_2   |[0m 
+[32mworker_2   |[0m ==========
+[32mworker_2   |[0m == CUDA ==
+[32mworker_2   |[0m ==========
+[32mworker_2   |[0m 
+[32mworker_2   |[0m CUDA Version 12.2.0
+[32mworker_2   |[0m 
+[32mworker_2   |[0m Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+[32mworker_2   |[0m 
+[32mworker_2   |[0m This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+[32mworker_2   |[0m By pulling and using the container, you accept the terms and conditions of this license:
+[32mworker_2   |[0m https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+[32mworker_2   |[0m 
+[32mworker_2   |[0m A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+[32mworker_2   |[0m 
+[35mworker_3   |[0m 
+[35mworker_3   |[0m ==========
+[35mworker_3   |[0m == CUDA ==
+[35mworker_3   |[0m ==========
+[35mworker_3   |[0m 
+[35mworker_3   |[0m CUDA Version 12.2.0
+[35mworker_3   |[0m 
+[35mworker_3   |[0m Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+[35mworker_3   |[0m 
+[35mworker_3   |[0m This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+[35mworker_3   |[0m By pulling and using the container, you accept the terms and conditions of this license:
+[35mworker_3   |[0m https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+[35mworker_3   |[0m 
+[35mworker_3   |[0m A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+[35mworker_3   |[0m 
+[36mmanager_1  |[0m 
+[36mmanager_1  |[0m ==========
+[36mmanager_1  |[0m == CUDA ==
+[36mmanager_1  |[0m ==========
+[34mworker_4   |[0m 
+[34mworker_4   |[0m ==========
+[34mworker_4   |[0m == CUDA ==
+[34mworker_4   |[0m ==========
+[36;1mworker_5   |[0m 
+[34mworker_4   |[0m 
+[34mworker_4   |[0m CUDA Version 12.2.0
+[36;1mworker_5   |[0m ==========
+[36;1mworker_5   |[0m == CUDA ==
+[36;1mworker_5   |[0m ==========
 [36;1mworker_5   |[0m 
 [36;1mworker_5   |[0m CUDA Version 12.2.0
 [36;1mworker_5   |[0m 
@@ -168,121 +148,559 @@ Attaching to build_manager_1, build_worker_3, build_worker_1, build_worker_4, bu
 [36;1mworker_5   |[0m https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
 [36;1mworker_5   |[0m 
 [36;1mworker_5   |[0m A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+[36mmanager_1  |[0m 
+[36mmanager_1  |[0m CUDA Version 12.2.0
 [36;1mworker_5   |[0m 
-[32mworker_2   |[0m 
-[36mmanager_1  |[0m 2024-12-26 11:10:59,757 - INFO - Starting manager.py
-[36mmanager_1  |[0m 2024-12-26 11:10:59,757 - INFO - Experiment directory created: /app/shared_volume/xgb/experiment_20241226_111059
-[36mmanager_1  |[0m 2024-12-26 11:10:59,765 - INFO - Starting iteration 1/5
-[36mmanager_1  |[0m 2024-12-26 11:10:59,861 - DEBUG - Hyperparameter proposals for iteration 0: [[0.040343472274915984, np.int64(232), np.int64(9)], [0.029273475807775187, np.int64(218), np.int64(5)], [0.032988922734276574, np.int64(235), np.int64(4)], [0.0905454692460524, np.int64(187), np.int64(3)], [0.018325318897836135, np.int64(208), np.int64(3)], [0.0966022266863361, np.int64(221), np.int64(8)], [0.011496207116490216, np.int64(296), np.int64(6)], [0.010154474818021387, np.int64(261), np.int64(8)], [0.023297040350832666, np.int64(226), np.int64(4)], [0.07009627162524486, np.int64(174), np.int64(6)]]
-[36mmanager_1  |[0m 2024-12-26 11:10:59,861 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_0.json => {'learning_rate': 0.040343472274915984, 'n_estimators': np.int64(232), 'max_depth': np.int64(9)}
-[36mmanager_1  |[0m 2024-12-26 11:10:59,861 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_0.json
-[36mmanager_1  |[0m 2024-12-26 11:10:59,861 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_1.json => {'learning_rate': 0.029273475807775187, 'n_estimators': np.int64(218), 'max_depth': np.int64(5)}
-[36mmanager_1  |[0m 2024-12-26 11:10:59,861 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_1.json
-[36mmanager_1  |[0m 2024-12-26 11:10:59,861 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_2.json => {'learning_rate': 0.032988922734276574, 'n_estimators': np.int64(235), 'max_depth': np.int64(4)}
-[36mmanager_1  |[0m 2024-12-26 11:10:59,862 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_2.json
-[36mmanager_1  |[0m 2024-12-26 11:10:59,862 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_3.json => {'learning_rate': 0.0905454692460524, 'n_estimators': np.int64(187), 'max_depth': np.int64(3)}
-[36mmanager_1  |[0m 2024-12-26 11:10:59,862 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_3.json
-[36mmanager_1  |[0m 2024-12-26 11:10:59,862 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_4.json => {'learning_rate': 0.018325318897836135, 'n_estimators': np.int64(208), 'max_depth': np.int64(3)}
-[36mmanager_1  |[0m 2024-12-26 11:10:59,862 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_4.json
-[36mmanager_1  |[0m 2024-12-26 11:10:59,862 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_5.json => {'learning_rate': 0.0966022266863361, 'n_estimators': np.int64(221), 'max_depth': np.int64(8)}
-[36mmanager_1  |[0m 2024-12-26 11:10:59,862 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_5.json
-[36mmanager_1  |[0m 2024-12-26 11:10:59,862 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_6.json => {'learning_rate': 0.011496207116490216, 'n_estimators': np.int64(296), 'max_depth': np.int64(6)}
-[36mmanager_1  |[0m 2024-12-26 11:10:59,863 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_6.json
-[36mmanager_1  |[0m 2024-12-26 11:10:59,863 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_7.json => {'learning_rate': 0.010154474818021387, 'n_estimators': np.int64(261), 'max_depth': np.int64(8)}
-[36mmanager_1  |[0m 2024-12-26 11:10:59,863 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_7.json
-[36mmanager_1  |[0m 2024-12-26 11:10:59,863 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_8.json => {'learning_rate': 0.023297040350832666, 'n_estimators': np.int64(226), 'max_depth': np.int64(4)}
-[36mmanager_1  |[0m 2024-12-26 11:10:59,863 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_8.json
-[36mmanager_1  |[0m 2024-12-26 11:10:59,863 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_9.json => {'learning_rate': 0.07009627162524486, 'n_estimators': np.int64(174), 'max_depth': np.int64(6)}
-[36mmanager_1  |[0m 2024-12-26 11:10:59,863 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_9.json
-[36mmanager_1  |[0m 2024-12-26 11:10:59,863 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
-[35mworker_3   |[0m 2024-12-26 11:11:00,993 - DEBUG - Searching for unclaimed hyperparameters files.
-[35mworker_3   |[0m 2024-12-26 11:11:00,994 - DEBUG - Claimed hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_0.processing.json
-[35mworker_3   |[0m 2024-12-26 11:11:00,994 - INFO - Processing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_0.processing.json
-[35mworker_3   |[0m 2024-12-26 11:11:00,994 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.040343472274915984, 'n_estimators': 232, 'max_depth': 9}
-[35mworker_3   |[0m 2024-12-26 11:11:00,994 - DEBUG - Validating hyperparameters.
-[35mworker_3   |[0m 2024-12-26 11:11:00,994 - DEBUG - Hyperparameters validation passed.
-[35mworker_3   |[0m 2024-12-26 11:11:00,994 - DEBUG - Assigned Worker ID: 8829bfe3-9ad8-4fcc-a49a-40036fc9c205
-[35mworker_3   |[0m 2024-12-26 11:11:01,013 - DEBUG - Training model: xgb with params: {'learning_rate': 0.040343472274915984, 'n_estimators': 232, 'max_depth': 9} on device: cuda
-[33mworker_1   |[0m 2024-12-26 11:11:01,081 - DEBUG - Searching for unclaimed hyperparameters files.
-[33mworker_1   |[0m 2024-12-26 11:11:01,082 - DEBUG - Claimed hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_1.processing.json
-[33mworker_1   |[0m 2024-12-26 11:11:01,082 - INFO - Processing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_1.processing.json
-[33mworker_1   |[0m 2024-12-26 11:11:01,082 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.029273475807775187, 'n_estimators': 218, 'max_depth': 5}
-[33mworker_1   |[0m 2024-12-26 11:11:01,082 - DEBUG - Validating hyperparameters.
-[33mworker_1   |[0m 2024-12-26 11:11:01,082 - DEBUG - Hyperparameters validation passed.
-[33mworker_1   |[0m 2024-12-26 11:11:01,082 - DEBUG - Assigned Worker ID: 34a65dac-9a55-4595-a930-919e5af08640
-[33mworker_1   |[0m 2024-12-26 11:11:01,098 - DEBUG - Training model: xgb with params: {'learning_rate': 0.029273475807775187, 'n_estimators': 218, 'max_depth': 5} on device: cuda
-[35mworker_3   |[0m 2024-12-26 11:11:01,100 - DEBUG - Training XGBoost with parameters: {'learning_rate': 0.040343472274915984, 'max_depth': 9, 'objective': 'binary:logistic', 'eval_metric': 'logloss', 'tree_method': 'hist', 'seed': 42}
-[34mworker_4   |[0m 2024-12-26 11:11:01,213 - DEBUG - Searching for unclaimed hyperparameters files.
-[34mworker_4   |[0m 2024-12-26 11:11:01,214 - DEBUG - Claimed hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_2.processing.json
-[34mworker_4   |[0m 2024-12-26 11:11:01,214 - INFO - Processing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_2.processing.json
-[34mworker_4   |[0m 2024-12-26 11:11:01,215 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.032988922734276574, 'n_estimators': 235, 'max_depth': 4}
-[34mworker_4   |[0m 2024-12-26 11:11:01,215 - DEBUG - Validating hyperparameters.
-[34mworker_4   |[0m 2024-12-26 11:11:01,215 - DEBUG - Hyperparameters validation passed.
-[34mworker_4   |[0m 2024-12-26 11:11:01,215 - DEBUG - Assigned Worker ID: 42601100-2ad5-40e1-ac4e-822af791a580
-[34mworker_4   |[0m 2024-12-26 11:11:01,229 - DEBUG - Training model: xgb with params: {'learning_rate': 0.032988922734276574, 'n_estimators': 235, 'max_depth': 4} on device: cuda
-[33mworker_1   |[0m 2024-12-26 11:11:01,281 - DEBUG - Training XGBoost with parameters: {'learning_rate': 0.029273475807775187, 'max_depth': 5, 'objective': 'binary:logistic', 'eval_metric': 'logloss', 'tree_method': 'hist', 'seed': 42}
-[34mworker_4   |[0m 2024-12-26 11:11:01,466 - DEBUG - Training XGBoost with parameters: {'learning_rate': 0.032988922734276574, 'max_depth': 4, 'objective': 'binary:logistic', 'eval_metric': 'logloss', 'tree_method': 'hist', 'seed': 42}
-[32mworker_2   |[0m 2024-12-26 11:11:01,484 - DEBUG - Searching for unclaimed hyperparameters files.
-[32mworker_2   |[0m 2024-12-26 11:11:01,485 - DEBUG - Claimed hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_3.processing.json
-[32mworker_2   |[0m 2024-12-26 11:11:01,486 - INFO - Processing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_3.processing.json
-[32mworker_2   |[0m 2024-12-26 11:11:01,486 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.0905454692460524, 'n_estimators': 187, 'max_depth': 3}
-[32mworker_2   |[0m 2024-12-26 11:11:01,486 - DEBUG - Validating hyperparameters.
-[32mworker_2   |[0m 2024-12-26 11:11:01,486 - DEBUG - Hyperparameters validation passed.
-[32mworker_2   |[0m 2024-12-26 11:11:01,486 - DEBUG - Assigned Worker ID: 46037795-3989-4d38-8b5e-7394fb937586
-[32mworker_2   |[0m 2024-12-26 11:11:01,507 - DEBUG - Training model: xgb with params: {'learning_rate': 0.0905454692460524, 'n_estimators': 187, 'max_depth': 3} on device: cuda
-[36;1mworker_5   |[0m 2024-12-26 11:11:01,582 - DEBUG - Searching for unclaimed hyperparameters files.
-[36;1mworker_5   |[0m 2024-12-26 11:11:01,588 - DEBUG - Claimed hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_4.processing.json
-[36;1mworker_5   |[0m 2024-12-26 11:11:01,589 - INFO - Processing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/hyperparams_4.processing.json
-[36;1mworker_5   |[0m 2024-12-26 11:11:01,589 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.018325318897836135, 'n_estimators': 208, 'max_depth': 3}
-[36;1mworker_5   |[0m 2024-12-26 11:11:01,589 - DEBUG - Validating hyperparameters.
-[36;1mworker_5   |[0m 2024-12-26 11:11:01,589 - DEBUG - Hyperparameters validation passed.
-[36;1mworker_5   |[0m 2024-12-26 11:11:01,590 - DEBUG - Assigned Worker ID: 5907ff47-df38-4bf6-80d2-d704a852058f
-[36;1mworker_5   |[0m 2024-12-26 11:11:01,602 - DEBUG - Training model: xgb with params: {'learning_rate': 0.018325318897836135, 'n_estimators': 208, 'max_depth': 3} on device: cuda
-[32mworker_2   |[0m 2024-12-26 11:11:01,925 - DEBUG - Training XGBoost with parameters: {'learning_rate': 0.0905454692460524, 'max_depth': 3, 'objective': 'binary:logistic', 'eval_metric': 'logloss', 'tree_method': 'hist', 'seed': 42}
-[36;1mworker_5   |[0m 2024-12-26 11:11:02,067 - DEBUG - Training XGBoost with parameters: {'learning_rate': 0.018325318897836135, 'max_depth': 3, 'objective': 'binary:logistic', 'eval_metric': 'logloss', 'tree_method': 'hist', 'seed': 42}
-[36mmanager_1  |[0m 2024-12-26 11:11:04,868 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-26 11:11:09,873 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-26 11:11:14,879 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-26 11:11:19,881 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-26 11:11:24,885 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-26 11:11:29,889 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-26 11:11:34,893 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-26 11:11:39,897 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-26 11:11:44,901 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-26 11:11:49,905 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-26 11:11:54,910 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-26 11:11:59,915 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-26 11:12:04,917 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-26 11:12:09,921 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-26 11:12:14,925 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-26 11:12:19,929 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-26 11:12:24,933 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-26 11:12:29,938 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-26 11:12:34,941 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-26 11:12:39,945 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-26 11:12:44,949 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-26 11:12:49,953 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-26 11:12:54,957 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-26 11:12:59,961 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-26 11:13:04,965 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-26 11:13:09,973 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-26 11:13:14,977 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-26 11:13:19,981 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-26 11:13:24,985 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-26 11:13:29,989 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-26 11:13:34,993 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-26 11:13:39,999 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
-[36mmanager_1  |[0m 2024-12-26 11:13:45,001 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_111059/iteration_0/results_0.json
-Stopping build_worker_4  ... 
-Stopping build_worker_3  ... 
-Stopping build_worker_2  ... 
-Stopping build_worker_1  ... 
-Stopping build_worker_5  ... 
-Stopping build_manager_1 ... 
-Stopping build_manager_1 ... done
-Stopping build_worker_1  ... done
-Stopping build_worker_4  ... done
-Stopping build_worker_5  ... done
-Stopping build_worker_3  ... done
-Stopping build_worker_2  ... done
-Gracefully stopping... (press Ctrl+C again to force)
+[34mworker_4   |[0m 
+[34mworker_4   |[0m Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+[34mworker_4   |[0m 
+[34mworker_4   |[0m This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+[34mworker_4   |[0m By pulling and using the container, you accept the terms and conditions of this license:
+[34mworker_4   |[0m https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+[34mworker_4   |[0m 
+[34mworker_4   |[0m A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+[36mmanager_1  |[0m 
+[36mmanager_1  |[0m Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+[36mmanager_1  |[0m 
+[36mmanager_1  |[0m This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+[36mmanager_1  |[0m By pulling and using the container, you accept the terms and conditions of this license:
+[36mmanager_1  |[0m https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+[36mmanager_1  |[0m 
+[36mmanager_1  |[0m A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+[34mworker_4   |[0m 
+[36mmanager_1  |[0m 
+[36mmanager_1  |[0m 2024-12-26 11:36:47,057 - INFO - Starting manager.py
+[36mmanager_1  |[0m 2024-12-26 11:36:47,057 - INFO - Experiment directory created: /app/shared_volume/xgb/experiment_20241226_113647
+[36mmanager_1  |[0m 2024-12-26 11:36:47,063 - INFO - Starting iteration 1/2
+[36mmanager_1  |[0m 2024-12-26 11:36:47,154 - DEBUG - Hyperparameter proposals for iteration 0: [[0.040343472274915984, np.int64(232), np.int64(9)], [0.029273475807775187, np.int64(218), np.int64(5)], [0.032988922734276574, np.int64(235), np.int64(4)], [0.0905454692460524, np.int64(187), np.int64(3)], [0.018325318897836135, np.int64(208), np.int64(3)], [0.0966022266863361, np.int64(221), np.int64(8)], [0.011496207116490216, np.int64(296), np.int64(6)], [0.010154474818021387, np.int64(261), np.int64(8)], [0.023297040350832666, np.int64(226), np.int64(4)], [0.07009627162524486, np.int64(174), np.int64(6)]]
+[36mmanager_1  |[0m 2024-12-26 11:36:47,154 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_0.json => {'learning_rate': 0.040343472274915984, 'n_estimators': np.int64(232), 'max_depth': np.int64(9)}
+[36mmanager_1  |[0m 2024-12-26 11:36:47,154 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_0.json
+[36mmanager_1  |[0m 2024-12-26 11:36:47,154 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_1.json => {'learning_rate': 0.029273475807775187, 'n_estimators': np.int64(218), 'max_depth': np.int64(5)}
+[36mmanager_1  |[0m 2024-12-26 11:36:47,154 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_1.json
+[36mmanager_1  |[0m 2024-12-26 11:36:47,154 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_2.json => {'learning_rate': 0.032988922734276574, 'n_estimators': np.int64(235), 'max_depth': np.int64(4)}
+[36mmanager_1  |[0m 2024-12-26 11:36:47,155 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_2.json
+[36mmanager_1  |[0m 2024-12-26 11:36:47,155 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_3.json => {'learning_rate': 0.0905454692460524, 'n_estimators': np.int64(187), 'max_depth': np.int64(3)}
+[36mmanager_1  |[0m 2024-12-26 11:36:47,155 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_3.json
+[36mmanager_1  |[0m 2024-12-26 11:36:47,155 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_4.json => {'learning_rate': 0.018325318897836135, 'n_estimators': np.int64(208), 'max_depth': np.int64(3)}
+[36mmanager_1  |[0m 2024-12-26 11:36:47,155 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_4.json
+[36mmanager_1  |[0m 2024-12-26 11:36:47,155 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_5.json => {'learning_rate': 0.0966022266863361, 'n_estimators': np.int64(221), 'max_depth': np.int64(8)}
+[36mmanager_1  |[0m 2024-12-26 11:36:47,155 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_5.json
+[36mmanager_1  |[0m 2024-12-26 11:36:47,155 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_6.json => {'learning_rate': 0.011496207116490216, 'n_estimators': np.int64(296), 'max_depth': np.int64(6)}
+[36mmanager_1  |[0m 2024-12-26 11:36:47,155 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_6.json
+[36mmanager_1  |[0m 2024-12-26 11:36:47,155 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_7.json => {'learning_rate': 0.010154474818021387, 'n_estimators': np.int64(261), 'max_depth': np.int64(8)}
+[36mmanager_1  |[0m 2024-12-26 11:36:47,155 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_7.json
+[36mmanager_1  |[0m 2024-12-26 11:36:47,155 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_8.json => {'learning_rate': 0.023297040350832666, 'n_estimators': np.int64(226), 'max_depth': np.int64(4)}
+[36mmanager_1  |[0m 2024-12-26 11:36:47,156 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_8.json
+[36mmanager_1  |[0m 2024-12-26 11:36:47,156 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_9.json => {'learning_rate': 0.07009627162524486, 'n_estimators': np.int64(174), 'max_depth': np.int64(6)}
+[36mmanager_1  |[0m 2024-12-26 11:36:47,156 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_9.json
+[36mmanager_1  |[0m 2024-12-26 11:36:47,156 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/results_0.json
+[33mworker_1   |[0m 2024-12-26 11:36:47,486 - DEBUG - CUDA Available: True, Using device: cuda
+[33mworker_1   |[0m 2024-12-26 11:36:47,486 - DEBUG - Searching for unclaimed hyperparameters files.
+[33mworker_1   |[0m 2024-12-26 11:36:47,487 - DEBUG - Claimed hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_0.processing.json
+[33mworker_1   |[0m 2024-12-26 11:36:47,487 - INFO - Processing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_0.processing.json
+[33mworker_1   |[0m 2024-12-26 11:36:47,487 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.040343472274915984, 'n_estimators': 232, 'max_depth': 9}
+[33mworker_1   |[0m 2024-12-26 11:36:47,487 - DEBUG - Validating hyperparameters.
+[33mworker_1   |[0m 2024-12-26 11:36:47,487 - DEBUG - Hyperparameters validation passed.
+[33mworker_1   |[0m 2024-12-26 11:36:47,488 - DEBUG - Assigned Worker ID: 7ee25124-d914-4cdc-aa14-4600c1336710
+[33mworker_1   |[0m 2024-12-26 11:36:47,493 - DEBUG - Training model: xgb with params: {'learning_rate': 0.040343472274915984, 'n_estimators': 232, 'max_depth': 9} on device: cuda
+[33mworker_1   |[0m 2024-12-26 11:36:47,493 - DEBUG - Training XGBoost with parameters: {'learning_rate': 0.040343472274915984, 'max_depth': 9, 'objective': 'binary:logistic', 'eval_metric': 'logloss', 'tree_method': 'hist', 'device': 'cuda', 'seed': 42}
+[36;1mworker_5   |[0m 2024-12-26 11:36:47,720 - DEBUG - CUDA Available: True, Using device: cuda
+[36;1mworker_5   |[0m 2024-12-26 11:36:47,721 - DEBUG - Searching for unclaimed hyperparameters files.
+[36;1mworker_5   |[0m 2024-12-26 11:36:47,722 - DEBUG - Claimed hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_1.processing.json
+[36;1mworker_5   |[0m 2024-12-26 11:36:47,722 - INFO - Processing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_1.processing.json
+[36;1mworker_5   |[0m 2024-12-26 11:36:47,722 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.029273475807775187, 'n_estimators': 218, 'max_depth': 5}
+[36;1mworker_5   |[0m 2024-12-26 11:36:47,722 - DEBUG - Validating hyperparameters.
+[36;1mworker_5   |[0m 2024-12-26 11:36:47,722 - DEBUG - Hyperparameters validation passed.
+[36;1mworker_5   |[0m 2024-12-26 11:36:47,722 - DEBUG - Assigned Worker ID: 0f061eff-795b-459f-9ee6-27e7070416c7
+[36;1mworker_5   |[0m 2024-12-26 11:36:47,727 - DEBUG - Training model: xgb with params: {'learning_rate': 0.029273475807775187, 'n_estimators': 218, 'max_depth': 5} on device: cuda
+[36;1mworker_5   |[0m 2024-12-26 11:36:47,727 - DEBUG - Training XGBoost with parameters: {'learning_rate': 0.029273475807775187, 'max_depth': 5, 'objective': 'binary:logistic', 'eval_metric': 'logloss', 'tree_method': 'hist', 'device': 'cuda', 'seed': 42}
+[35mworker_3   |[0m 2024-12-26 11:36:47,771 - DEBUG - CUDA Available: True, Using device: cuda
+[35mworker_3   |[0m 2024-12-26 11:36:47,771 - DEBUG - Searching for unclaimed hyperparameters files.
+[35mworker_3   |[0m 2024-12-26 11:36:47,772 - DEBUG - Claimed hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_2.processing.json
+[35mworker_3   |[0m 2024-12-26 11:36:47,772 - INFO - Processing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_2.processing.json
+[35mworker_3   |[0m 2024-12-26 11:36:47,772 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.032988922734276574, 'n_estimators': 235, 'max_depth': 4}
+[35mworker_3   |[0m 2024-12-26 11:36:47,772 - DEBUG - Validating hyperparameters.
+[35mworker_3   |[0m 2024-12-26 11:36:47,772 - DEBUG - Hyperparameters validation passed.
+[35mworker_3   |[0m 2024-12-26 11:36:47,772 - DEBUG - Assigned Worker ID: 26013e87-9559-4c6b-819a-6e86730653c6
+[35mworker_3   |[0m 2024-12-26 11:36:47,778 - DEBUG - Training model: xgb with params: {'learning_rate': 0.032988922734276574, 'n_estimators': 235, 'max_depth': 4} on device: cuda
+[35mworker_3   |[0m 2024-12-26 11:36:47,778 - DEBUG - Training XGBoost with parameters: {'learning_rate': 0.032988922734276574, 'max_depth': 4, 'objective': 'binary:logistic', 'eval_metric': 'logloss', 'tree_method': 'hist', 'device': 'cuda', 'seed': 42}
+[32mworker_2   |[0m 2024-12-26 11:36:47,809 - DEBUG - CUDA Available: True, Using device: cuda
+[32mworker_2   |[0m 2024-12-26 11:36:47,809 - DEBUG - Searching for unclaimed hyperparameters files.
+[32mworker_2   |[0m 2024-12-26 11:36:47,811 - DEBUG - Claimed hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_3.processing.json
+[32mworker_2   |[0m 2024-12-26 11:36:47,811 - INFO - Processing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_3.processing.json
+[32mworker_2   |[0m 2024-12-26 11:36:47,811 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.0905454692460524, 'n_estimators': 187, 'max_depth': 3}
+[32mworker_2   |[0m 2024-12-26 11:36:47,811 - DEBUG - Validating hyperparameters.
+[32mworker_2   |[0m 2024-12-26 11:36:47,811 - DEBUG - Hyperparameters validation passed.
+[32mworker_2   |[0m 2024-12-26 11:36:47,812 - DEBUG - Assigned Worker ID: 9a800693-b411-49f7-8d93-12972c663adf
+[32mworker_2   |[0m 2024-12-26 11:36:47,818 - DEBUG - Training model: xgb with params: {'learning_rate': 0.0905454692460524, 'n_estimators': 187, 'max_depth': 3} on device: cuda
+[32mworker_2   |[0m 2024-12-26 11:36:47,818 - DEBUG - Training XGBoost with parameters: {'learning_rate': 0.0905454692460524, 'max_depth': 3, 'objective': 'binary:logistic', 'eval_metric': 'logloss', 'tree_method': 'hist', 'device': 'cuda', 'seed': 42}
+[33mworker_1   |[0m 2024-12-26 11:36:47,945 - DEBUG - XGBoost model trained.
+[33mworker_1   |[0m 2024-12-26 11:36:47,945 - DEBUG - Model training complete. Accuracy: 0.9561
+[33mworker_1   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [11:36:47] WARNING: /workspace/src/c_api/c_api.cc:1374: Saving model in the UBJSON format as default.  You can use file extension: `json`, `ubj` or `deprecated` to choose between formats.
+[33mworker_1   |[0m   warnings.warn(smsg, UserWarning)
+[33mworker_1   |[0m 2024-12-26 11:36:47,978 - DEBUG - Model saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/model_1735213007.model
+[33mworker_1   |[0m 2024-12-26 11:36:47,979 - INFO - Results saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/results_0.json: Loss=0.0439, Accuracy=0.9561, Worker_ID=7ee25124-d914-4cdc-aa14-4600c1336710, Training_Time=0.45s
+[33mworker_1   |[0m 2024-12-26 11:36:47,979 - DEBUG - Removed hyperparameters processing file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_0.processing.json
+[34mworker_4   |[0m 2024-12-26 11:36:48,198 - DEBUG - CUDA Available: True, Using device: cuda
+[34mworker_4   |[0m 2024-12-26 11:36:48,198 - DEBUG - Searching for unclaimed hyperparameters files.
+[34mworker_4   |[0m 2024-12-26 11:36:48,199 - DEBUG - Claimed hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_4.processing.json
+[34mworker_4   |[0m 2024-12-26 11:36:48,199 - INFO - Processing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_4.processing.json
+[34mworker_4   |[0m 2024-12-26 11:36:48,199 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.018325318897836135, 'n_estimators': 208, 'max_depth': 3}
+[34mworker_4   |[0m 2024-12-26 11:36:48,199 - DEBUG - Validating hyperparameters.
+[34mworker_4   |[0m 2024-12-26 11:36:48,199 - DEBUG - Hyperparameters validation passed.
+[34mworker_4   |[0m 2024-12-26 11:36:48,199 - DEBUG - Assigned Worker ID: 46815d4e-ea2f-4da1-8947-b5c6e5920888
+[34mworker_4   |[0m 2024-12-26 11:36:48,204 - DEBUG - Training model: xgb with params: {'learning_rate': 0.018325318897836135, 'n_estimators': 208, 'max_depth': 3} on device: cuda
+[34mworker_4   |[0m 2024-12-26 11:36:48,204 - DEBUG - Training XGBoost with parameters: {'learning_rate': 0.018325318897836135, 'max_depth': 3, 'objective': 'binary:logistic', 'eval_metric': 'logloss', 'tree_method': 'hist', 'device': 'cuda', 'seed': 42}
+[33;1mworker_1   |[0m 
+[32mworker_2   |[0m 2024-12-26 11:36:49,597 - DEBUG - XGBoost model trained.
+[32mworker_2   |[0m 2024-12-26 11:36:49,597 - DEBUG - Model training complete. Accuracy: 0.9561
+[32mworker_2   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [11:36:49] WARNING: /workspace/src/c_api/c_api.cc:1374: Saving model in the UBJSON format as default.  You can use file extension: `json`, `ubj` or `deprecated` to choose between formats.
+[32mworker_2   |[0m   warnings.warn(smsg, UserWarning)
+[32mworker_2   |[0m 2024-12-26 11:36:49,604 - DEBUG - Model saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/model_1735213009.model
+[32mworker_2   |[0m 2024-12-26 11:36:49,604 - INFO - Results saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/results_3.json: Loss=0.0439, Accuracy=0.9561, Worker_ID=9a800693-b411-49f7-8d93-12972c663adf, Training_Time=1.78s
+[32mworker_2   |[0m 2024-12-26 11:36:49,604 - DEBUG - Removed hyperparameters processing file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_3.processing.json
+[36;1mworker_5   |[0m 2024-12-26 11:36:49,675 - DEBUG - XGBoost model trained.
+[36;1mworker_5   |[0m 2024-12-26 11:36:49,675 - DEBUG - Model training complete. Accuracy: 0.9561
+[36;1mworker_5   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [11:36:49] WARNING: /workspace/src/c_api/c_api.cc:1374: Saving model in the UBJSON format as default.  You can use file extension: `json`, `ubj` or `deprecated` to choose between formats.
+[36;1mworker_5   |[0m   warnings.warn(smsg, UserWarning)
+[36;1mworker_5   |[0m 2024-12-26 11:36:49,685 - DEBUG - Model saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/model_1735213009.model
+[36;1mworker_5   |[0m 2024-12-26 11:36:49,685 - INFO - Results saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/results_1.json: Loss=0.0439, Accuracy=0.9561, Worker_ID=0f061eff-795b-459f-9ee6-27e7070416c7, Training_Time=1.95s
+[36;1mworker_5   |[0m 2024-12-26 11:36:49,685 - DEBUG - Removed hyperparameters processing file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_1.processing.json
+[34mworker_4   |[0m 2024-12-26 11:36:49,922 - DEBUG - XGBoost model trained.
+[34mworker_4   |[0m 2024-12-26 11:36:49,922 - DEBUG - Model training complete. Accuracy: 0.9561
+[34mworker_4   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [11:36:49] WARNING: /workspace/src/c_api/c_api.cc:1374: Saving model in the UBJSON format as default.  You can use file extension: `json`, `ubj` or `deprecated` to choose between formats.
+[34mworker_4   |[0m   warnings.warn(smsg, UserWarning)
+[35mworker_3   |[0m 2024-12-26 11:36:49,924 - DEBUG - XGBoost model trained.
+[35mworker_3   |[0m 2024-12-26 11:36:49,924 - DEBUG - Model training complete. Accuracy: 0.9561
+[35mworker_3   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [11:36:49] WARNING: /workspace/src/c_api/c_api.cc:1374: Saving model in the UBJSON format as default.  You can use file extension: `json`, `ubj` or `deprecated` to choose between formats.
+[35mworker_3   |[0m   warnings.warn(smsg, UserWarning)
+[34mworker_4   |[0m 2024-12-26 11:36:49,936 - DEBUG - Model saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/model_1735213009.model
+[34mworker_4   |[0m 2024-12-26 11:36:49,936 - INFO - Results saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/results_4.json: Loss=0.0439, Accuracy=0.9561, Worker_ID=46815d4e-ea2f-4da1-8947-b5c6e5920888, Training_Time=1.72s
+[34mworker_4   |[0m 2024-12-26 11:36:49,936 - DEBUG - Removed hyperparameters processing file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_4.processing.json
+[35mworker_3   |[0m 2024-12-26 11:36:49,942 - DEBUG - Model saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/model_1735213009.model
+[35mworker_3   |[0m 2024-12-26 11:36:49,943 - INFO - Results saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/results_2.json: Loss=0.0439, Accuracy=0.9561, Worker_ID=26013e87-9559-4c6b-819a-6e86730653c6, Training_Time=2.15s
+[35mworker_3   |[0m 2024-12-26 11:36:49,943 - DEBUG - Removed hyperparameters processing file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_2.processing.json
+[33;1mworker_1   |[0m 2024-12-26 11:36:50,992 - DEBUG - CUDA Available: True, Using device: cuda
+[33;1mworker_1   |[0m 2024-12-26 11:36:50,992 - DEBUG - Searching for unclaimed hyperparameters files.
+[33;1mworker_1   |[0m 2024-12-26 11:36:50,993 - DEBUG - Claimed hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_5.processing.json
+[33;1mworker_1   |[0m 2024-12-26 11:36:50,993 - INFO - Processing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_5.processing.json
+[33;1mworker_1   |[0m 2024-12-26 11:36:50,993 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.0966022266863361, 'n_estimators': 221, 'max_depth': 8}
+[33;1mworker_1   |[0m 2024-12-26 11:36:50,993 - DEBUG - Validating hyperparameters.
+[33;1mworker_1   |[0m 2024-12-26 11:36:50,994 - DEBUG - Hyperparameters validation passed.
+[33;1mworker_1   |[0m 2024-12-26 11:36:50,994 - DEBUG - Assigned Worker ID: e1c328bb-0854-4295-81c1-885acb178570
+[33;1mworker_1   |[0m 2024-12-26 11:36:50,999 - DEBUG - Training model: xgb with params: {'learning_rate': 0.0966022266863361, 'n_estimators': 221, 'max_depth': 8} on device: cuda
+[33;1mworker_1   |[0m 2024-12-26 11:36:50,999 - DEBUG - Training XGBoost with parameters: {'learning_rate': 0.0966022266863361, 'max_depth': 8, 'objective': 'binary:logistic', 'eval_metric': 'logloss', 'tree_method': 'hist', 'device': 'cuda', 'seed': 42}
+[33;1mworker_1   |[0m 2024-12-26 11:36:51,320 - DEBUG - XGBoost model trained.
+[33;1mworker_1   |[0m 2024-12-26 11:36:51,320 - DEBUG - Model training complete. Accuracy: 0.9561
+[33;1mworker_1   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [11:36:51] WARNING: /workspace/src/c_api/c_api.cc:1374: Saving model in the UBJSON format as default.  You can use file extension: `json`, `ubj` or `deprecated` to choose between formats.
+[33;1mworker_1   |[0m   warnings.warn(smsg, UserWarning)
+[33;1mworker_1   |[0m 2024-12-26 11:36:51,329 - DEBUG - Model saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/model_1735213011.model
+[33;1mworker_1   |[0m 2024-12-26 11:36:51,329 - INFO - Results saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/results_5.json: Loss=0.0439, Accuracy=0.9561, Worker_ID=e1c328bb-0854-4295-81c1-885acb178570, Training_Time=0.32s
+[33;1mworker_1   |[0m 2024-12-26 11:36:51,330 - DEBUG - Removed hyperparameters processing file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_5.processing.json
+[34;1mworker_3   |[0m 
+[34;1mworker_3   |[0m ==========
+[34;1mworker_3   |[0m == CUDA ==
+[34;1mworker_3   |[0m ==========
+[34;1mworker_3   |[0m 
+[34;1mworker_3   |[0m CUDA Version 12.2.0
+[36mworker_4   |[0m 
+[36mworker_4   |[0m CUDA Version 12.2.0
+[36mworker_4   |[0m 
+[36mworker_4   |[0m Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+[34;1mworker_3   |[0m 
+[34;1mworker_3   |[0m Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+[36mworker_4   |[0m 
+[36mworker_4   |[0m This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+[36mworker_4   |[0m By pulling and using the container, you accept the terms and conditions of this license:
+[36mworker_4   |[0m https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+[36mworker_4   |[0m 
+[36mworker_4   |[0m A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+[34;1mworker_3   |[0m 
+[34;1mworker_3   |[0m This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+[34;1mworker_3   |[0m By pulling and using the container, you accept the terms and conditions of this license:
+[34;1mworker_3   |[0m https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+[34;1mworker_3   |[0m 
+[34;1mworker_3   |[0m A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+[36mworker_4   |[0m 
+[34;1mworker_3   |[0m 
+[33mbuild_worker_1 exited with code 0
+[0m[36mmanager_1  |[0m 2024-12-26 11:36:52,157 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/results_6.json
+[33mworker_1   |[0m 
+[32;1mworker_2   |[0m 2024-12-26 11:36:53,508 - DEBUG - CUDA Available: True, Using device: cuda
+[32;1mworker_2   |[0m 2024-12-26 11:36:53,508 - DEBUG - Searching for unclaimed hyperparameters files.
+[32;1mworker_2   |[0m 2024-12-26 11:36:53,509 - DEBUG - Claimed hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_6.processing.json
+[32;1mworker_2   |[0m 2024-12-26 11:36:53,509 - INFO - Processing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_6.processing.json
+[32;1mworker_2   |[0m 2024-12-26 11:36:53,509 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.011496207116490216, 'n_estimators': 296, 'max_depth': 6}
+[32;1mworker_2   |[0m 2024-12-26 11:36:53,509 - DEBUG - Validating hyperparameters.
+[32;1mworker_2   |[0m 2024-12-26 11:36:53,509 - DEBUG - Hyperparameters validation passed.
+[32;1mworker_2   |[0m 2024-12-26 11:36:53,510 - DEBUG - Assigned Worker ID: 456373a7-5b23-494a-a800-861b17668082
+[32;1mworker_2   |[0m 2024-12-26 11:36:53,515 - DEBUG - Training model: xgb with params: {'learning_rate': 0.011496207116490216, 'n_estimators': 296, 'max_depth': 6} on device: cuda
+[32;1mworker_2   |[0m 2024-12-26 11:36:53,515 - DEBUG - Training XGBoost with parameters: {'learning_rate': 0.011496207116490216, 'max_depth': 6, 'objective': 'binary:logistic', 'eval_metric': 'logloss', 'tree_method': 'hist', 'device': 'cuda', 'seed': 42}
+[35;1mworker_5   |[0m 2024-12-26 11:36:53,622 - DEBUG - CUDA Available: True, Using device: cuda
+[35;1mworker_5   |[0m 2024-12-26 11:36:53,622 - DEBUG - Searching for unclaimed hyperparameters files.
+[35;1mworker_5   |[0m 2024-12-26 11:36:53,624 - DEBUG - Claimed hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_7.processing.json
+[35;1mworker_5   |[0m 2024-12-26 11:36:53,624 - INFO - Processing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_7.processing.json
+[35;1mworker_5   |[0m 2024-12-26 11:36:53,624 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.010154474818021387, 'n_estimators': 261, 'max_depth': 8}
+[35;1mworker_5   |[0m 2024-12-26 11:36:53,624 - DEBUG - Validating hyperparameters.
+[35;1mworker_5   |[0m 2024-12-26 11:36:53,624 - DEBUG - Hyperparameters validation passed.
+[35;1mworker_5   |[0m 2024-12-26 11:36:53,624 - DEBUG - Assigned Worker ID: 0f9975f4-d94d-4bf9-8e97-918338cc88a2
+[35;1mworker_5   |[0m 2024-12-26 11:36:53,630 - DEBUG - Training model: xgb with params: {'learning_rate': 0.010154474818021387, 'n_estimators': 261, 'max_depth': 8} on device: cuda
+[35;1mworker_5   |[0m 2024-12-26 11:36:53,630 - DEBUG - Training XGBoost with parameters: {'learning_rate': 0.010154474818021387, 'max_depth': 8, 'objective': 'binary:logistic', 'eval_metric': 'logloss', 'tree_method': 'hist', 'device': 'cuda', 'seed': 42}
+[36mworker_4   |[0m 2024-12-26 11:36:53,834 - DEBUG - CUDA Available: True, Using device: cuda
+[36mworker_4   |[0m 2024-12-26 11:36:53,834 - DEBUG - Searching for unclaimed hyperparameters files.
+[36mworker_4   |[0m 2024-12-26 11:36:53,835 - DEBUG - Claimed hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_8.processing.json
+[36mworker_4   |[0m 2024-12-26 11:36:53,836 - INFO - Processing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_8.processing.json
+[36mworker_4   |[0m 2024-12-26 11:36:53,836 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.023297040350832666, 'n_estimators': 226, 'max_depth': 4}
+[36mworker_4   |[0m 2024-12-26 11:36:53,836 - DEBUG - Validating hyperparameters.
+[36mworker_4   |[0m 2024-12-26 11:36:53,836 - DEBUG - Hyperparameters validation passed.
+[36mworker_4   |[0m 2024-12-26 11:36:53,836 - DEBUG - Assigned Worker ID: 2c456943-3325-48db-99c6-402d0c0253af
+[36mworker_4   |[0m 2024-12-26 11:36:53,841 - DEBUG - Training model: xgb with params: {'learning_rate': 0.023297040350832666, 'n_estimators': 226, 'max_depth': 4} on device: cuda
+[36mworker_4   |[0m 2024-12-26 11:36:53,841 - DEBUG - Training XGBoost with parameters: {'learning_rate': 0.023297040350832666, 'max_depth': 4, 'objective': 'binary:logistic', 'eval_metric': 'logloss', 'tree_method': 'hist', 'device': 'cuda', 'seed': 42}
+[34;1mworker_3   |[0m 2024-12-26 11:36:53,904 - DEBUG - CUDA Available: True, Using device: cuda
+[34;1mworker_3   |[0m 2024-12-26 11:36:53,904 - DEBUG - Searching for unclaimed hyperparameters files.
+[34;1mworker_3   |[0m 2024-12-26 11:36:53,906 - DEBUG - Claimed hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_9.processing.json
+[34;1mworker_3   |[0m 2024-12-26 11:36:53,906 - INFO - Processing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_9.processing.json
+[34;1mworker_3   |[0m 2024-12-26 11:36:53,906 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.07009627162524486, 'n_estimators': 174, 'max_depth': 6}
+[34;1mworker_3   |[0m 2024-12-26 11:36:53,906 - DEBUG - Validating hyperparameters.
+[34;1mworker_3   |[0m 2024-12-26 11:36:53,906 - DEBUG - Hyperparameters validation passed.
+[34;1mworker_3   |[0m 2024-12-26 11:36:53,906 - DEBUG - Assigned Worker ID: 4c0c4678-31a5-4fb2-b13b-675e6053d917
+[34;1mworker_3   |[0m 2024-12-26 11:36:53,913 - DEBUG - Training model: xgb with params: {'learning_rate': 0.07009627162524486, 'n_estimators': 174, 'max_depth': 6} on device: cuda
+[34;1mworker_3   |[0m 2024-12-26 11:36:53,913 - DEBUG - Training XGBoost with parameters: {'learning_rate': 0.07009627162524486, 'max_depth': 6, 'objective': 'binary:logistic', 'eval_metric': 'logloss', 'tree_method': 'hist', 'device': 'cuda', 'seed': 42}
+[33mworker_1   |[0m 2024-12-26 11:36:54,529 - DEBUG - CUDA Available: True, Using device: cuda
+[33mworker_1   |[0m 2024-12-26 11:36:54,530 - DEBUG - Searching for unclaimed hyperparameters files.
+[33mworker_1   |[0m 2024-12-26 11:36:54,531 - DEBUG - No unclaimed hyperparameters files found.
+[33mworker_1   |[0m 2024-12-26 11:36:54,531 - DEBUG - No available work. Exiting with code 0.
+[33;1mbuild_worker_1 exited with code 0
+[0m[32mworker_1   |[0m 
+[34;1mworker_3   |[0m 2024-12-26 11:36:55,875 - DEBUG - XGBoost model trained.
+[34;1mworker_3   |[0m 2024-12-26 11:36:55,875 - DEBUG - Model training complete. Accuracy: 0.9561
+[34;1mworker_3   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [11:36:55] WARNING: /workspace/src/c_api/c_api.cc:1374: Saving model in the UBJSON format as default.  You can use file extension: `json`, `ubj` or `deprecated` to choose between formats.
+[34;1mworker_3   |[0m   warnings.warn(smsg, UserWarning)
+[34;1mworker_3   |[0m 2024-12-26 11:36:55,882 - DEBUG - Model saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/model_1735213015.model
+[34;1mworker_3   |[0m 2024-12-26 11:36:55,882 - INFO - Results saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/results_9.json: Loss=0.0439, Accuracy=0.9561, Worker_ID=4c0c4678-31a5-4fb2-b13b-675e6053d917, Training_Time=1.96s
+[34;1mworker_3   |[0m 2024-12-26 11:36:55,883 - DEBUG - Removed hyperparameters processing file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_9.processing.json
+[32;1mworker_2   |[0m 2024-12-26 11:36:56,076 - DEBUG - XGBoost model trained.
+[32;1mworker_2   |[0m 2024-12-26 11:36:56,077 - DEBUG - Model training complete. Accuracy: 0.9561
+[32;1mworker_2   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [11:36:56] WARNING: /workspace/src/c_api/c_api.cc:1374: Saving model in the UBJSON format as default.  You can use file extension: `json`, `ubj` or `deprecated` to choose between formats.
+[32;1mworker_2   |[0m   warnings.warn(smsg, UserWarning)
+[32;1mworker_2   |[0m 2024-12-26 11:36:56,087 - DEBUG - Model saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/model_1735213016.model
+[32;1mworker_2   |[0m 2024-12-26 11:36:56,087 - INFO - Results saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/results_6.json: Loss=0.0439, Accuracy=0.9561, Worker_ID=456373a7-5b23-494a-a800-861b17668082, Training_Time=2.56s
+[32;1mworker_2   |[0m 2024-12-26 11:36:56,087 - DEBUG - Removed hyperparameters processing file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_6.processing.json
+[36mworker_4   |[0m 2024-12-26 11:36:56,196 - DEBUG - XGBoost model trained.
+[36mworker_4   |[0m 2024-12-26 11:36:56,197 - DEBUG - Model training complete. Accuracy: 0.9561
+[36mworker_4   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [11:36:56] WARNING: /workspace/src/c_api/c_api.cc:1374: Saving model in the UBJSON format as default.  You can use file extension: `json`, `ubj` or `deprecated` to choose between formats.
+[36mworker_4   |[0m   warnings.warn(smsg, UserWarning)
+[36mworker_4   |[0m 2024-12-26 11:36:56,219 - DEBUG - Model saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/model_1735213016.model
+[36mworker_4   |[0m 2024-12-26 11:36:56,219 - INFO - Results saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/results_8.json: Loss=0.0439, Accuracy=0.9561, Worker_ID=2c456943-3325-48db-99c6-402d0c0253af, Training_Time=2.36s
+[36mworker_4   |[0m 2024-12-26 11:36:56,219 - DEBUG - Removed hyperparameters processing file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_8.processing.json
+[35;1mworker_5   |[0m 2024-12-26 11:36:56,228 - DEBUG - XGBoost model trained.
+[35;1mworker_5   |[0m 2024-12-26 11:36:56,228 - DEBUG - Model training complete. Accuracy: 0.9561
+[35;1mworker_5   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [11:36:56] WARNING: /workspace/src/c_api/c_api.cc:1374: Saving model in the UBJSON format as default.  You can use file extension: `json`, `ubj` or `deprecated` to choose between formats.
+[35;1mworker_5   |[0m   warnings.warn(smsg, UserWarning)
+[35;1mworker_5   |[0m 2024-12-26 11:36:56,242 - DEBUG - Model saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/model_1735213016.model
+[35;1mworker_5   |[0m 2024-12-26 11:36:56,242 - INFO - Results saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/results_7.json: Loss=0.0439, Accuracy=0.9561, Worker_ID=0f9975f4-d94d-4bf9-8e97-918338cc88a2, Training_Time=2.60s
+[35;1mworker_5   |[0m 2024-12-26 11:36:56,242 - DEBUG - Removed hyperparameters processing file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/hyperparams_7.processing.json
+[35mbuild_worker_3 exited with code 0
+[0m[32mbuild_worker_2 exited with code 0
+[0m[34mbuild_worker_4 exited with code 0
+[0m[36;1mbuild_worker_5 exited with code 0
+[0m[36mmanager_1  |[0m 2024-12-26 11:36:57,163 - INFO - Processed /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/results_0.json: Loss=0.04385964912280704, Accuracy=0.956140350877193, Worker_ID=7ee25124-d914-4cdc-aa14-4600c1336710, Training_Time=0.45186376571655273s
+[36mmanager_1  |[0m 2024-12-26 11:36:57,163 - INFO - Processed /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/results_1.json: Loss=0.04385964912280704, Accuracy=0.956140350877193, Worker_ID=0f061eff-795b-459f-9ee6-27e7070416c7, Training_Time=1.9482736587524414s
+[36mmanager_1  |[0m 2024-12-26 11:36:57,164 - INFO - Processed /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/results_2.json: Loss=0.04385964912280704, Accuracy=0.956140350877193, Worker_ID=26013e87-9559-4c6b-819a-6e86730653c6, Training_Time=2.1453723907470703s
+[36mmanager_1  |[0m 2024-12-26 11:36:57,164 - INFO - Processed /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/results_3.json: Loss=0.04385964912280704, Accuracy=0.956140350877193, Worker_ID=9a800693-b411-49f7-8d93-12972c663adf, Training_Time=1.7788755893707275s
+[36mmanager_1  |[0m 2024-12-26 11:36:57,164 - INFO - Processed /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/results_4.json: Loss=0.04385964912280704, Accuracy=0.956140350877193, Worker_ID=46815d4e-ea2f-4da1-8947-b5c6e5920888, Training_Time=1.7180776596069336s
+[36mmanager_1  |[0m 2024-12-26 11:36:57,165 - INFO - Processed /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/results_5.json: Loss=0.04385964912280704, Accuracy=0.956140350877193, Worker_ID=e1c328bb-0854-4295-81c1-885acb178570, Training_Time=0.32093024253845215s
+[36mmanager_1  |[0m 2024-12-26 11:36:57,165 - INFO - Processed /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/results_6.json: Loss=0.04385964912280704, Accuracy=0.956140350877193, Worker_ID=456373a7-5b23-494a-a800-861b17668082, Training_Time=2.5617148876190186s
+[36mmanager_1  |[0m 2024-12-26 11:36:57,165 - INFO - Processed /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/results_7.json: Loss=0.04385964912280704, Accuracy=0.956140350877193, Worker_ID=0f9975f4-d94d-4bf9-8e97-918338cc88a2, Training_Time=2.598423480987549s
+[36mmanager_1  |[0m 2024-12-26 11:36:57,165 - INFO - Processed /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/results_8.json: Loss=0.04385964912280704, Accuracy=0.956140350877193, Worker_ID=2c456943-3325-48db-99c6-402d0c0253af, Training_Time=2.355682134628296s
+[36mmanager_1  |[0m 2024-12-26 11:36:57,165 - INFO - Processed /app/shared_volume/xgb/experiment_20241226_113647/iteration_0/results_9.json: Loss=0.04385964912280704, Accuracy=0.956140350877193, Worker_ID=4c0c4678-31a5-4fb2-b13b-675e6053d917, Training_Time=1.9621925354003906s
+[36mmanager_1  |[0m 2024-12-26 11:36:57,252 - INFO - Starting iteration 2/2
+[32mworker_1   |[0m 2024-12-26 11:36:57,669 - DEBUG - CUDA Available: True, Using device: cuda
+[32mworker_1   |[0m 2024-12-26 11:36:57,669 - DEBUG - Searching for unclaimed hyperparameters files.
+[32mworker_1   |[0m 2024-12-26 11:36:57,670 - DEBUG - No unclaimed hyperparameters files found.
+[32mworker_1   |[0m 2024-12-26 11:36:57,671 - DEBUG - No available work. Exiting with code 0.
+[33;1mworker_5   |[0m 
+[33;1mworker_5   |[0m ==========
+[33;1mworker_5   |[0m == CUDA ==
+[33;1mworker_5   |[0m ==========
+[33;1mworker_5   |[0m 
+[33;1mworker_5   |[0m CUDA Version 12.2.0
+[33;1mworker_5   |[0m 
+[33;1mworker_5   |[0m Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+[33;1mworker_5   |[0m 
+[33;1mworker_5   |[0m This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+[33;1mworker_5   |[0m By pulling and using the container, you accept the terms and conditions of this license:
+[33;1mworker_5   |[0m https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+[33;1mworker_5   |[0m 
+[33;1mworker_5   |[0m A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+[33;1mworker_5   |[0m 
+[36mmanager_1  |[0m 2024-12-26 11:36:58,537 - DEBUG - Hyperparameter proposals for iteration 1: [[0.28065289132465987, np.int64(53), np.int64(10)], [0.2898164206450369, np.int64(59), np.int64(2)], [0.011207773403824138, np.int64(51), np.int64(10)], [0.29098629116315, np.int64(298), np.int64(10)], [0.28700015751989805, np.int64(51), np.int64(2)], [0.010663290513350443, np.int64(54), np.int64(10)], [0.010628423437119347, np.int64(55), np.int64(2)], [0.2971471587544173, np.int64(299), np.int64(2)], [0.29999999999999993, np.int64(50), np.int64(10)], [0.29420031420938925, np.int64(292), np.int64(10)]]
+[36mmanager_1  |[0m 2024-12-26 11:36:58,537 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_0.json => {'learning_rate': 0.28065289132465987, 'n_estimators': np.int64(53), 'max_depth': np.int64(10)}
+[36mmanager_1  |[0m 2024-12-26 11:36:58,537 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_0.json
+[36mmanager_1  |[0m 2024-12-26 11:36:58,537 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_1.json => {'learning_rate': 0.2898164206450369, 'n_estimators': np.int64(59), 'max_depth': np.int64(2)}
+[36mmanager_1  |[0m 2024-12-26 11:36:58,538 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_1.json
+[36mmanager_1  |[0m 2024-12-26 11:36:58,538 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_2.json => {'learning_rate': 0.011207773403824138, 'n_estimators': np.int64(51), 'max_depth': np.int64(10)}
+[36mmanager_1  |[0m 2024-12-26 11:36:58,538 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_2.json
+[36mmanager_1  |[0m 2024-12-26 11:36:58,538 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_3.json => {'learning_rate': 0.29098629116315, 'n_estimators': np.int64(298), 'max_depth': np.int64(10)}
+[36mmanager_1  |[0m 2024-12-26 11:36:58,538 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_3.json
+[36mmanager_1  |[0m 2024-12-26 11:36:58,538 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_4.json => {'learning_rate': 0.28700015751989805, 'n_estimators': np.int64(51), 'max_depth': np.int64(2)}
+[36mmanager_1  |[0m 2024-12-26 11:36:58,538 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_4.json
+[36mmanager_1  |[0m 2024-12-26 11:36:58,538 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_5.json => {'learning_rate': 0.010663290513350443, 'n_estimators': np.int64(54), 'max_depth': np.int64(10)}
+[36mmanager_1  |[0m 2024-12-26 11:36:58,538 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_5.json
+[36mmanager_1  |[0m 2024-12-26 11:36:58,538 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_6.json => {'learning_rate': 0.010628423437119347, 'n_estimators': np.int64(55), 'max_depth': np.int64(2)}
+[36mmanager_1  |[0m 2024-12-26 11:36:58,538 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_6.json
+[36mmanager_1  |[0m 2024-12-26 11:36:58,538 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_7.json => {'learning_rate': 0.2971471587544173, 'n_estimators': np.int64(299), 'max_depth': np.int64(2)}
+[36mmanager_1  |[0m 2024-12-26 11:36:58,539 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_7.json
+[36mmanager_1  |[0m 2024-12-26 11:36:58,539 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_8.json => {'learning_rate': 0.29999999999999993, 'n_estimators': np.int64(50), 'max_depth': np.int64(10)}
+[36mmanager_1  |[0m 2024-12-26 11:36:58,539 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_8.json
+[36mmanager_1  |[0m 2024-12-26 11:36:58,539 - DEBUG - Writing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_9.json => {'learning_rate': 0.29420031420938925, 'n_estimators': np.int64(292), 'max_depth': np.int64(10)}
+[36mmanager_1  |[0m 2024-12-26 11:36:58,539 - INFO - Atomically wrote hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_9.json
+[36mmanager_1  |[0m 2024-12-26 11:36:58,539 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/results_0.json
+[33mbuild_worker_1 exited with code 0
+[0m[32;1mworker_1   |[0m 
+[35mworker_3   |[0m 2024-12-26 11:36:59,822 - DEBUG - CUDA Available: True, Using device: cuda
+[35mworker_3   |[0m 2024-12-26 11:36:59,822 - DEBUG - Searching for unclaimed hyperparameters files.
+[35mworker_3   |[0m 2024-12-26 11:36:59,824 - DEBUG - Claimed hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_0.processing.json
+[35mworker_3   |[0m 2024-12-26 11:36:59,824 - INFO - Processing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_0.processing.json
+[35mworker_3   |[0m 2024-12-26 11:36:59,824 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.28065289132465987, 'n_estimators': 53, 'max_depth': 10}
+[35mworker_3   |[0m 2024-12-26 11:36:59,824 - DEBUG - Validating hyperparameters.
+[35mworker_3   |[0m 2024-12-26 11:36:59,824 - DEBUG - Hyperparameters validation passed.
+[35mworker_3   |[0m 2024-12-26 11:36:59,824 - DEBUG - Assigned Worker ID: ae1b6293-dd95-45dc-b061-2f92d384f461
+[35mworker_3   |[0m 2024-12-26 11:36:59,842 - DEBUG - Training model: xgb with params: {'learning_rate': 0.28065289132465987, 'n_estimators': 53, 'max_depth': 10} on device: cuda
+[35mworker_3   |[0m 2024-12-26 11:36:59,842 - DEBUG - Training XGBoost with parameters: {'learning_rate': 0.28065289132465987, 'max_depth': 10, 'objective': 'binary:logistic', 'eval_metric': 'logloss', 'tree_method': 'hist', 'device': 'cuda', 'seed': 42}
+[34mworker_2   |[0m 2024-12-26 11:36:59,931 - DEBUG - CUDA Available: True, Using device: cuda
+[34mworker_2   |[0m 2024-12-26 11:36:59,931 - DEBUG - Searching for unclaimed hyperparameters files.
+[34mworker_2   |[0m 2024-12-26 11:36:59,932 - DEBUG - Claimed hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_1.processing.json
+[34mworker_2   |[0m 2024-12-26 11:36:59,932 - INFO - Processing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_1.processing.json
+[34mworker_2   |[0m 2024-12-26 11:36:59,932 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.2898164206450369, 'n_estimators': 59, 'max_depth': 2}
+[34mworker_2   |[0m 2024-12-26 11:36:59,933 - DEBUG - Validating hyperparameters.
+[34mworker_2   |[0m 2024-12-26 11:36:59,933 - DEBUG - Hyperparameters validation passed.
+[34mworker_2   |[0m 2024-12-26 11:36:59,933 - DEBUG - Assigned Worker ID: 0c14b0e0-12a5-4364-a504-7ac5af78c895
+[34mworker_2   |[0m 2024-12-26 11:36:59,939 - DEBUG - Training model: xgb with params: {'learning_rate': 0.2898164206450369, 'n_estimators': 59, 'max_depth': 2} on device: cuda
+[34mworker_2   |[0m 2024-12-26 11:36:59,939 - DEBUG - Training XGBoost with parameters: {'learning_rate': 0.2898164206450369, 'max_depth': 2, 'objective': 'binary:logistic', 'eval_metric': 'logloss', 'tree_method': 'hist', 'device': 'cuda', 'seed': 42}
+[36;1mworker_4   |[0m 2024-12-26 11:37:00,002 - DEBUG - CUDA Available: True, Using device: cuda
+[36;1mworker_4   |[0m 2024-12-26 11:37:00,002 - DEBUG - Searching for unclaimed hyperparameters files.
+[36;1mworker_4   |[0m 2024-12-26 11:37:00,003 - DEBUG - Claimed hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_2.processing.json
+[36;1mworker_4   |[0m 2024-12-26 11:37:00,003 - INFO - Processing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_2.processing.json
+[36;1mworker_4   |[0m 2024-12-26 11:37:00,003 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.011207773403824138, 'n_estimators': 51, 'max_depth': 10}
+[36;1mworker_4   |[0m 2024-12-26 11:37:00,003 - DEBUG - Validating hyperparameters.
+[36;1mworker_4   |[0m 2024-12-26 11:37:00,004 - DEBUG - Hyperparameters validation passed.
+[36;1mworker_4   |[0m 2024-12-26 11:37:00,004 - DEBUG - Assigned Worker ID: 5b55687d-2e77-4adf-9566-d20a1ae423ec
+[36;1mworker_4   |[0m 2024-12-26 11:37:00,010 - DEBUG - Training model: xgb with params: {'learning_rate': 0.011207773403824138, 'n_estimators': 51, 'max_depth': 10} on device: cuda
+[36;1mworker_4   |[0m 2024-12-26 11:37:00,010 - DEBUG - Training XGBoost with parameters: {'learning_rate': 0.011207773403824138, 'max_depth': 10, 'objective': 'binary:logistic', 'eval_metric': 'logloss', 'tree_method': 'hist', 'device': 'cuda', 'seed': 42}
+[35mworker_3   |[0m 2024-12-26 11:37:00,174 - DEBUG - XGBoost model trained.
+[35mworker_3   |[0m 2024-12-26 11:37:00,175 - DEBUG - Model training complete. Accuracy: 0.9561
+[35mworker_3   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [11:37:00] WARNING: /workspace/src/c_api/c_api.cc:1374: Saving model in the UBJSON format as default.  You can use file extension: `json`, `ubj` or `deprecated` to choose between formats.
+[35mworker_3   |[0m   warnings.warn(smsg, UserWarning)
+[35mworker_3   |[0m 2024-12-26 11:37:00,181 - DEBUG - Model saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/model_1735213020.model
+[35mworker_3   |[0m 2024-12-26 11:37:00,182 - INFO - Results saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/results_0.json: Loss=0.0439, Accuracy=0.9561, Worker_ID=ae1b6293-dd95-45dc-b061-2f92d384f461, Training_Time=0.33s
+[35mworker_3   |[0m 2024-12-26 11:37:00,182 - DEBUG - Removed hyperparameters processing file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_0.processing.json
+[33;1mworker_5   |[0m 2024-12-26 11:37:00,223 - DEBUG - CUDA Available: True, Using device: cuda
+[33;1mworker_5   |[0m 2024-12-26 11:37:00,223 - DEBUG - Searching for unclaimed hyperparameters files.
+[33;1mworker_5   |[0m 2024-12-26 11:37:00,224 - DEBUG - Claimed hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_3.processing.json
+[33;1mworker_5   |[0m 2024-12-26 11:37:00,224 - INFO - Processing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_3.processing.json
+[33;1mworker_5   |[0m 2024-12-26 11:37:00,224 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.29098629116315, 'n_estimators': 298, 'max_depth': 10}
+[33;1mworker_5   |[0m 2024-12-26 11:37:00,224 - DEBUG - Validating hyperparameters.
+[33;1mworker_5   |[0m 2024-12-26 11:37:00,224 - DEBUG - Hyperparameters validation passed.
+[33;1mworker_5   |[0m 2024-12-26 11:37:00,224 - DEBUG - Assigned Worker ID: 703ffe1c-066b-49f4-bedf-9dea7faa159e
+[33;1mworker_5   |[0m 2024-12-26 11:37:00,229 - DEBUG - Training model: xgb with params: {'learning_rate': 0.29098629116315, 'n_estimators': 298, 'max_depth': 10} on device: cuda
+[33;1mworker_5   |[0m 2024-12-26 11:37:00,229 - DEBUG - Training XGBoost with parameters: {'learning_rate': 0.29098629116315, 'max_depth': 10, 'objective': 'binary:logistic', 'eval_metric': 'logloss', 'tree_method': 'hist', 'device': 'cuda', 'seed': 42}
+[34mworker_2   |[0m 2024-12-26 11:37:00,303 - DEBUG - XGBoost model trained.
+[34mworker_2   |[0m 2024-12-26 11:37:00,303 - DEBUG - Model training complete. Accuracy: 0.9649
+[34mworker_2   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [11:37:00] WARNING: /workspace/src/c_api/c_api.cc:1374: Saving model in the UBJSON format as default.  You can use file extension: `json`, `ubj` or `deprecated` to choose between formats.
+[34mworker_2   |[0m   warnings.warn(smsg, UserWarning)
+[34mworker_2   |[0m 2024-12-26 11:37:00,310 - DEBUG - Model saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/model_1735213020.model
+[34mworker_2   |[0m 2024-12-26 11:37:00,312 - INFO - Results saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/results_1.json: Loss=0.0351, Accuracy=0.9649, Worker_ID=0c14b0e0-12a5-4364-a504-7ac5af78c895, Training_Time=0.36s
+[34mworker_2   |[0m 2024-12-26 11:37:00,312 - DEBUG - Removed hyperparameters processing file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_1.processing.json
+[36;1mworker_4   |[0m 2024-12-26 11:37:00,360 - DEBUG - XGBoost model trained.
+[36;1mworker_4   |[0m 2024-12-26 11:37:00,360 - DEBUG - Model training complete. Accuracy: 0.9561
+[36;1mworker_4   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [11:37:00] WARNING: /workspace/src/c_api/c_api.cc:1374: Saving model in the UBJSON format as default.  You can use file extension: `json`, `ubj` or `deprecated` to choose between formats.
+[36;1mworker_4   |[0m   warnings.warn(smsg, UserWarning)
+[36;1mworker_4   |[0m 2024-12-26 11:37:00,371 - DEBUG - Model saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/model_1735213020.model
+[36;1mworker_4   |[0m 2024-12-26 11:37:00,373 - INFO - Results saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/results_2.json: Loss=0.0439, Accuracy=0.9561, Worker_ID=5b55687d-2e77-4adf-9566-d20a1ae423ec, Training_Time=0.35s
+[36;1mworker_4   |[0m 2024-12-26 11:37:00,373 - DEBUG - Removed hyperparameters processing file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_2.processing.json
+[33;1mworker_5   |[0m 2024-12-26 11:37:00,623 - DEBUG - XGBoost model trained.
+[33;1mworker_5   |[0m 2024-12-26 11:37:00,623 - DEBUG - Model training complete. Accuracy: 0.9649
+[33;1mworker_5   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [11:37:00] WARNING: /workspace/src/c_api/c_api.cc:1374: Saving model in the UBJSON format as default.  You can use file extension: `json`, `ubj` or `deprecated` to choose between formats.
+[33;1mworker_5   |[0m   warnings.warn(smsg, UserWarning)
+[33;1mworker_5   |[0m 2024-12-26 11:37:00,632 - DEBUG - Model saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/model_1735213020.model
+[33;1mworker_5   |[0m 2024-12-26 11:37:00,632 - INFO - Results saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/results_3.json: Loss=0.0351, Accuracy=0.9649, Worker_ID=703ffe1c-066b-49f4-bedf-9dea7faa159e, Training_Time=0.39s
+[33;1mworker_5   |[0m 2024-12-26 11:37:00,633 - DEBUG - Removed hyperparameters processing file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_3.processing.json
+[34;1mbuild_worker_3 exited with code 0
+[0m[32;1mbuild_worker_2 exited with code 0
+[0m[36mbuild_worker_4 exited with code 0
+[0m[35;1mbuild_worker_5 exited with code 0
+[0m[32;1mworker_1   |[0m 2024-12-26 11:37:01,562 - DEBUG - CUDA Available: True, Using device: cuda
+[32;1mworker_1   |[0m 2024-12-26 11:37:01,562 - DEBUG - Searching for unclaimed hyperparameters files.
+[32;1mworker_1   |[0m 2024-12-26 11:37:01,563 - DEBUG - Claimed hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_4.processing.json
+[32;1mworker_1   |[0m 2024-12-26 11:37:01,563 - INFO - Processing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_4.processing.json
+[32;1mworker_1   |[0m 2024-12-26 11:37:01,563 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.28700015751989805, 'n_estimators': 51, 'max_depth': 2}
+[32;1mworker_1   |[0m 2024-12-26 11:37:01,563 - DEBUG - Validating hyperparameters.
+[32;1mworker_1   |[0m 2024-12-26 11:37:01,563 - DEBUG - Hyperparameters validation passed.
+[32;1mworker_1   |[0m 2024-12-26 11:37:01,563 - DEBUG - Assigned Worker ID: 4d5f3b0c-3c33-4b48-9e9e-dfcfb80da7f0
+[32;1mworker_1   |[0m 2024-12-26 11:37:01,569 - DEBUG - Training model: xgb with params: {'learning_rate': 0.28700015751989805, 'n_estimators': 51, 'max_depth': 2} on device: cuda
+[32;1mworker_1   |[0m 2024-12-26 11:37:01,569 - DEBUG - Training XGBoost with parameters: {'learning_rate': 0.28700015751989805, 'max_depth': 2, 'objective': 'binary:logistic', 'eval_metric': 'logloss', 'tree_method': 'hist', 'device': 'cuda', 'seed': 42}
+[32;1mworker_1   |[0m 2024-12-26 11:37:01,742 - DEBUG - XGBoost model trained.
+[32;1mworker_1   |[0m 2024-12-26 11:37:01,742 - DEBUG - Model training complete. Accuracy: 0.9649
+[32;1mworker_1   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [11:37:01] WARNING: /workspace/src/c_api/c_api.cc:1374: Saving model in the UBJSON format as default.  You can use file extension: `json`, `ubj` or `deprecated` to choose between formats.
+[32;1mworker_1   |[0m   warnings.warn(smsg, UserWarning)
+[32;1mworker_1   |[0m 2024-12-26 11:37:01,749 - DEBUG - Model saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/model_1735213021.model
+[32;1mworker_1   |[0m 2024-12-26 11:37:01,750 - INFO - Results saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/results_4.json: Loss=0.0351, Accuracy=0.9649, Worker_ID=4d5f3b0c-3c33-4b48-9e9e-dfcfb80da7f0, Training_Time=0.17s
+[32;1mworker_1   |[0m 2024-12-26 11:37:01,750 - DEBUG - Removed hyperparameters processing file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_4.processing.json
+[32mbuild_worker_1 exited with code 0
+[0m[36mmanager_1  |[0m 2024-12-26 11:37:03,544 - DEBUG - Waiting for result file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/results_5.json
+[35;1mworker_3   |[0m 2024-12-26 11:37:04,049 - DEBUG - CUDA Available: True, Using device: cuda
+[35;1mworker_3   |[0m 2024-12-26 11:37:04,050 - DEBUG - Searching for unclaimed hyperparameters files.
+[35;1mworker_3   |[0m 2024-12-26 11:37:04,051 - DEBUG - Claimed hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_5.processing.json
+[35;1mworker_3   |[0m 2024-12-26 11:37:04,051 - INFO - Processing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_5.processing.json
+[35;1mworker_3   |[0m 2024-12-26 11:37:04,051 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.010663290513350443, 'n_estimators': 54, 'max_depth': 10}
+[35;1mworker_3   |[0m 2024-12-26 11:37:04,051 - DEBUG - Validating hyperparameters.
+[35;1mworker_3   |[0m 2024-12-26 11:37:04,051 - DEBUG - Hyperparameters validation passed.
+[35;1mworker_3   |[0m 2024-12-26 11:37:04,051 - DEBUG - Assigned Worker ID: b26b50e6-3469-4217-90e9-59fd9a0dab02
+[35;1mworker_3   |[0m 2024-12-26 11:37:04,056 - DEBUG - Training model: xgb with params: {'learning_rate': 0.010663290513350443, 'n_estimators': 54, 'max_depth': 10} on device: cuda
+[35;1mworker_3   |[0m 2024-12-26 11:37:04,056 - DEBUG - Training XGBoost with parameters: {'learning_rate': 0.010663290513350443, 'max_depth': 10, 'objective': 'binary:logistic', 'eval_metric': 'logloss', 'tree_method': 'hist', 'device': 'cuda', 'seed': 42}
+[34;1mworker_2   |[0m 2024-12-26 11:37:04,160 - DEBUG - CUDA Available: True, Using device: cuda
+[34;1mworker_2   |[0m 2024-12-26 11:37:04,160 - DEBUG - Searching for unclaimed hyperparameters files.
+[34;1mworker_2   |[0m 2024-12-26 11:37:04,161 - DEBUG - Claimed hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_6.processing.json
+[34;1mworker_2   |[0m 2024-12-26 11:37:04,161 - INFO - Processing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_6.processing.json
+[34;1mworker_2   |[0m 2024-12-26 11:37:04,162 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.010628423437119347, 'n_estimators': 55, 'max_depth': 2}
+[34;1mworker_2   |[0m 2024-12-26 11:37:04,162 - DEBUG - Validating hyperparameters.
+[34;1mworker_2   |[0m 2024-12-26 11:37:04,162 - DEBUG - Hyperparameters validation passed.
+[34;1mworker_2   |[0m 2024-12-26 11:37:04,162 - DEBUG - Assigned Worker ID: 0cdb8686-9039-4435-8f37-11e9d490c6c3
+[34;1mworker_2   |[0m 2024-12-26 11:37:04,167 - DEBUG - Training model: xgb with params: {'learning_rate': 0.010628423437119347, 'n_estimators': 55, 'max_depth': 2} on device: cuda
+[34;1mworker_2   |[0m 2024-12-26 11:37:04,167 - DEBUG - Training XGBoost with parameters: {'learning_rate': 0.010628423437119347, 'max_depth': 2, 'objective': 'binary:logistic', 'eval_metric': 'logloss', 'tree_method': 'hist', 'device': 'cuda', 'seed': 42}
+[36mworker_4   |[0m 2024-12-26 11:37:04,281 - DEBUG - CUDA Available: True, Using device: cuda
+[36mworker_4   |[0m 2024-12-26 11:37:04,281 - DEBUG - Searching for unclaimed hyperparameters files.
+[36mworker_4   |[0m 2024-12-26 11:37:04,283 - DEBUG - Claimed hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_7.processing.json
+[36mworker_4   |[0m 2024-12-26 11:37:04,283 - INFO - Processing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_7.processing.json
+[36mworker_4   |[0m 2024-12-26 11:37:04,283 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.2971471587544173, 'n_estimators': 299, 'max_depth': 2}
+[36mworker_4   |[0m 2024-12-26 11:37:04,283 - DEBUG - Validating hyperparameters.
+[36mworker_4   |[0m 2024-12-26 11:37:04,283 - DEBUG - Hyperparameters validation passed.
+[36mworker_4   |[0m 2024-12-26 11:37:04,283 - DEBUG - Assigned Worker ID: 77d50007-0fdc-4c3d-95c3-dcd7ca1da999
+[36mworker_4   |[0m 2024-12-26 11:37:04,289 - DEBUG - Training model: xgb with params: {'learning_rate': 0.2971471587544173, 'n_estimators': 299, 'max_depth': 2} on device: cuda
+[36mworker_4   |[0m 2024-12-26 11:37:04,289 - DEBUG - Training XGBoost with parameters: {'learning_rate': 0.2971471587544173, 'max_depth': 2, 'objective': 'binary:logistic', 'eval_metric': 'logloss', 'tree_method': 'hist', 'device': 'cuda', 'seed': 42}
+[35;1mworker_3   |[0m 2024-12-26 11:37:04,370 - DEBUG - XGBoost model trained.
+[35;1mworker_3   |[0m 2024-12-26 11:37:04,370 - DEBUG - Model training complete. Accuracy: 0.9561
+[35;1mworker_3   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [11:37:04] WARNING: /workspace/src/c_api/c_api.cc:1374: Saving model in the UBJSON format as default.  You can use file extension: `json`, `ubj` or `deprecated` to choose between formats.
+[35;1mworker_3   |[0m   warnings.warn(smsg, UserWarning)
+[35;1mworker_3   |[0m 2024-12-26 11:37:04,383 - DEBUG - Model saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/model_1735213024.model
+[35;1mworker_3   |[0m 2024-12-26 11:37:04,383 - INFO - Results saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/results_5.json: Loss=0.0439, Accuracy=0.9561, Worker_ID=b26b50e6-3469-4217-90e9-59fd9a0dab02, Training_Time=0.31s
+[35;1mworker_3   |[0m 2024-12-26 11:37:04,384 - DEBUG - Removed hyperparameters processing file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_5.processing.json
+[32mworker_1   |[0m 
+[32mworker_1   |[0m CUDA Version 12.2.0
+[32mworker_1   |[0m 
+[32mworker_1   |[0m Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+[32mworker_1   |[0m 
+[32mworker_1   |[0m This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+[32mworker_1   |[0m By pulling and using the container, you accept the terms and conditions of this license:
+[32mworker_1   |[0m https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+[32mworker_1   |[0m 
+[32mworker_1   |[0m A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+[32mworker_1   |[0m 
+[34;1mworker_2   |[0m 2024-12-26 11:37:04,434 - DEBUG - XGBoost model trained.
+[34;1mworker_2   |[0m 2024-12-26 11:37:04,434 - DEBUG - Model training complete. Accuracy: 0.9386
+[34;1mworker_2   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [11:37:04] WARNING: /workspace/src/c_api/c_api.cc:1374: Saving model in the UBJSON format as default.  You can use file extension: `json`, `ubj` or `deprecated` to choose between formats.
+[34;1mworker_2   |[0m   warnings.warn(smsg, UserWarning)
+[34;1mworker_2   |[0m 2024-12-26 11:37:04,440 - DEBUG - Model saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/model_1735213024.model
+[34;1mworker_2   |[0m 2024-12-26 11:37:04,441 - INFO - Results saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/results_6.json: Loss=0.0614, Accuracy=0.9386, Worker_ID=0cdb8686-9039-4435-8f37-11e9d490c6c3, Training_Time=0.27s
+[34;1mworker_2   |[0m 2024-12-26 11:37:04,441 - DEBUG - Removed hyperparameters processing file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_6.processing.json
+[33mworker_5   |[0m 2024-12-26 11:37:04,474 - DEBUG - CUDA Available: True, Using device: cuda
+[33mworker_5   |[0m 2024-12-26 11:37:04,474 - DEBUG - Searching for unclaimed hyperparameters files.
+[33mworker_5   |[0m 2024-12-26 11:37:04,476 - DEBUG - Claimed hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_8.processing.json
+[33mworker_5   |[0m 2024-12-26 11:37:04,476 - INFO - Processing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_8.processing.json
+[33mworker_5   |[0m 2024-12-26 11:37:04,476 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.29999999999999993, 'n_estimators': 50, 'max_depth': 10}
+[33mworker_5   |[0m 2024-12-26 11:37:04,477 - DEBUG - Validating hyperparameters.
+[33mworker_5   |[0m 2024-12-26 11:37:04,477 - DEBUG - Hyperparameters validation passed.
+[33mworker_5   |[0m 2024-12-26 11:37:04,477 - DEBUG - Assigned Worker ID: 7f88f2f1-8366-4336-9df3-60030ee0b89c
+[33mworker_5   |[0m 2024-12-26 11:37:04,484 - DEBUG - Training model: xgb with params: {'learning_rate': 0.29999999999999993, 'n_estimators': 50, 'max_depth': 10} on device: cuda
+[33mworker_5   |[0m 2024-12-26 11:37:04,484 - DEBUG - Training XGBoost with parameters: {'learning_rate': 0.29999999999999993, 'max_depth': 10, 'objective': 'binary:logistic', 'eval_metric': 'logloss', 'tree_method': 'hist', 'device': 'cuda', 'seed': 42}
+[36mworker_4   |[0m 2024-12-26 11:37:04,754 - DEBUG - XGBoost model trained.
+[36mworker_4   |[0m 2024-12-26 11:37:04,754 - DEBUG - Model training complete. Accuracy: 0.9737
+[36mworker_4   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [11:37:04] WARNING: /workspace/src/c_api/c_api.cc:1374: Saving model in the UBJSON format as default.  You can use file extension: `json`, `ubj` or `deprecated` to choose between formats.
+[36mworker_4   |[0m   warnings.warn(smsg, UserWarning)
+[36mworker_4   |[0m 2024-12-26 11:37:04,764 - DEBUG - Model saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/model_1735213024.model
+[36mworker_4   |[0m 2024-12-26 11:37:04,765 - INFO - Results saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/results_7.json: Loss=0.0263, Accuracy=0.9737, Worker_ID=77d50007-0fdc-4c3d-95c3-dcd7ca1da999, Training_Time=0.46s
+[36mworker_4   |[0m 2024-12-26 11:37:04,765 - DEBUG - Removed hyperparameters processing file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_7.processing.json
+[33mworker_5   |[0m 2024-12-26 11:37:04,822 - DEBUG - XGBoost model trained.
+[33mworker_5   |[0m 2024-12-26 11:37:04,822 - DEBUG - Model training complete. Accuracy: 0.9561
+[33mworker_5   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [11:37:04] WARNING: /workspace/src/c_api/c_api.cc:1374: Saving model in the UBJSON format as default.  You can use file extension: `json`, `ubj` or `deprecated` to choose between formats.
+[33mworker_5   |[0m   warnings.warn(smsg, UserWarning)
+[33mworker_5   |[0m 2024-12-26 11:37:04,829 - DEBUG - Model saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/model_1735213024.model
+[33mworker_5   |[0m 2024-12-26 11:37:04,830 - INFO - Results saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/results_8.json: Loss=0.0439, Accuracy=0.9561, Worker_ID=7f88f2f1-8366-4336-9df3-60030ee0b89c, Training_Time=0.34s
+[33mworker_5   |[0m 2024-12-26 11:37:04,830 - DEBUG - Removed hyperparameters processing file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_8.processing.json
+[35mbuild_worker_3 exited with code 0
+[0m[34mbuild_worker_2 exited with code 0
+[0m[36;1mbuild_worker_4 exited with code 0
+[0m[33;1mbuild_worker_5 exited with code 0
+[0m[35mworker_3   |[0m 
+[34mworker_2   |[0m 
+[34mworker_2   |[0m Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+[34mworker_2   |[0m 
+[34mworker_2   |[0m This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+[34mworker_2   |[0m By pulling and using the container, you accept the terms and conditions of this license:
+[34mworker_2   |[0m https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+[34mworker_2   |[0m 
+[34mworker_2   |[0m A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+[34mworker_2   |[0m 
+[32mworker_1   |[0m 2024-12-26 11:37:06,366 - DEBUG - CUDA Available: True, Using device: cuda
+[32mworker_1   |[0m 2024-12-26 11:37:06,366 - DEBUG - Searching for unclaimed hyperparameters files.
+[32mworker_1   |[0m 2024-12-26 11:37:06,368 - DEBUG - Claimed hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_9.processing.json
+[32mworker_1   |[0m 2024-12-26 11:37:06,368 - INFO - Processing hyperparameters file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_9.processing.json
+[32mworker_1   |[0m 2024-12-26 11:37:06,368 - DEBUG - Loaded hyperparameters: {'learning_rate': 0.29420031420938925, 'n_estimators': 292, 'max_depth': 10}
+[32mworker_1   |[0m 2024-12-26 11:37:06,368 - DEBUG - Validating hyperparameters.
+[32mworker_1   |[0m 2024-12-26 11:37:06,368 - DEBUG - Hyperparameters validation passed.
+[32mworker_1   |[0m 2024-12-26 11:37:06,368 - DEBUG - Assigned Worker ID: 9081d229-6ab4-4216-a455-4aec48330466
+[32mworker_1   |[0m 2024-12-26 11:37:06,375 - DEBUG - Training model: xgb with params: {'learning_rate': 0.29420031420938925, 'n_estimators': 292, 'max_depth': 10} on device: cuda
+[32mworker_1   |[0m 2024-12-26 11:37:06,375 - DEBUG - Training XGBoost with parameters: {'learning_rate': 0.29420031420938925, 'max_depth': 10, 'objective': 'binary:logistic', 'eval_metric': 'logloss', 'tree_method': 'hist', 'device': 'cuda', 'seed': 42}
+[36;1mworker_4   |[0m 
+[33;1mworker_5   |[0m 
+[33;1mworker_5   |[0m Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+[33;1mworker_5   |[0m 
+[33;1mworker_5   |[0m This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+[33;1mworker_5   |[0m By pulling and using the container, you accept the terms and conditions of this license:
+[33;1mworker_5   |[0m https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+[33;1mworker_5   |[0m 
+[33;1mworker_5   |[0m A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+[33;1mworker_5   |[0m 
+[32mworker_1   |[0m 2024-12-26 11:37:06,964 - DEBUG - XGBoost model trained.
+[32mworker_1   |[0m 2024-12-26 11:37:06,975 - DEBUG - Model training complete. Accuracy: 0.9649
+[32mworker_1   |[0m /usr/local/lib/python3.10/dist-packages/xgboost/core.py:158: UserWarning: [11:37:06] WARNING: /workspace/src/c_api/c_api.cc:1374: Saving model in the UBJSON format as default.  You can use file extension: `json`, `ubj` or `deprecated` to choose between formats.
+[32mworker_1   |[0m   warnings.warn(smsg, UserWarning)
+[32mworker_1   |[0m 2024-12-26 11:37:06,993 - DEBUG - Model saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/model_1735213026.model
+[32mworker_1   |[0m 2024-12-26 11:37:06,994 - INFO - Results saved to /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/results_9.json: Loss=0.0351, Accuracy=0.9649, Worker_ID=9081d229-6ab4-4216-a455-4aec48330466, Training_Time=0.60s
+[32mworker_1   |[0m 2024-12-26 11:37:06,994 - DEBUG - Removed hyperparameters processing file: /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/hyperparams_9.processing.json
+[32;1mbuild_worker_1 exited with code 0
+[0m[35mworker_3   |[0m 2024-12-26 11:37:08,268 - DEBUG - CUDA Available: True, Using device: cuda
+[35mworker_3   |[0m 2024-12-26 11:37:08,268 - DEBUG - Searching for unclaimed hyperparameters files.
+[35mworker_3   |[0m 2024-12-26 11:37:08,269 - DEBUG - No unclaimed hyperparameters files found.
+[35mworker_3   |[0m 2024-12-26 11:37:08,269 - DEBUG - No available work. Exiting with code 0.
+[34mworker_2   |[0m 2024-12-26 11:37:08,321 - DEBUG - CUDA Available: True, Using device: cuda
+[34mworker_2   |[0m 2024-12-26 11:37:08,321 - DEBUG - Searching for unclaimed hyperparameters files.
+[34mworker_2   |[0m 2024-12-26 11:37:08,322 - DEBUG - No unclaimed hyperparameters files found.
+[34mworker_2   |[0m 2024-12-26 11:37:08,322 - DEBUG - No available work. Exiting with code 0.
+[36mmanager_1  |[0m 2024-12-26 11:37:08,550 - INFO - Processed /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/results_0.json: Loss=0.04385964912280704, Accuracy=0.956140350877193, Worker_ID=ae1b6293-dd95-45dc-b061-2f92d384f461, Training_Time=0.3327219486236572s
+[36mmanager_1  |[0m 2024-12-26 11:37:08,551 - INFO - Processed /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/results_1.json: Loss=0.03508771929824561, Accuracy=0.9649122807017544, Worker_ID=0c14b0e0-12a5-4364-a504-7ac5af78c895, Training_Time=0.3640294075012207s
+[36mmanager_1  |[0m 2024-12-26 11:37:08,551 - INFO - Processed /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/results_2.json: Loss=0.04385964912280704, Accuracy=0.956140350877193, Worker_ID=5b55687d-2e77-4adf-9566-d20a1ae423ec, Training_Time=0.3502633571624756s
+[36mmanager_1  |[0m 2024-12-26 11:37:08,552 - INFO - Processed /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/results_3.json: Loss=0.03508771929824561, Accuracy=0.9649122807017544, Worker_ID=703ffe1c-066b-49f4-bedf-9dea7faa159e, Training_Time=0.3936734199523926s
+[36mmanager_1  |[0m 2024-12-26 11:37:08,552 - INFO - Processed /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/results_4.json: Loss=0.03508771929824561, Accuracy=0.9649122807017544, Worker_ID=4d5f3b0c-3c33-4b48-9e9e-dfcfb80da7f0, Training_Time=0.1738908290863037s
+[36mmanager_1  |[0m 2024-12-26 11:37:08,552 - INFO - Processed /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/results_5.json: Loss=0.04385964912280704, Accuracy=0.956140350877193, Worker_ID=b26b50e6-3469-4217-90e9-59fd9a0dab02, Training_Time=0.31395506858825684s
+[36mmanager_1  |[0m 2024-12-26 11:37:08,552 - INFO - Processed /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/results_6.json: Loss=0.06140350877192979, Accuracy=0.9385964912280702, Worker_ID=0cdb8686-9039-4435-8f37-11e9d490c6c3, Training_Time=0.26639699935913086s
+[36mmanager_1  |[0m 2024-12-26 11:37:08,553 - INFO - Processed /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/results_7.json: Loss=0.02631578947368418, Accuracy=0.9736842105263158, Worker_ID=77d50007-0fdc-4c3d-95c3-dcd7ca1da999, Training_Time=0.46497082710266113s
+[36mmanager_1  |[0m 2024-12-26 11:37:08,553 - INFO - Processed /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/results_8.json: Loss=0.04385964912280704, Accuracy=0.956140350877193, Worker_ID=7f88f2f1-8366-4336-9df3-60030ee0b89c, Training_Time=0.33821749687194824s
+[36mmanager_1  |[0m 2024-12-26 11:37:08,553 - INFO - Processed /app/shared_volume/xgb/experiment_20241226_113647/iteration_1/results_9.json: Loss=0.03508771929824561, Accuracy=0.9649122807017544, Worker_ID=9081d229-6ab4-4216-a455-4aec48330466, Training_Time=0.6007168292999268s
+[36;1mworker_4   |[0m 2024-12-26 11:37:08,692 - DEBUG - CUDA Available: True, Using device: cuda
+[36;1mworker_4   |[0m 2024-12-26 11:37:08,692 - DEBUG - Searching for unclaimed hyperparameters files.
+[36;1mworker_4   |[0m 2024-12-26 11:37:08,693 - DEBUG - No unclaimed hyperparameters files found.
+[36;1mworker_4   |[0m 2024-12-26 11:37:08,693 - DEBUG - No available work. Exiting with code 0.
+[36mmanager_1  |[0m 2024-12-26 11:37:08,711 - INFO - Final results saved to /app/shared_volume/xgb/experiment_20241226_113647/final_results.json
+[36mmanager_1  |[0m 2024-12-26 11:37:08,711 - INFO - Manager completed successfully.
+[33;1mworker_5   |[0m 2024-12-26 11:37:08,762 - DEBUG - CUDA Available: True, Using device: cuda
+[33;1mworker_5   |[0m 2024-12-26 11:37:08,762 - DEBUG - Searching for unclaimed hyperparameters files.
+[33;1mworker_5   |[0m 2024-12-26 11:37:08,763 - DEBUG - No unclaimed hyperparameters files found.
+[33;1mworker_5   |[0m 2024-12-26 11:37:08,763 - DEBUG - No available work. Exiting with code 0.
+[34;1mbuild_worker_2 exited with code 0
+[0m[35;1mbuild_worker_3 exited with code 0
+[0m[36mbuild_manager_1 exited with code 0
+[0m[36mbuild_worker_4 exited with code 0
+[0m[33mbuild_worker_5 exited with code 0
+[0m
