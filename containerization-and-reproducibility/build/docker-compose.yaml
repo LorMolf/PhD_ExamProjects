@@ -8,8 +8,8 @@ services:
     volumes:
       - ../shared_volume:/app/shared_volume
     environment:
-      NUM_ITERATIONS: 30
-      NUM_HYPERPARAM_SETS: 10
+      NUM_ITERATIONS: 3
+      NUM_HYPERPARAM_SETS: 5
       SEED: 42
       MODEL_CHOICE: xgb
     command: ["python3", "manager.py"]
@@ -36,13 +36,4 @@ services:
           devices:
             - capabilities: [ gpu ]
               device_ids: [ "2" ]
-
-  test:
-    image: nvidia/cuda:12.2.0-runtime-ubuntu22.04
-    command: nvidia-smi
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - capabilities: [ gpu ]
-              device_ids: [ "2" ]
+    restart: always
