@@ -3,7 +3,7 @@
 
 This project demonstrates how to run **Bayesian hyperparameter optimization** for **three different models**—**SVM**, **XGBoost**, or **LightGBM**—using **scikit-optimize** in a **Docker Compose** setup. The pipeline uses a **manager** service to coordinate the optimization process and multiple **worker** services to train models in parallel.
 
-> ‼️ In ´build/logs.log´ you can find the output of a distributed training run.
+> ‼️ In `build/logs.log` you can find the output of a distributed training run.
 
 ## Table of Contents
 1. [Directory Layout](#directory-layout)
