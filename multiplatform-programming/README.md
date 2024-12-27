@@ -5,6 +5,8 @@ This project provides a **Cython wrapper** for the **CompHom** library, a high-p
 
 ![Simplicial Complex Example](assets/sim_complex.png)
 
+> ‼️ In `test_files` you can already find some preprocessed data obtained with the given test scripts.
+
 ### **Key Concepts**
 
 #### **Simplicial Complex**
