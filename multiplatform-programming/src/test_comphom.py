@@ -103,12 +103,12 @@ def test():
     """
     Main test function to process a triangulation file and compute homology groups.
     """
-    input_file = "/app/multiplatform-programming/test_files/3d_manifold.ct"  # Update as needed
-    output_file = "/app/multiplatform-programming/test_files/test.out"  # Update as needed
+    input_file = "/app/multiplatform-programming/test_files/3d_manifold.ct"
+    output_file = "/app/multiplatform-programming/test_files/3d_manifold_test.out"
     
     # Process the input file
     print(f"Processing input file: {input_file}")
-    data = py_process_file(input_file)
+    data = py_process_file(input_file)[:10]
     
     # Open output file
     try:
@@ -127,12 +127,6 @@ def test():
                     continue
                 homology_info = process_triangulation(triangulation)
                 out.write(homology_info)
-                # Print progress dot
-                #print(".", end='', flush=True)
-                #dots += 1
-                #if dots >= 80:
-                #    print()
-                #    dots = 0
             print("\n...finished.")
     except Exception as e:
         print(f"Error writing to output file: {e}")

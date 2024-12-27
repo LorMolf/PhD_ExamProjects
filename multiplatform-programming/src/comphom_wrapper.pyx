@@ -8,7 +8,7 @@ ctypedef unsigned long ulong
 # Update simplex class and constructor
 cdef extern from "simplex.h":
     cdef cppclass simplex:
-        simplex()  # Add default constructor
+        simplex()
         vector[ulong] vertices
         chain boundary()
         void print()
@@ -16,22 +16,22 @@ cdef extern from "simplex.h":
 
 cdef extern from "simplex.h":
     cdef cppclass chain_element:
-        chain_element()  # Add default constructor
+        chain_element()
         long c
         simplex s
 
 cdef extern from "simplex.h":
     cdef cppclass chain:
-        chain()  # Add default constructor
+        chain()
         vector[chain_element] elements
         void print()
 
 cdef extern from "matrix.h":
     cdef cppclass matrix:
-        matrix()  # Default constructor
-        matrix(const matrix& other)  # Copy constructor
+        matrix()
+        matrix(const matrix& other)
         matrix assign(vector[long]&, ulong, ulong)
-        matrix nf_smith()  # Add this line
+        matrix nf_smith()
         void transpose()
         void print()
         size_t get_num_rows()
@@ -57,7 +57,7 @@ cdef vector[simplex] pylist_to_vector_simplex(list py_list):
     cdef vector[simplex] c_vector
     cdef simplex s
     for item in py_list:
-        s = simplex()  # Use default constructor
+        s = simplex()
         s.vertices = pylist_to_vector_ulong(item)
         c_vector.push_back(s)
     return c_vector
@@ -66,16 +66,13 @@ cdef vector[chain] pylist_to_vector_chain(list py_list):
     cdef vector[chain] c_vector
     cdef chain c
     cdef chain_element ce
-    #print(f"py_list: {py_list}")
     for item in py_list:
-        c = chain()  # Use default constructor
-        #for elem in item:
+        c = chain()
         elem = item
-        ce = chain_element()  # Use default constructor
+        ce = chain_element()
         ce.c = elem[0]
         ce.s.vertices = pylist_to_vector_ulong(elem[1])
         c.elements.push_back(ce)
-
         c_vector.push_back(c)
     return c_vector
 
@@ -136,13 +133,8 @@ cdef class MatrixWrapper:
                 print(f"Invalid matrix dimensions: {rows}x{cols}")
                 return None
                 
-            # Call nf_smith in C++ (returns by value)
             snf_res = self.c_matrix.nf_smith()
-
-            # Allocate a new matrix from the result
             snf_matrix = new matrix(snf_res)
-
-            # Convert the raw pointer to a MatrixWrapper
             wrapper = MatrixWrapper.create_from_matrix(snf_matrix)
             return wrapper
 
@@ -167,6 +159,7 @@ cdef class MatrixWrapper:
         if self.c_matrix != NULL:
             return list(self.c_matrix.get_torsion())
         return []
+
 
 # Python-accessible functions
 def py_process_file(filename):
