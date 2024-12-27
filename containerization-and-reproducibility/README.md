@@ -1,14 +1,13 @@
-# Multi-Model Bayesian Optimization with Docker Compose
+# Multi-Model Bayesian Optimization Orchestration with Docker Compose
+> **@author** Lorenzo Molfetta
 
 This project demonstrates how to run **Bayesian hyperparameter optimization** for **three different models**—**SVM**, **XGBoost**, or **LightGBM**—using **scikit-optimize** in a **Docker Compose** setup. The pipeline uses a **manager** service to coordinate the optimization process and multiple **worker** services to train models in parallel.
 
 ## Table of Contents
 1. [Directory Layout](#directory-layout)
-2. [Requirements](#requirements)
-3. [Setup](#setup)
-4. [Usage](#usage)
-5. [How It Works](#how-it-works)
-6. [Customization](#customization)
+2. [Usage](#usage)
+3. [How It Works](#how-it-works)
+4. [Customization](#customization)
 
 ---
 
@@ -26,8 +25,7 @@ multi-model-bayesian-opt/
 │       └─ requirements.txt
 ├─ src/
 │   ├─ manager.py
-│   ├─ train.py
-│   └─ utils.py      # New utility functions
+│   └─train.py
 └─ shared_volume/
 ```
 
@@ -38,7 +36,6 @@ multi-model-bayesian-opt/
 - **src/**: Python source code
   - **manager.py**: Orchestrates optimization process
   - **train.py**: Handles model training and evaluation
-  - **utils.py**: Common utilities and helper functions
 - **shared_volume/**: Shared storage for inter-container communication
 
 ---
