@@ -110,3 +110,33 @@ All visualizations are saved in structured subdirectories under `test_files/plot
 - **simplicial_complex/**: Plots of the triangulations.
 - **boundary_matrices/**: Heatmaps of the boundary relationships.
 - **homology_groups/**: Visual summaries of the homology groups.
+
+
+## Design Choices
+
+The wrapper employs **Cython** to integrate seamlessly with the C++ CompHom library, providing users with access to high-performance topological computations. Critical tasks like matrix operations and homology calculations are executed in C++ to retain computational speed, while the Python interface ensures ease of use.
+
+The wrapper supports a structured homology computation pipeline:
+1. **Triangulation Parsing**: Converts input triangulation files into Python-friendly simplicial complexes.
+2. **Boundary and Generator Management**: Computes simplex boundaries and identifies homology generators.
+3. **Matrix Construction**: Combines generator and boundary data into matrices for homology analysis.
+4. **Result Extraction**: Extracts and formats results, including torsion coefficients and ranks.
+
+### Data Conversion
+
+The wrapper bridges Python and C++ by converting Python lists into C++ `vector` objects and vice versa. For instance:
+- Python lists of simplices are transformed into C++ structures for efficient processing.
+- Outputs such as generator lists and torsion coefficients are returned as Python-compatible objects.
+
+This design enables smooth integration between the two languages while preserving performance.
+
+### Matrix Operations
+
+The `MatrixWrapper` class encapsulates complex C++ matrix operations:
+- Handles matrix creation from generators and boundaries.
+- Provides methods for accessing matrix properties like dimensions and torsion data.
+- Offers support for advanced transformations like computing the Smith Normal Form (SNF).
+
+### Error Handling
+
+The wrapper follows Python conventions for error handling. Operations like matrix initialization and SNF computation validate inputs and return `None` when operations fail, ensuring predictable behavior without relying on C++ exception mechanisms.
