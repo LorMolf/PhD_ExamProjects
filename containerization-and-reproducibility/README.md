@@ -89,7 +89,7 @@ docker-compose down --rmi all --volumes --remove-orphans
 1. **Manager**:
    - Maintains a **`skopt.Optimizer`** for the chosen model’s hyperparameter space.
    - Each iteration:
-     - **ask(...)** to propose **BATCH_SIZE** hyperparam sets.  
+     - **ask(...)** to propose **NUM_HYPERPARAM_SETS** hyperparam sets.  
      - Saves them to JSON files in the shared volume, e.g. `hyperparams_0_0.json`, `hyperparams_0_1.json`, etc.  
      - Waits until corresponding worker result files (`results_0_0.json`, etc.) appear.  
      - Reads results, **tell(...)** the optimizer to refine future proposals.
