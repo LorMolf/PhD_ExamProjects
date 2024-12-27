@@ -79,8 +79,6 @@ After **NUM_ITERATIONS** are complete, the manager logs will show the **best hyp
 When finished, press **Ctrl+C** in your terminal or run:
 
 ```bash
-docker-compose down
-
 docker-compose down --rmi all --volumes --remove-orphans
 ```
 
@@ -123,10 +121,9 @@ docker-compose down --rmi all --volumes --remove-orphans
 
 4. **Optimization Strategy**:  
    - Default: Gaussian Process with EI
-   - Configurable via environment variables
    - Support for RF and ET base estimators
 
 5. **Monitoring**:
    - Real-time progress tracking
    - Detailed worker logs
-   - Result persistence in shared volume
+   - Result persistence in `shared_volume`

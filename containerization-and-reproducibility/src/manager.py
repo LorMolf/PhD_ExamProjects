@@ -1,6 +1,4 @@
 """
-manager.py
-
 Coordinates Bayesian hyperparameter optimization for SVM, XGB, or LGBM.
 Uses skopt to propose hyperparameters, waits for workers to process results,
 and updates the optimizer. Outputs final results with a history of worker activities.

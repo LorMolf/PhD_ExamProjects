@@ -20,7 +20,7 @@ Homology groups capture key topological features:
 ## About the Original CompHom Library
 
 ### **What is CompHom?**
-CompHom computes **simplicial homology groups** of triangulated simplicial complexes. It provides insights into the shape and structure of data by analyzing the connectivity and higher-dimensional features of simplicial complexes.
+[**CompHom**](https://github.com/Pseudomanifold/CompHom) computes **simplicial homology groups** of triangulated simplicial complexes. It provides insights into the shape and structure of data by analyzing the connectivity and higher-dimensional features of simplicial complexes.
 
 
 ### **How CompHom Works**
@@ -37,21 +37,21 @@ CompHom computes **simplicial homology groups** of triangulated simplicial compl
 
 ```
 project/
-|-- CompHom/
-|   `-- Original C++ scripts
+├─ CompHom/
+|   └─ Original C++ scripts
 |
-|-- src/
-|   |-- comphom_wrapper.pyx - Cython wrapping functions
-|   |-- setup.py - Script for compiling the wrapper
-|   |-- test_comphom.py - Testing script
-|   `-- compiled object files
+├─ src/
+|   ├─ comphom_wrapper.pyx - Cython wrapping functions
+|   ├─ setup.py - Script for compiling the wrapper
+|   ├─ test_comphom.py - Testing script
+|   └─ compiled object files
 |
-|-- build/
-|   `-- Build configuration files
+├─ build/
+|   └─ Build configuration files
 |
-`-- test_files/
-    |-- Input triangulation files
-    `-- Outputs and visualizations
+└─ test_files/
+    ├─ Input triangulation files
+    └─ Outputs and visualizations
 ```
 
 ## Installation and Usage

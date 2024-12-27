@@ -1,6 +1,4 @@
 """
-train.py
-
 Worker script that:
 1. Finds an unclaimed hyperparams_*.json in /app/shared_volume/<model_name>/experiment_<timestamp>/iteration_<i>/.
 2. Loads the relevant hyperparams, trains the chosen model (SVM / XGB / LGBM)
